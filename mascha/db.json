@@ -1,0 +1,16 @@
+{
+  "tasks": [
+    {
+      "text": "ask Shilat about shabbes",
+      "day": "satuarday",
+      "reminder": true,
+      "id": 2
+    },
+    {
+      "text": "Talk with Rachel",
+      "day": "today",
+      "reminder": true,
+      "id": 3
+    }
+  ]
+}

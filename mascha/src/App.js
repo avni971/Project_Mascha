@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react'
+//import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import Tasks from './components/Tasks'
-import AddTask from './components/AddTask'
+//import Tasks from './components/Tasks'
+//import AddTask from './components/AddTask'
 import About from './components/About'
 import Login from './components/Login'
 import SignIn from './components/SignIn'
-
+import Form from './components/Form'
 
 const App= () =>{
 //   const[showAddTask,setShowAddTask]=useState(false)
@@ -118,10 +118,11 @@ const App= () =>{
       <Route path='/SignIn' component={SignIn} />
       <Route path='/login' component={Login} />
       <Route path='/about' component={About} />
-      
+      <Route path='/form' component={Form} />
       <Footer />
     </div>
   </Router>
+  
   );
 }
 

@@ -1,6 +1,7 @@
 import{Link} from 'react-router-dom'
 import {Form, Button, Card} from 'react-bootstrap'
 import React, { useRef } from 'react'
+
 import {auth} from '../firebase/firebase'
 class Login extends React.Component{
     constructor(props){
@@ -30,13 +31,14 @@ class Login extends React.Component{
         .then(user=>{
             console.log(user)
             this.props.history.push({
-                pathname:"/About",
+                pathname:"/Form",
                 data:user,
 
             });
         }
             
-        ).catch(err=>{
+        )
+        .catch(err=>{
             console.log("email or password not correct")
         });
         //     console.log(res)

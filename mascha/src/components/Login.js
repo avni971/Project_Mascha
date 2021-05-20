@@ -39,7 +39,8 @@ class Login extends React.Component{
             
         )
         .catch(err=>{
-            console.log("email or password not correct")
+            alert("email or password are not correct")
+            console.log("email or password are not correct")
         });
         //     console.log(res)
         // })
@@ -73,7 +74,7 @@ class Login extends React.Component{
                 <div className = "w-100 text-center mt-2">
                     Forgot you Email or Password ? Click here.
                 </div>
-                <Link to='/'>Go Back</Link>
+                <Link to='/'><Button className='w-20 mr-40'>Go Back</Button></Link>
             </>
             // <div>
             //    <h4>this is where our question form shall exist</h4> 

@@ -21,7 +21,7 @@ body {
 
 .container {
   
-  background-color: lightgray;
+  background-color: white;
   max-width: 500px;
   margin: 30px auto;
   overflow: auto;
@@ -38,6 +38,10 @@ body {
   margin-bottom: 20px;
 }
 
+/* .m0 {
+  text-align: center;
+} */
+
 .btn-block {
   display: block;
   width: 100%;
@@ -51,7 +55,7 @@ body {
 }
 
 .task.reminder {
-  border-left: 5px solid green;
+  border-left: 5px solid #8FBC8F;
 }
 
 .task h3 {
@@ -101,12 +105,12 @@ footer {
 }
 
 #family_status, #age{
-  background: lightgreen;
+  background: #8FBC8F;
 }
 /*****************************/
 .btn-yes {
   display: inline-block;
-  background: lightgreen;
+  background: #8FBC8F;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -120,7 +124,7 @@ footer {
 
 .btn-no {
   display: inline-block;
-  background: rgb(209, 46, 46);
+  background: #FFA07A;
   color: #fff;
   border: none;
   padding: 10px 20px;

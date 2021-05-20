@@ -1,13 +1,18 @@
 import{Link} from 'react-router-dom'
-
+import {Button} from 'react-bootstrap'
 
 
 const About = (props) => {
-    console.log(props.location.data.user)
+    // console.log(props.location.data.user)
     return (
         <div>
            <h4>Version 1.0.0</h4> 
-           <Link to='/Login'>Back</Link>
+           {/* <Link to='/Login' className='w-100'>Back</Link> */}
+           <Button className = "w-20" type = "submit" onClick={()=>{props.history.push({
+                pathname:"/Login"
+            });}}>
+               Back
+            </Button>
         </div>
     )
 }

@@ -6,12 +6,12 @@ const Header = ({ title, onAdd, showAdd }) => {
   const location=useLocation() 
   return (
         <header className='header'>
-            <h1 >{title}</h1>
+            <h1 className='m0'>{title}</h1>
             {location.pathname==='/' &&(
             // <Button 
             // color={showAdd?'red':'green'}
             //  text={showAdd? 'Close':'Add'} onClick={onAdd} />
-            <div>a</div>)}
+            <div></div>)}
              {/* <Button  text='hello1' />
             <Button color='red' text='hello3' /> */}
         </header>
@@ -19,7 +19,7 @@ const Header = ({ title, onAdd, showAdd }) => {
 }
 
 Header.defaultProps = {
-    title: 'Task Tracker',
+    title: 'Mascha',
   }
   
   Header.propTypes = {

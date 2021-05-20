@@ -1,15 +1,14 @@
 import {Link} from 'react-router-dom'
 import React from 'react';
-
+import {db} from '../firebase/firebase'
 
 const FormHook = () => {
-    
+    // db.collection('Form').get().then((res) => {console.log(res.docs)})
     return (
     
     <div id="F1" dir="rtl">
 
         <h1>שאלון מש"ה</h1>
-
         <form> 
 
             <h4>במקרים בהם יש סקאלה: 1-5, כאשר 1 מייצג מצב טוב ו-5 מייצג מצב גרוע</h4>

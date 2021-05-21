@@ -5,10 +5,7 @@ import {auth} from '../firebase/firebase'
 import "firebase/firestore";
 import {Button} from 'react-bootstrap'
 
-// const firebase = require('firebase/app');
-// require('firebase/auth');
-//  var admin = require( 'firebase-admin' );
-//  admin.initializeApp();
+
 
 class SignIn extends React.Component{
     constructor(props){
@@ -46,13 +43,9 @@ class SignIn extends React.Component{
             
             alertmessege+=password;
             alert(alertmessege);
-            // console.log(userCredential.credential.h);
-        //     if(document.getElementById("admincheckbox").value2!=null)
-        //     {userCredential.credential.h=document.getElementById("admincheckbox").value2;
-        //       console.log(userCredential.credential.h);
-        //    // user.gb=document.getElementById("admincheckbox").value2;
-        //     }
-            
+           
+        
+        
               })
               .catch((error) => {
                 var errorCode = error.code;
@@ -74,26 +67,13 @@ class SignIn extends React.Component{
             
          })
     }
+    // deletethisuser(){
+    //     var user=auth.currentUser;
+    //     console.log(user);
+    //     user.delete();
+        
+    // }
 
-//    deleteuser()
-//    {
-//    var email=document.getElementById("email").value;
-//    console.log(email);
-//    var uid=admin.auth().getUserByEmail(email);
-//    console.log(uid);
-// admin.auth().deleteUser(uid).then((userCredential)=>{
-//     let alertmessege="User deleted email: ";
-//     alertmessege+=email;
-//     alert(alertmessege);
-// }).catch((error) => {
-//     var errorCode = error.code;
-//     var errorMessage = error.message;
-//     console.log(errorCode);
-//     alert(errorMessage);
-//   });
-  
-
-//     }
     render(){
         
         return (
@@ -124,10 +104,10 @@ class SignIn extends React.Component{
                         this.signin()
                }}>Create User/צור משתמש</Button>
                 
-                 {/* <button className="btn" onClick={()=>{
-                        this.deleteuser()
-               }}>Delete User/מחק משתמש</button>
-                */}
+                {/* <Button className="btn" id="spa" type = "submit" onClick={()=>{
+                        this.deletethisuser()
+               }}>Delete This User/מחק משתמש זה</Button> */}
+               
                <Link to='/Login'><Button className="w-20">Back</Button></Link>
             </div>
         );

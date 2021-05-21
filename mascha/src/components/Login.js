@@ -1,6 +1,6 @@
 import{Link} from 'react-router-dom'
 import {Form, Button, Card} from 'react-bootstrap'
-import React, { useRef } from 'react'
+ import React, { useRef } from 'react'
 
 import {auth} from '../firebase/firebase'
 class Login extends React.Component{
@@ -10,24 +10,9 @@ class Login extends React.Component{
 
     componentDidMount(){
         console.log("In Did mount")
-        // auth.onAuthStateChanged(user=>{
-        //     if(user) 
-        //     {
-        //         console.log(user)
-        //     } 
-        //     else 
-        //     {
-        //         console.log("Not online.")
-        //     } 
-        // })
     }
     login()
-    {
-        
-        // this.props.history.push("/about");
-        
-        // auth.signInWithEmailAndPassword("i@gmail.com","123456")
-        auth.signInWithEmailAndPassword(document.getElementById("email").value,document.getElementById("password").value)
+    {  auth.signInWithEmailAndPassword(document.getElementById("email").value,document.getElementById("password").value)
         .then(user=>{
             console.log(user)
             this.props.history.push({
@@ -42,9 +27,6 @@ class Login extends React.Component{
             alert("email or password are not correct")
             console.log("email or password are not correct")
         });
-        //     console.log(res)
-        // })
-        // auth.createUserWithEmailAndPassword(email,password)
         
     }
 
@@ -76,18 +58,6 @@ class Login extends React.Component{
                 </div>
                 <Link to='/'><Button className='w-20 mr-40'>Go Back</Button></Link>
             </>
-            // <div>
-            //    <h4>this is where our question form shall exist</h4> 
-            //    <input type="email" placeholder="eg:man1@gmail.com" id="email" onBlur={(event)=>{
-            //        console.log(event.target.value)
-            //    }}/>
-            //    <input type="password" placeholder="123456" id="password" />
-
-            //    <button onClick={()=>{
-            //             this.login()
-            //    }}>click me</button>
-            //    <Link to='/'>Go Back</Link>
-            // </div>
         );
     }
 
@@ -99,52 +69,3 @@ const Login1 = () => {
 }
 
 export default Login
-// import{Link} from 'react-router-dom'
-// import React from 'react'
-// import {auth} from '../firebase/firebase'
-// class Login extends React.Component{
-//     constructor(props){
-//         super(props) 
-
-//     }
-
-//     login(  )
-//     {
-//         console.log(document.getElementById("email").value);
-//         // auth.signInWithEmailAndPassword(document.getElementById("email").value,document.getElementById("password").value).then(res=>{
-//         //     console.log(res)
-//         // })
-
-//         // auth.createUserWithEmailAndPassword(email,password)
-//         auth.onAuthStateChanged(user=>{
-//             console.log(user)
-//         })
-//     }
-
-
-//     render(){
-
-//         return (
-//             <div>
-//                <h4>this is where our question form shall exist</h4> 
-//                <input type="email" placeholder="eg:man1@gmail.com" id="email" onBlur={(event)=>{
-//                    console.log(event.target.value)
-//                }}/>
-//                <input type="password" placeholder="123456" id="password" />
-
-//                <button onClick={()=>{
-//                         this.login()
-//                }}>click me</button>
-//                <Link to='/'>Back</Link>
-//             </div>
-//         );
-//     }
-
-
-// }
-
-// const Login1 = () => {
-   
-// }
-
-// export default Login

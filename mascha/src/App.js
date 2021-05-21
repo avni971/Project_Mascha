@@ -8,6 +8,7 @@ import About from './components/About'
 import Login from './components/Login'
 import SignIn from './components/SignIn'
 import Form from './components/Form'
+import Areyousure from './components/areyousure'
 
 const App= () =>{
 //   const[showAddTask,setShowAddTask]=useState(false)
@@ -119,6 +120,7 @@ const App= () =>{
       <Route path='/login' component={Login} />
       <Route path='/about' component={About} />
       <Route path='/form' component={Form} />
+      <Route path='/areyousure' component={Areyousure} />
       <Footer />
     </div>
   </Router>

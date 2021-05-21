@@ -3,6 +3,7 @@ import{Link} from 'react-router-dom'
 import React from 'react'
 import {auth} from '../firebase/firebase'
 import "firebase/firestore";
+import {Button} from 'react-bootstrap'
 
 // const firebase = require('firebase/app');
 // require('firebase/auth');
@@ -97,7 +98,7 @@ class SignIn extends React.Component{
         
         return (
             <div>
-               <h4>this is where we create users</h4> 
+               <h4>ADD USER</h4> 
                <input type="email" placeholder="example@gmail.com" id="email" onBlur={(event)=>{
                    console.log(event.target.value)
                }}/>
@@ -117,17 +118,17 @@ class SignIn extends React.Component{
 
                
                    
-               }}/><label>admin?</label>
+               }}/><label id="spa">admin?</label>
 
-               <button className="btn" onClick={()=>{
+               <Button className="w-20" id="spa" type = "submit" onClick={()=>{
                         this.signin()
-               }}>Create User/צור משתמש</button>
+               }}>Create User/צור משתמש</Button>
                 
                  {/* <button className="btn" onClick={()=>{
                         this.deleteuser()
                }}>Delete User/מחק משתמש</button>
                 */}
-               <Link className="btn" to='/Login'>Back</Link>
+               <Link to='/Login'><Button className="w-20">Back</Button></Link>
             </div>
         );
     }

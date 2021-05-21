@@ -107,6 +107,10 @@ footer {
 #family_status, #age{
   background: #8FBC8F;
 }
+
+#spa{
+  margin-right: 10px;
+}
 /*****************************/
 .btn-yes {
   display: inline-block;

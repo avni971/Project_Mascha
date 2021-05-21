@@ -8,8 +8,7 @@ const Footer = () => {
 // }
   return (
     <footer>
-      <p>Copyright &copy; 2021</p>
-      <a href='/about'><Button className="w-20 mr-40">About</Button></a>
+      <a href='/about'><Button className="w-20" id="spa">About Us</Button></a>
       {/* <Button className = "w-20" type = "submit" onClick={()=>{props.history.push({
                 pathname:"/About"
                 
@@ -20,7 +19,7 @@ const Footer = () => {
       
     <Route exact path="/" render={() =><a href='/login'><Button className='w-20'>Login</Button></a>} />
     <Route exact path="/form" render={() =><a href='/SignIn'><Button id="signinbtn" className='btn'>SignIn</Button></a>} /> 
-    
+    <p>Copyright &copy; 2021</p>
     </footer>
   )
  

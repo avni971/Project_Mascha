@@ -164,3 +164,17 @@ footer {
 .dividing{
   border: 2px solid white;
 }
+input[type='radio']:checked:after {
+  width: 14px;
+  height: 14px;
+  border-radius: 14px;
+  top: -4px;
+  left: 0px;
+  position: relative;
+  background-color: lightgreen;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 1px solid rgb(15, 14, 14);
+}
+

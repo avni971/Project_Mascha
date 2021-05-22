@@ -10,7 +10,7 @@ const FormHook = () => {
 
         <h1>שאלון מש"ה</h1>
 
-        <form> 
+        <form encType="text/plain" action="mailto:avni971@gmail.com" method="post"> 
 
             <h4>במקרים בהם יש סקאלה: 1-5, כאשר 1 מייצג מצב טוב ו-5 מייצג מצב גרוע</h4>
             <h2 className="pre_titles">שייכות:</h2>
@@ -351,8 +351,11 @@ const FormHook = () => {
 
             {/* <br/> */}
             <button className="btn btn-primary">Submit</button>
+            
         </form>
+        
     </div>
+    
     )
 }
 

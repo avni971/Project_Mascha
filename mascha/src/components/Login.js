@@ -53,9 +53,8 @@ class Login extends React.Component{
                         </div>
                     </Card.Body>
                 </Card>
-                <div className = "w-100 text-center mt-2">
-                    Forgot you Email or Password ? Click here.
-                </div>
+                
+                    <Link to='/ForgotPassword'><Button className='w-20 mr-40'>Forgot your Password? Click here</Button></Link>
                 <Link to='/'><Button className='w-20 mr-40'>Go Back</Button></Link>
             </>
         );

@@ -1,6 +1,7 @@
 import{Link} from 'react-router-dom'
 import {Form, Button, Card} from 'react-bootstrap'
  import React, { useRef } from 'react'
+import firebase from "firebase/app";
 
 import {auth} from '../firebase/firebase'
 class Login extends React.Component{
@@ -27,6 +28,7 @@ class Login extends React.Component{
             alert("email or password are not correct")
             console.log("email or password are not correct")
         });
+        console.log(auth.currentUser);
         
     }
 
@@ -54,8 +56,8 @@ class Login extends React.Component{
                     </Card.Body>
                 </Card>
                 
-                    <Link to='/ForgotPassword'><Button className='w-20 mr-40'>Forgot your Password? Click here</Button></Link>
-                <Link to='/'><Button className='w-20 mr-40'>Go Back</Button></Link>
+                 <Link to='/ForgotPassword'><Button className='w-20 mr-40'>Forgot your Password? Click here</Button></Link>
+                <br></br><Link to='/'><Button className='w-20 mr-40'>Go Back</Button></Link>
             </>
         );
     }

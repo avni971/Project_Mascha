@@ -1,9 +1,20 @@
-
+import {db} from '../firebase/firebase'
+import React from 'react'
 const FormHook = () => {
-          
-    
+          db.collection('Forms').doc('question').get().then((ans) => {
+              ans.data().quest.forEach(element => {
+                  let test = "<tr><td>";
+                  test += element;
+                  test += "</td></tr>";
+                  let tr = document.createElement('tr')
+                  let td = document.createElement('td')
+                  td.textContent = element
+                  tr.appendChild(td)
+                  document.getElementById("addQuestion").appendChild(tr);
+                console.log(element);
+              });
+          });
         
- 
     return (
     
         <div id="F1" dir="rtl">
@@ -345,6 +356,7 @@ const FormHook = () => {
                 </tr>
                 </tbody>
             </table>
+            <table id="addQuestion"></table>
             {/* <hr width="300%"/> */}
             {/* <br/> */}
 

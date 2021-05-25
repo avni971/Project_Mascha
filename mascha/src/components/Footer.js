@@ -10,7 +10,7 @@ class Footer extends React.Component {
   }
   // const Footer = () => {
   componentDidMount() {
-    console.log("In Did mount");
+    // console.log("In Did mount");
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         console.log("+");

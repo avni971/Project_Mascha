@@ -8,6 +8,7 @@ class Footer extends React.Component {
   constructor(props) {
     super(props)
   }
+
   // const Footer = () => {
   componentDidMount() {
     // console.log("In Did mount");
@@ -68,7 +69,10 @@ class Footer extends React.Component {
             //onload={()=>{this.isadmin()}}
             <a href='/SignIn'><button id="signinbtn" disabled>signin /צור משתמש</button></a>} />
           <p>Copyright &copy; 2021</p>
-
+          <Route exact path="/signin" render={() =>
+            //onload={()=>{this.isadmin()}}
+            <a href='/signin/statistics'><button id="statistics">statistics page/דף סטטיסטיקה</button></a>} />
+        
         </footer>
       </>
     );

@@ -43,7 +43,6 @@ class SignIn extends React.Component{
             
             alertmessege+=password;
             alert(alertmessege);
-           
         
         
               })

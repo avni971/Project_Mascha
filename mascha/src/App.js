@@ -10,6 +10,7 @@ import SignIn from './components/SignIn'
 import Form from './components/Form'
 import Areyousure from './components/areyousure'
 import ForgotPassword from './components/ForgotPassword'
+import Statistics from './components/Statistics'
 const App= () =>{
 //   const[showAddTask,setShowAddTask]=useState(false)
 //   const [tasks,setTasks] =useState ( [] )
@@ -122,6 +123,7 @@ const App= () =>{
       <Route path='/form' component={Form} />
       <Route path='/areyousure' component={Areyousure} />
       <Route path='/forgotpassword' component={ForgotPassword} />
+      <Route path='/signin/statistics' component={Statistics} />
       <Footer />
     </div>
   </Router>

@@ -1,24 +1,60 @@
 import {db} from '../firebase/firebase'
 import React from 'react'
-const FormHook = () => {
-          db.collection('Forms').doc('question').get().then((ans) => {
-              ans.data().quest.forEach(element => {
-                  let test = "<tr><td>";
-                  test += element;
-                  test += "</td></tr>";
+import {Form, Button, Card, Col} from 'react-bootstrap'
+import firebase from 'firebase/app'
+import "firebase/firestore";
+
+var admin = require('firebase-admin');
+
+class FormHook extends React.Component{
+    constructor(props){
+        super(props)
+    }
+
+    writeData(question){
+        console.log("workkkkkkkkkkkkkkk")
+        var washingtonRef = db.collection("Forms");
+    
+        // Atomically add a new region to the "regions" array field.
+        /*washingtonRef.add({
+            question: 
+        });*/
+    }
+    // componentDidMount() {
+    //     firebase.auth().onAuthStateChanged()
+    // }
+
+        
+       
+        
+    render(){
+
+        db.collection('Forms').get().then((ans) => {
+            ans.forEach(element => {
+                if(element.exists){
+                    let i = 0
+                    let test = element.data()
+                    let tr = document.createElement('tr')
+                    let td = document.createElement('td')
+                    td.classList.add("pQ");
+                    td.textContent = test[i]
+                    tr.appendChild(td)
+                    document.getElementById("addQuestion").appendChild(tr); 
+                }
+            });
+              /*ans.data().quest.forEach(element => {
                   let tr = document.createElement('tr')
                   let td = document.createElement('td')
+                  td.classList.add("pQ");
                   td.textContent = element
                   tr.appendChild(td)
                   document.getElementById("addQuestion").appendChild(tr);
-                console.log(element);
-              });
+              });*/
           });
-        
+
     return (
     
         <div id="F1" dir="rtl">
-
         <h1>שאלון מש"ה</h1>
 
         <form encType="text/plain" action="mailto:avni971@gmail.com" method="post"> 
@@ -363,12 +399,31 @@ const FormHook = () => {
 
             {/* <br/> */}
             <button className="btn btn-primary">Submit</button>
-            
-        </form>
-        
+            <Card style= {{"marginTop" : "55px"}}>
+                <Card.Body>
+                    <Form>
+                        <Form.Row>
+                        <Col>
+                        <Form.Label className = "pQ">הוספת שאלה:</Form.Label>
+                        <Form.Control id = "add"/>
+                        </Col>
+                        <Col>
+                        <div class="form-check form-switch">
+                            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"></input>
+                            <label className="form-check-label" for="flexSwitchCheckDefault">Yes/No answer ? </label>
+                        </div>
+                        </Col>
+                        </Form.Row>
+                        <Button className = "w-25" style= {{"marginRight" : "35%"}} type = "submit" 
+                         onClick={()=>{this.writeData(document.getElementById("add").value)}}>הוסיף</Button>
+                         
+                    </Form>
+                </Card.Body>
+            </Card>  
+        </form> 
     </div>
-    
     )
+    }
 }
 
 export default FormHook

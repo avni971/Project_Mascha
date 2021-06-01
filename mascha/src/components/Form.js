@@ -34,6 +34,7 @@ class FormHook extends React.Component{
         document.getElementById("plusQ").innerHTML = "";
         document.getElementById("numQuest").value = "";
         document.getElementById("add").value = "";
+        alert("שאלה מוסיפה !")
     }
 
         

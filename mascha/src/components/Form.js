@@ -4,7 +4,7 @@ import {Form, Button, Card, Col} from 'react-bootstrap'
 import firebase from 'firebase/app'
 import "firebase/firestore";
 
-var admin = require('firebase-admin');
+
 
 class FormHook extends React.Component{
     constructor(props){
@@ -408,7 +408,7 @@ class FormHook extends React.Component{
                         <Form.Control id = "add"/>
                         </Col>
                         <Col>
-                        <div class="form-check form-switch">
+                        <div className="form-check form-switch">
                             <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"></input>
                             <label className="form-check-label" for="flexSwitchCheckDefault">Yes/No answer ? </label>
                         </div>

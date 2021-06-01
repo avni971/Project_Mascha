@@ -4,7 +4,8 @@ import React from 'react'
 import {auth} from '../firebase/firebase'
 import "firebase/firestore";
 import {Button} from 'react-bootstrap'
-
+import {db} from '../firebase/firebase'
+import firebase from "firebase/app";
 
 
 class SignIn extends React.Component{
@@ -14,6 +15,41 @@ class SignIn extends React.Component{
         
     }
 //wow it works
+alterdb(email,adminstatus){
+console.log("in alter db");
+console.log(adminstatus);
+var newusertodb = db.collection("users").doc("users_doc");
+
+let user=[email];
+//Atomically add a new email and admin_status to the "users" array field.
+newusertodb.update({
+    users: firebase.firestore.FieldValue.arrayUnion(...user),
+});
+
+// // Atomically remove a region from the "regions" array field.
+// newusertodb.update({
+//   user: firebase.firestore.FieldValue.arrayRemove(...[email,adminstatus]),
+// });
+console.log(adminstatus);
+console.log(adminstatus=="true");
+if(adminstatus=="true")
+{
+  //Atomically add a new email and admin_status to the "admins" array field.
+  newusertodb.update({
+      admins: firebase.firestore.FieldValue.arrayUnion(...user),
+  });
+}
+if(adminstatus=="false")
+{
+  //Atomically remove a new email and admin_status to the "admins" array field.
+  newusertodb.update({
+    admins: firebase.firestore.FieldValue.arrayRemove(...user),
+});
+}
+  
+
+
+}
     signin(  )
     {
 
@@ -58,12 +94,13 @@ class SignIn extends React.Component{
             console.log(user)
             user.updateProfile({
                 displayName: document.getElementById("admincheckbox").value2,
-              }).then(function() {
-                // Update successful.
-              }).catch(function(error) {
+              }).then(function(){
+                //
+              }
+              ).catch(function(error) {
                 // An error happened.
               });
-            
+            this.alterdb(email,document.getElementById("admincheckbox").value2)
          })
     }
     // deletethisuser(){

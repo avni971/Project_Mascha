@@ -4,6 +4,8 @@ import React from 'react'
 import {auth} from '../firebase/firebase'
 import "firebase/firestore";
 import {Button} from 'react-bootstrap'
+import {db} from '../firebase/firebase'
+import firebase from "firebase/app";
 
 
 
@@ -17,7 +19,14 @@ class Areyousure extends React.Component{
         var user=auth.currentUser;
         console.log(user);
         try{
-        user.delete();
+            console.log(user.email);
+            var newusertodb = db.collection("users").doc("users_doc");
+            let dbuser=[user.email];
+            newusertodb.update({
+                users:firebase.firestore.FieldValue.arrayRemove(...dbuser),
+                admins: firebase.firestore.FieldValue.arrayRemove(...dbuser)
+            });
+            user.delete();
         props.history.push({
             pathname:"/Login"})
     }

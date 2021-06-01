@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", function() {
             let td = document.createElement('td')
             td.textContent = element
             tr.appendChild(td)
-            document.getElementById("stat_table").appendChild(tr);
+            if(document.getElementById("stat_table"))
+            {document.getElementById("stat_table").appendChild(tr);}
           console.log(element);
             }
             

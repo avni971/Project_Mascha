@@ -35,10 +35,29 @@ class Footer extends React.Component {
         console.log(document.getElementById("signinbtn").classList);
         console.log(x.disabled);
       } 
+      var y = document.getElementById('addQuestionBtn');
+      console.log(y);
+      if (y)
+{
+        if (user.displayName.toString() === "false") {
+          document.getElementById("addQuestionBtn").classList.add("disabled")
+          y.disabled = true;
+        }
+        else if (user.displayName.toString() === "true" && document.getElementById("addQuestionBtn").classList != null) {
+          document.getElementById("addQuestionBtn").classList.remove("disabled");
+          y.disabled = false;
+        }
+      console.log(document.getElementById("addQuestionBtn").classList);
+      console.log(y.disabled);
+    } 
+
     }else{
       console.log("-");
     }
 
+
+
+    
     });
 
 

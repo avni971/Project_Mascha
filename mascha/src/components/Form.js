@@ -42,6 +42,27 @@ class FormHook extends React.Component{
                     document.getElementById("addQuestion").appendChild(tr); 
                 }
             });
+            db.collection('users').get().then((ans) => {
+                ans.forEach(element => {
+                    if(element){
+                        let subjectslist="mailto:";
+                        
+                        if(element.data())
+                        {element.data().admins.forEach(e=>{
+                            console.log(e);
+                            subjectslist+=e;
+                            subjectslist+=";"
+                        })
+                        console.log(subjectslist);
+                       console.log( document.getElementById("main_form").getAttribute("action"));
+                       document.getElementById("main_form").action=subjectslist;
+                       console.log( document.getElementById("main_form").getAttribute("action"));
+                        }
+                    }
+                });
+            }
+            );
+            
               /*ans.data().quest.forEach(element => {
                   let tr = document.createElement('tr')
                   let td = document.createElement('td')
@@ -57,7 +78,7 @@ class FormHook extends React.Component{
         <div id="F1" dir="rtl">
         <h1>שאלון מש"ה</h1>
 
-        <form encType="text/plain" action="mailto:avni971@gmail.com" method="post"> 
+        <form id="main_form" encType="text/plain" action="mailto:avni971@gmail.com" method="post"> 
 
             <h4>במקרים בהם יש סקאלה: 1-5, כאשר 1 מייצג מצב טוב ו-5 מייצג מצב גרוע</h4>
             <h2 className="pre_titles">שייכות:</h2>

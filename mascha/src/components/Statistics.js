@@ -48,9 +48,8 @@ class Statistics extends React.Component{
             console.log(element);
             console.log(element.data());
             
-            console.log(element.data().users_email);
-
-            element.data().users_email.forEach(e=>{
+            console.log(element.data().admins);
+            element.data().users.forEach(e=>{
                 console.log(e);
                 let i = 0
                 let test=e;
@@ -60,6 +59,18 @@ class Statistics extends React.Component{
                 td.textContent = test
                 tr.appendChild(td)
                 document.getElementById("list_of_current_users").appendChild(tr); 
+            })
+            
+            element.data().admins.forEach(e=>{
+                console.log(e);
+                let i = 0
+                let test=e;
+                let tr = document.createElement('tr')
+                let td = document.createElement('td')
+                td.classList.add("admins_list");
+                td.textContent = test
+                tr.appendChild(td)
+                document.getElementById("list_of_current_admins").appendChild(tr); 
             })
         
           
@@ -86,8 +97,8 @@ class Statistics extends React.Component{
             <th>תשובות/שאלות</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
             <div onLoad="load_Stat_Page()"></div>
         </table>
-        <table id="list_of_current_users"><th>users</th><th>admin?</th></table>
-        <div id="list_of_current_admins"></div>
+        <table><th id="list_of_current_users">users</th><th id="list_of_current_admins">admin?</th></table>
+        
          </>
      );
  }   

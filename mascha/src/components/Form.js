@@ -7,41 +7,87 @@ import "firebase/firestore";
 
 
 class FormHook extends React.Component{
+
+    static numGlo = 0;
     constructor(props){
         super(props)
     }
 
-    writeData(question){
-        console.log("workkkkkkkkkkkkkkk")
-        var washingtonRef = db.collection("Forms");
-    
-        // Atomically add a new region to the "regions" array field.
-        /*washingtonRef.add({
-            question: 
-        });*/
+    writeData(question,num) {
+        let arrString = "";
+        let megaString = "";
+        for(let i = 0; i < this.numGlo-1 ; i++){
+            arrString = "quest" + i
+            megaString += document.getElementById(arrString).value + "$$"
+        }
+        arrString = "quest" + (this.numGlo-1)
+        megaString += document.getElementById(arrString).value
+        console.log(megaString)
+
+        db.collection("Forms").add(
+            {
+                quest: question,
+                numQuest : Number(num),
+                answers : megaString
+            }
+        )
+        document.getElementById("plusQ").innerHTML = "";
+        document.getElementById("numQuest").value = "";
+        document.getElementById("add").value = "";
     }
-    // componentDidMount() {
-    //     firebase.auth().onAuthStateChanged()
-    // }
 
         
-       
+    questionNum(num){
+
+        let formC;
+        let clasString;
+        document.getElementById('plusQ').innerHTML = "";
+        this.numGlo = num
+        for(let i = 0 ; i < num ; i++)
+        {
+            formC = document.createElement("input");
+            clasString = "quest" + i;
+            formC.setAttribute("id", clasString)
+            document.getElementById("plusQ").appendChild(formC)
+        }
+    }
+  
         
     render(){
 
         db.collection('Forms').get().then((ans) => {
             ans.forEach(element => {
                 if(element.exists){
-                    let i = 0
                     let test = element.data()
                     let tr = document.createElement('tr')
-                    let td = document.createElement('td')
-                    td.classList.add("pQ");
-                    td.textContent = test[i]
-                    tr.appendChild(td)
+                    let tdQuest = document.createElement('td')
+                    tdQuest.classList.add("pQ");
+                    tdQuest.textContent = test.quest
+                    tr.appendChild(tdQuest)
+                    let tdAns = document.createElement("td")
+
+                    let arrAns = test.answers.split("$$");
+                    
+                    for(let i = 0; i<test.numQuest ; i++){
+
+                        var x = document.createElement("INPUT");
+                        x.setAttribute("type", "radio");
+                        x.setAttribute("id", arrAns[i])
+                        x.setAttribute("name", test.quest)
+                        
+                        var y = document.createElement("LABEL");
+                        var t = document.createTextNode(arrAns[i]);
+                        y.setAttribute("htmlFor", arrAns[i]);
+                        y.appendChild(t);
+                        y.appendChild(x)
+                        tdAns.appendChild(y)
+                    }
+                    tr.appendChild(tdAns)                  
                     document.getElementById("addQuestion").appendChild(tr); 
                 }
             });
+          });
+
             db.collection('users').get().then((ans) => {
                 ans.forEach(element => {
                     if(element){
@@ -62,16 +108,6 @@ class FormHook extends React.Component{
                 });
             }
             );
-            
-              /*ans.data().quest.forEach(element => {
-                  let tr = document.createElement('tr')
-                  let td = document.createElement('td')
-                  td.classList.add("pQ");
-                  td.textContent = element
-                  tr.appendChild(td)
-                  document.getElementById("addQuestion").appendChild(tr);
-              });*/
-          });
 
     return (
     
@@ -420,26 +456,35 @@ class FormHook extends React.Component{
 
             {/* <br/> */}
             <button className="btn btn-primary">Submit</button>
-            <Card style= {{"marginTop" : "55px"}}>
+            <Card style= {{"marginTop" : "55px" }}>
                 <Card.Body>
+
                     <Form>
-                        <Form.Row>
-                        <Col>
                         <Form.Label className = "pQ">הוספת שאלה:</Form.Label>
                         <Form.Control id = "add"/>
-                        </Col>
-                        <Col>
-                        <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"></input>
-                            <label className="form-check-label" for="flexSwitchCheckDefault">Yes/No answer ? </label>
-                        </div>
-                        </Col>
-                        </Form.Row>
-                        <Button className = "w-25" style= {{"marginRight" : "35%"}} type = "submit" 
-                         onClick={()=>{this.writeData(document.getElementById("add").value)}}>הוסיף</Button>
-                         
                     </Form>
-                </Card.Body>
+    
+                    <Card style = {{"width": "20%","display": "inline-block"}}>
+                        <Card.Body>
+                            <Form>
+                                <Form.Label className = "pQ" >כמה בחירות לשאלה ?</Form.Label>
+                                <Form.Control type="number" onChange = {()=>{this.questionNum(document.getElementById("numQuest").value)}} id = "numQuest"/>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                    <Card style = {{"marginRight":"10%","display": "inline-block","width": "60%"}}>
+                        <Card.Body>
+                            <Form id ="plusQ">
+                            <Form.Label className = "pQ" >תשובות :</Form.Label>
+
+                            </Form>
+                        </Card.Body>
+                    </Card>
+
+                    <Button className = "w-25" style= {{"display" : "block","marginRight" : "35%", "marginTop" : "10px"}} type = "submit" 
+                         onClick={()=>{this.writeData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>הוסיף</Button>
+
+                </Card.Body> 
             </Card>  
         </form> 
     </div>

@@ -90,17 +90,17 @@ if(adminstatus=="false")
               });
               
          auth.onAuthStateChanged(user=>{
-           
+           //this changes the user not the string we try to change.
+
             console.log(user)
-            user.updateProfile({
-                displayName: document.getElementById("admincheckbox").value2,
-              }).then(function(){
-                //
-              }
-              ).catch(function(error) {
-                // An error happened.
-              });
-            this.alterdb(email,document.getElementById("admincheckbox").value2)
+            // user.updateProfile({
+            //     displayName: document.getElementById("admincheckbox").value2,
+            //   }).then(function(){
+            //   }
+            //   ).catch(function(error) {
+            //     // An error happened.
+            //   });
+              this.alterdb(email,document.getElementById("admincheckbox").value2);
          })
     }
     // deletethisuser(){

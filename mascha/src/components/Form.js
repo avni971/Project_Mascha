@@ -143,9 +143,10 @@ class FormHook extends React.Component{
 
             
     return (
-    
-        <div id="F1" dir="rtl">
         
+        
+        <div id="F1" dir="rtl">
+        <Card style={{"padding": "1.5%", "border-color":"#66CDAA"}}>
         <h1 style={{"text-align":"center"}}>שאלון מש"ה</h1>
 
             <form id="main_form" encType="text/plain" action="mailto:avni971@gmail.com" method="post"> 
@@ -159,7 +160,11 @@ class FormHook extends React.Component{
 
 
             {/* <br/> */}
-            <button className="btn btn-primary"  onClick={()=>{this.submitformclicked(document)}} style = {{"background-color" : "#66CDAA", "border-color":"#66CDAA"}}>שלח</button>
+            <button className="btn btn-primary"  onClick={()=>{this.submitformclicked(document)}} style = {{"marginRight": "45%","background-color" : "#66CDAA", "border-color":"#66CDAA"}}>שלח</button>
+            </form>
+            </Card>
+
+
             <Card style= {{"marginTop" : "55px","border-color":"#66CDAA" }}>
                 <Card.Body>
 
@@ -193,9 +198,8 @@ class FormHook extends React.Component{
                 </Card.Body> 
             </Card>  
             
-        </form> 
-    
     </div>
+    
     )
     }
 }

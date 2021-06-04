@@ -34,10 +34,29 @@ class FormHook extends React.Component{
         document.getElementById("plusQ").innerHTML = "";
         document.getElementById("numQuest").value = "";
         document.getElementById("add").value = "";
-        alert("שאלה מוסיפה !")
+        alert("התוספה שאלה !")
     }
 
-        
+    suppData(question,num){
+        let id;
+        console.log(question)
+        // console.log(num)
+        db.collection('Forms').get().then((ans) => {
+            ans.forEach(element => {
+                if(element.exists){
+                    if(element.data().quest == question && element.data().numQuest == num)
+                        db.collection('Forms').doc(element.id).delete();
+                }
+            })
+        })
+
+        document.getElementById("plusQ").innerHTML = "";
+        document.getElementById("numQuest").value = "";
+        document.getElementById("add").value = "";
+        alert("שאלה נמחקה !")
+
+    }
+
     questionNum(num){
 
         let formC;
@@ -166,8 +185,10 @@ class FormHook extends React.Component{
                         </Card.Body>
                     </Card>
 
-                    <Button className = "w-25" style= {{"display" : "block","marginRight" : "35%", "marginTop" : "10px"}} type = "submit" 
-                         onClick={()=>{this.writeData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>הוסיף</Button>
+                    <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "40%", "marginTop" : "10px"}} type = "submit" 
+                         onClick={()=>{this.writeData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>הוספה</Button>
+                    <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "7%", "marginTop" : "10px", "background-color" : "red", "border-color":"red"}} type = "submit" 
+                         onClick={()=>{this.suppData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>מחיקה</Button>
 
                 </Card.Body> 
             </Card>  

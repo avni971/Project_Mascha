@@ -24,11 +24,20 @@ class FormHook extends React.Component{
         megaString += document.getElementById(arrString).value
         console.log(megaString)
 
-        db.collection("Forms").add(
+        // db.collection("Forms").add(
+        //     {
+        //         quest: question,
+        //         numQuest : Number(num),
+        //         answers : megaString,
+        //     }
+        // )
+        
+        db.collection("Forms").doc(num).set(
             {
                 quest: question,
                 numQuest : Number(num),
-                answers : megaString
+                answers : megaString,
+                answersstats: [0,0,0,0,0]
             }
         )
         document.getElementById("plusQ").innerHTML = "";
@@ -78,30 +87,67 @@ class FormHook extends React.Component{
         let main_form=document.getElementById("main_form");
         // console.log(main_form);
         let addQuestion=document.getElementById("addQuestion");
-        console.log(addQuestion);
+        // console.log(addQuestion);
 
         db.collection('Forms').get().then((ans) => {
             ans.forEach(element => {
                 if(element.exists){
                     let test = element.data()
-                    console.log(test);
-                    console.log(test.answers);
+                    //console.log(test);
+                    //console.log(test.answers);
                    var answerarray=test.answers.split("$$")
-                   console.log(answerarray);
+                   //console.log(answerarray);
                    for(let answer in answerarray)
-                   {console.log(answerarray[answer]);
-                    console.log(document.getElementById(answerarray[answer]));
+                   {//console.log(answerarray[answer]);
+                    //console.log(document.getElementById(answerarray[answer]));
                     var kkk=document.getElementById(answerarray[answer]);
+                    var x0=element.data().answersstats[0];
+                    var x1=element.data().answersstats[1];
+                    var x2=element.data().answersstats[2];
+                    var x3=element.data().answersstats[3];
+                    var x4=element.data().answersstats[4];
+                    console.log(x0);
+                    console.log(x1);
+                    console.log(x2);
+                    console.log(x3);
+                    console.log(x4);
+                    var d=element.data().numQuest.toString();
                     if(kkk.checked) {
                         //now we add this to the statistics page
                         console.log(true);
+                        console.log(answer);
+                        // console.log(element.data());
+                        // console.log(parseInt(answer));
+                        if(answer==0)
+                        {   db.collection('Forms').doc(d).update({
+                            answersstats:[x0+1,x1,x2,x3,x4]
+                        } ,{ merge: true });    }
+                        if(answer==1)
+                        {   db.collection('Forms').doc(d).update({
+                            answersstats:[x0,x1+1,x2,x3,x4]
+                        } ,{ merge: true });    }
+                        if(answer==2)
+                        {   db.collection('Forms').doc(d).update({
+                            answersstats:[x0,x1,x2+1,x3,x4]
+                        } ,{ merge: true });    }
+                        if(answer==3)
+                        {   db.collection('Forms').doc(d).update({
+                            answersstats:[x0,x1,x2,x3+1,x4]
+                        } ,{ merge: true });    }
+                        if(answer==4)
+                        {   db.collection('Forms').doc(d).update({
+                            answersstats:[x0+1,x1,x2,x3,x4+1]
+                        } ,{ merge: true });    }
                       }else {
                         console.log(false);
                     }
-                    }
+                           console.log(element.data().answersstats)
+                                        
+                                         }
                    
                 }
             }
+        
             );
         }
         );

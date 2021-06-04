@@ -71,12 +71,21 @@ class Statistics extends React.Component{
                         
                         let td7 = document.createElement('td');
                         tr.appendChild(td7);
-                        
+
+                        if(element.data().answersstats)
+                        {td3.textContent=element.data().answersstats[0];
+                        td4.textContent=element.data().answersstats[1];
+                        td5.textContent=element.data().answersstats[2];
+                        td6.textContent=element.data().answersstats[3];
+                        td7.textContent=element.data().answersstats[4];
+                        }
+                        else{
                         td3.textContent=0;
                         td4.textContent=0;
                         td5.textContent=0;
                         td6.textContent=0;
                         td7.textContent=0;
+                    }
                         document.getElementById("stat_table").appendChild(tr); 
 
                         
@@ -99,7 +108,7 @@ class Statistics extends React.Component{
                 let test=e;
                 let tr = document.createElement('tr')
                 let td = document.createElement('td')
-                td.classList.add("users_list");
+                // td.classList.add("users_list");
                 td.textContent = test
                 tr.appendChild(td)
                 document.getElementById("list_of_current_users").appendChild(tr); 
@@ -110,7 +119,7 @@ class Statistics extends React.Component{
                 let test=e;
                 let tr = document.createElement('tr')
                 let td = document.createElement('td')
-                td.classList.add("admins_list");
+                // td.classList.add("admins_list");
                 td.textContent = test
                 tr.appendChild(td)
                 document.getElementById("list_of_current_admins").appendChild(tr); 
@@ -141,7 +150,7 @@ class Statistics extends React.Component{
             
         </table>
         <br></br><br></br><br></br>
-        <table><th id="list_of_current_users">users</th><th id="list_of_current_admins">admin?</th></table>
+        <table id="users_admin_table"><th id="list_of_current_users">users</th><th id="list_of_current_admins">admin?</th></table>
         
          </>
      );

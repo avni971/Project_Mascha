@@ -37,17 +37,17 @@ class Login extends React.Component{
         
         return (
             <>
-                <Card style = {{"text-align":"right"}}>
+                <Card style = {{"textAlign":"right"}}>
                     <Card.Body>
                         <h2 className = "text-center mb-4">התחברות</h2>
                         <div>
                             <Form.Group >
                                 <Form.Label>מיל</Form.Label>
-                                <Form.Control id = "email" type = "email" style = {{"text-align":"right"}}/>
+                                <Form.Control id = "email" type = "email" style = {{"textAlign":"right"}}/>
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>סיסמה</Form.Label>
-                                <Form.Control id = "password" type = "password" style = {{"text-align":"right"}}/>
+                                <Form.Control id = "password" type = "password" style = {{"textAlign":"right"}}/>
                             </Form.Group>
                             <Button className = "w-100" type = "submit" onClick={()=>{this.login()}}>
                             התחברות

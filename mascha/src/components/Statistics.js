@@ -41,71 +41,9 @@ class Statistics extends React.Component{
      
 
     componentDidMount(){
-
-        console.log("onload");
-        db.collection("Forms").get().then((ans)=>{
-        let elementalredyexist;
-        let mynumarray=[];
-        let myarray=[];
-        ans.forEach(element => {
-            if(element.exists){
-                    { if(element.data())
-                        {   
-                            console.log(element.data().quest);
-                            myarray.push(element.data().numQuest);
-                            mynumarray.push(element.data().numQuest);
-                            // console.log(myarray);
-                             console.log(element.data().numQuest);
-                            // console.log(element.data().answers);
-                            db.collection("stat").get().then((res)=>{
-                                res.forEach(e => {
-                                    if(e.exists){
-                                        if(e.data())
-                                        {
-//                 for(let i=0;i<10;i++)
-// {                           
-// db.collection('stat').doc(i).set({
-//     quest: myarray[i],
-//     numQuest : mynumarray[i],
-//     answers : [0,0,0,0,0]
-//     }, { merge: true });
-                        //    }                           //console.log(e.data().quest);
-                                            // if(myarray.includes(e.data().numQuest))
-                                            // {
-                                            //     elementalredyexist=true;
-                                            //     console.log(elementalredyexist);
-                                            // }
-                                            // else if(!myarray.includes(e.data().numQuest)) {
-                                            //     elementalredyexist=false;
-                                            //     console.log(elementalredyexist);
-                                            //     // Add a new document in collection "cities"
-
-                                                // // db.collection("stat").add(
-                                                // //     {
-                                                // //         quest: element.data().quest,
-                                                // //         numQuest : element.data().numQuest,
-                                                // //         answers : [0,0,0,0,0]
-                                                // //     }
-                                                
-                                                // );
-                                            // }
-                                        }
-                                    }
-                                }
-                                );
-                            }
-                            );
-                            
-
-                          
-                         }
-                    }
-            }
-    });
-}
-    );
     //getting the questions list and quest num to our stat list
-       db.collection("stat").get().then((ans)=>{
+
+       db.collection("Forms").get().then((ans)=>{
         ans.forEach(element => {
             if(element.exists){
                 { if(element.data())
@@ -119,6 +57,26 @@ class Statistics extends React.Component{
                         let td2 = document.createElement('td');
                         tr.appendChild(td2);
                         td2.textContent=element.data().quest;
+                        let td3 = document.createElement('td');
+                        tr.appendChild(td3);
+                        
+                        let td4 = document.createElement('td');
+                        tr.appendChild(td4);
+                        
+                        let td5 = document.createElement('td');
+                        tr.appendChild(td5);
+                        
+                        let td6 = document.createElement('td');
+                        tr.appendChild(td6);
+                        
+                        let td7 = document.createElement('td');
+                        tr.appendChild(td7);
+                        
+                        td3.textContent=0;
+                        td4.textContent=0;
+                        td5.textContent=0;
+                        td6.textContent=0;
+                        td7.textContent=0;
                         document.getElementById("stat_table").appendChild(tr); 
 
                         

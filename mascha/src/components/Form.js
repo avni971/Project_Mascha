@@ -72,10 +72,44 @@ class FormHook extends React.Component{
         }
     }
     submitformclicked(document){
-        console.log(document);
-        console.log(document.getElementById("main_form").getAttribute('action'));
-        //stoped here need to change the body of the form to pdf?!
+        // console.log(document);
+        // console.log(document.getElementById("main_form").getAttribute('action'));
+        // console.log(document.getElementById("main_form"));
+        let main_form=document.getElementById("main_form");
+        // console.log(main_form);
+        let addQuestion=document.getElementById("addQuestion");
+        console.log(addQuestion);
 
+        db.collection('Forms').get().then((ans) => {
+            ans.forEach(element => {
+                if(element.exists){
+                    let test = element.data()
+                    console.log(test);
+                    console.log(test.answers);
+                   var answerarray=test.answers.split("$$")
+                   console.log(answerarray);
+                   for(let answer in answerarray)
+                   {console.log(answerarray[answer]);
+                    console.log(document.getElementById(answerarray[answer]));
+                    var kkk=document.getElementById(answerarray[answer]);
+                    if(kkk.checked) {
+                        //now we add this to the statistics page
+                        console.log(true);
+                      }else {
+                        console.log(false);
+                    }
+                    }
+                   
+                }
+            }
+            );
+        }
+        );
+       
+
+
+        
+        // console.log(document.getElementById("main_form").getAttribute());
     }
     
     render(){
@@ -127,7 +161,7 @@ class FormHook extends React.Component{
                             subjectslist+=";"
                         })
                         
-                        subjectslist+="?subject=תשובות לשאלון משה"
+                        subjectslist+="?subject=תשובות לשאלון משה";
                         console.log(subjectslist);
                         
                         console.log( document.getElementById("main_form").getAttribute("action"));
@@ -146,12 +180,12 @@ class FormHook extends React.Component{
         
         
         <div id="F1" dir="rtl">
-        <Card style={{"padding": "1.5%", "border-color":"#66CDAA"}}>
-        <h1 style={{"text-align":"center"}}>שאלון מש"ה</h1>
+        <Card style={{"padding": "1.5%", "borderColor":"#66CDAA"}}>
+        <h1 style={{"textAlign":"center"}}>שאלון מש"ה</h1>
 
             <form id="main_form" encType="text/plain" action="mailto:avni971@gmail.com" method="post"> 
 
-            <h4 style={{"text-align":"center"}}>במקרים בהם יש סקאלה: 1-5, כאשר 1 מייצג מצב טוב ו-5 מייצג מצב גרוע</h4>
+            <h4 style={{"textaAlign":"center"}}>במקרים בהם יש סקאלה: 1-5, כאשר 1 מייצג מצב טוב ו-5 מייצג מצב גרוע</h4>
             <h2 className="pre_titles">שייכות:</h2>
             
             <table id="addQuestion"></table>
@@ -160,28 +194,28 @@ class FormHook extends React.Component{
 
 
             {/* <br/> */}
-            <button className="btn btn-primary"  onClick={()=>{this.submitformclicked(document)}} style = {{"marginRight": "45%","background-color" : "#66CDAA", "border-color":"#66CDAA"}}>שלח</button>
+            <button className="btn btn-primary"  onClick={()=>{this.submitformclicked(document)}} style = {{"marginRight": "45%","backgroundcolor" : "#66CDAA", "borderColor":"#66CDAA"}}>שלח</button>
             </form>
             </Card>
 
 
-            <Card style= {{"marginTop" : "55px","border-color":"#66CDAA" }}>
+            <Card style= {{"marginTop" : "55px","borderColor":"#66CDAA" }}>
                 <Card.Body>
 
                     <Form>
                         <Form.Label className = "pQ">הוספת/מחיקה שאלה :</Form.Label>
-                        <Form.Control id = "add" style = {{"border-color":"#66CDAA"}}/>
+                        <Form.Control id = "add" style = {{"borderColor":"#66CDAA"}}/>
                     </Form>
     
-                    <Card style = {{"width": "20%","display": "inline-block", "border-color":"#66CDAA"}}>
+                    <Card style = {{"width": "20%","display": "inline-block", "borderColor":"#66CDAA"}}>
                         <Card.Body>
                             <Form>
                                 <Form.Label className = "pQ" >כמה בחירות לשאלה ?</Form.Label>
-                                <Form.Control type="number" onChange = {()=>{this.questionNum(document.getElementById("numQuest").value)}} id = "numQuest" style = {{"border-color":"#66CDAA"}}/>
+                                <Form.Control type="number" onChange = {()=>{this.questionNum(document.getElementById("numQuest").value)}} id = "numQuest" style = {{"borderColor":"#66CDAA"}}/>
                             </Form>
                         </Card.Body>
                     </Card>
-                    <Card style = {{"marginRight":"10%","display": "inline-block","width": "60%", "border-color":"#66CDAA"}}>
+                    <Card style = {{"marginRight":"10%","display": "inline-block","width": "60%", "borderColor":"#66CDAA"}}>
                         <Card.Body>
                             <Form id ="plusQ">
                             <Form.Label className = "pQ" >תשובות :</Form.Label>
@@ -190,9 +224,9 @@ class FormHook extends React.Component{
                         </Card.Body>
                     </Card>
 
-                    <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "40%", "marginTop" : "10px", "background-color" : "#66CDAA", "border-color":"#66CDAA"}} type = "submit" 
+                    <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "40%", "marginTop" : "10px", "backgroundColor" : "#66CDAA", "borderColor":"#66CDAA"}} type = "submit" 
                          onClick={()=>{this.writeData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>הוספה</Button>
-                    <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "7%", "marginTop" : "10px", "background-color" : "red", "border-color":"red"}} type = "submit" 
+                    <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "7%", "marginTop" : "10px", "backgroundColor" : "red", "borderColor":"red"}} type = "submit" 
                          onClick={()=>{this.suppData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>מחיקה</Button>
 
                 </Card.Body> 

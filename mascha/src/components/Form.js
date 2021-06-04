@@ -106,7 +106,7 @@ class FormHook extends React.Component{
                         var t = document.createTextNode(arrAns[i]);
                         y.setAttribute("htmlFor", arrAns[i]);
                         y.appendChild(t);
-                        y.appendChild(x)
+                        tdAns.appendChild(x)
                         tdAns.appendChild(y)
                     }
                     tr.appendChild(tdAns)                  
@@ -144,13 +144,13 @@ class FormHook extends React.Component{
             
     return (
     
-        <div id="F1" dir="rtl" >
+        <div id="F1" dir="rtl">
         
-        <h1>שאלון מש"ה</h1>
+        <h1 style={{"text-align":"center"}}>שאלון מש"ה</h1>
 
             <form id="main_form" encType="text/plain" action="mailto:avni971@gmail.com" method="post"> 
 
-            <h4>במקרים בהם יש סקאלה: 1-5, כאשר 1 מייצג מצב טוב ו-5 מייצג מצב גרוע</h4>
+            <h4 style={{"text-align":"center"}}>במקרים בהם יש סקאלה: 1-5, כאשר 1 מייצג מצב טוב ו-5 מייצג מצב גרוע</h4>
             <h2 className="pre_titles">שייכות:</h2>
             
             <table id="addQuestion"></table>

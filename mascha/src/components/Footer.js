@@ -1,5 +1,5 @@
 import { Route } from 'react-router-dom'
-import { Button } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import React, { useRef } from 'react'
 import { auth } from '../firebase/firebase'
 import firebase from "firebase/app";
@@ -100,24 +100,24 @@ class Footer extends React.Component {
 
       <>
         <footer>
-          <a href='/about'><Button className="w-20" id="spa">About Us</Button></a>
+          
+          <a href='/about'><Button className="w-20" id="spa">אודותנו</Button></a>
 
           <br></br>
-          <Route exact path="/" render={() => <a href='/login'><Button className='w-20'>Login</Button></a>} />
+          <Route exact path="/" render={() => <a href='/login'><Button className='w-20' style ={{"marginTop":"10px"}}>התחברות</Button></a>} />
           <br></br>
-          
-          
+
           <Route exact path="/form" render={() =>
-            <a href='/areyousure'><Button id="deleteuserbtn" className='btn'>מחק משתמש זה/delete this user</Button></a>} />
+            <a href='/areyousure'><Button id="deleteuserbtn" className='btn'>מחק משתמש זה</Button></a>} />
           
           <br></br><br></br>
           <Route exact path="/form" render={() =>
           
-            <a href='/SignIn'><button id="signinbtn" disabled>signin /צור משתמש</button></a>} />
+            <a href='/SignIn'><button id="signinbtn" disabled>צור משתמש</button></a>} />
           <p>Copyright &copy; 2021</p>
           <Route exact path="/signin" render={() =>
             
-            <a href='/signin/statistics'><button id="statistics">statistics page/דף סטטיסטיקה</button></a>} />
+            <a href='/signin/statistics'><button id="statistics">דף סטטיסטיקה</button></a>} />
         
         </footer>
       </>

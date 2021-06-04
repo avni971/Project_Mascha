@@ -11,7 +11,7 @@ const About = (props) => {
            <Button className = "w-20" type = "submit" onClick={()=>{props.history.push({
                 pathname:"/Login"
             });}}>
-               Back
+               חזור
             </Button>
         </div>
     )

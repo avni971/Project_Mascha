@@ -37,27 +37,28 @@ class Login extends React.Component{
         
         return (
             <>
-                <Card>
+                <Card style = {{"text-align":"right"}}>
                     <Card.Body>
-                        <h2 className = "text-center mb-4">Login</h2>
+                        <h2 className = "text-center mb-4">התחברות</h2>
                         <div>
                             <Form.Group >
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control id = "email" type = "email" />
+                                <Form.Label>מיל</Form.Label>
+                                <Form.Control id = "email" type = "email" style = {{"text-align":"right"}}/>
                             </Form.Group>
                             <Form.Group>
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control id = "password" type = "password"/>
+                                <Form.Label>סיסמה</Form.Label>
+                                <Form.Control id = "password" type = "password" style = {{"text-align":"right"}}/>
                             </Form.Group>
                             <Button className = "w-100" type = "submit" onClick={()=>{this.login()}}>
-                                Login
+                            התחברות
                             </Button>
                         </div>
                     </Card.Body>
                 </Card>
-                
-                 <Link to='/ForgotPassword'><Button className='w-20 mr-40'>Forgot your Password? Click here</Button></Link>
-                <br></br><Link to='/'><Button className='w-20 mr-40'>Go Back</Button></Link>
+                <Link to='/ForgotPassword' style={{"marginLeft":"45%"}}>לחץ כאן</Link>
+                <label style={{"marginLeft":"3px"}}>? שכחתה סיסמה</label>
+                 
+                <br></br><Link to='/'><Button className='w-20 mr-40'>חזור</Button></Link>
             </>
         );
     }

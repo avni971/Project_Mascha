@@ -159,24 +159,24 @@ class FormHook extends React.Component{
 
 
             {/* <br/> */}
-            <button className="btn btn-primary"  onClick={()=>{this.submitformclicked(document)}}>Submit</button>
-            <Card style= {{"marginTop" : "55px" }}>
+            <button className="btn btn-primary"  onClick={()=>{this.submitformclicked(document)}} style = {{"background-color" : "#66CDAA", "border-color":"#66CDAA"}}>שלח</button>
+            <Card style= {{"marginTop" : "55px","border-color":"#66CDAA" }}>
                 <Card.Body>
 
                     <Form>
-                        <Form.Label className = "pQ">הוספת שאלה:</Form.Label>
-                        <Form.Control id = "add"/>
+                        <Form.Label className = "pQ">הוספת/מחיקה שאלה :</Form.Label>
+                        <Form.Control id = "add" style = {{"border-color":"#66CDAA"}}/>
                     </Form>
     
-                    <Card style = {{"width": "20%","display": "inline-block"}}>
+                    <Card style = {{"width": "20%","display": "inline-block", "border-color":"#66CDAA"}}>
                         <Card.Body>
                             <Form>
                                 <Form.Label className = "pQ" >כמה בחירות לשאלה ?</Form.Label>
-                                <Form.Control type="number" onChange = {()=>{this.questionNum(document.getElementById("numQuest").value)}} id = "numQuest"/>
+                                <Form.Control type="number" onChange = {()=>{this.questionNum(document.getElementById("numQuest").value)}} id = "numQuest" style = {{"border-color":"#66CDAA"}}/>
                             </Form>
                         </Card.Body>
                     </Card>
-                    <Card style = {{"marginRight":"10%","display": "inline-block","width": "60%"}}>
+                    <Card style = {{"marginRight":"10%","display": "inline-block","width": "60%", "border-color":"#66CDAA"}}>
                         <Card.Body>
                             <Form id ="plusQ">
                             <Form.Label className = "pQ" >תשובות :</Form.Label>
@@ -185,7 +185,7 @@ class FormHook extends React.Component{
                         </Card.Body>
                     </Card>
 
-                    <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "40%", "marginTop" : "10px"}} type = "submit" 
+                    <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "40%", "marginTop" : "10px", "background-color" : "#66CDAA", "border-color":"#66CDAA"}} type = "submit" 
                          onClick={()=>{this.writeData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>הוספה</Button>
                     <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "7%", "marginTop" : "10px", "background-color" : "red", "border-color":"red"}} type = "submit" 
                          onClick={()=>{this.suppData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>מחיקה</Button>

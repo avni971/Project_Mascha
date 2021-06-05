@@ -8,9 +8,9 @@ import {Button} from 'react-bootstrap'
 
 
 class ForgotPassword extends React.Component{
-    constructor(props){
-        super(props) 
-    }
+    // constructor(props){
+    //     super(props) 
+    // }
 
     
     sendnewpassword(){
@@ -43,8 +43,8 @@ class ForgotPassword extends React.Component{
     }
 
 }
-const ForgotPassword1 = () => {
+// const ForgotPassword1 = () => {
    
-}
+// }
 
 export default ForgotPassword

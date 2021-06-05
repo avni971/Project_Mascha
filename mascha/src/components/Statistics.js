@@ -1,43 +1,13 @@
-import{Link} from 'react-router-dom'
 
 import React from 'react'
-import {auth, db} from '../firebase/firebase'
+import {db} from '../firebase/firebase'
 import "firebase/firestore";
-import {Button} from 'react-bootstrap'
 
 
-
-// document.addEventListener("DOMContentLoaded", function() {
-//     getdbfromfirebase();
-//   });
-//   function getdbfromfirebase(){
-//     db.collection("Forms").doc("question").get().then((ans)=>{
-//         // console.log(ans.data());
-//         // console.log(ans.data().answer);
-//         if(ans.data())
-//         {ans.data().quest.forEach(element=>{
-//             let test = "<tr><td>";
-//             test += element;
-//             test += "</td></tr>";
-//             let tr = document.createElement('tr')
-//             let td = document.createElement('td')
-//             td.textContent = element
-//             tr.appendChild(td)
-//             if(document.getElementById("stat_table"))
-//             {document.getElementById("stat_table").appendChild(tr);}
-//           console.log(element);
-//             }
-            
-//             );  
-//         } 
-       
-//     }
-//     );
-// }
 class Statistics extends React.Component{
-    constructor(props){
-        super(props) 
-    }
+    // constructor(props){
+    //     super(props) 
+    // }
      
 
     componentDidMount(){
@@ -45,28 +15,32 @@ class Statistics extends React.Component{
         db.collection("Forms").get().then((ans)=>{
             ans.forEach(element => {
                 if(element.exists){
-                    { if(element.data())
+                     if(element.data())
                         {
-                             console.log(element.data().quest);
-                             //console.log(element.data().numQuest);
+                             //console.log(element.data().quest);
+                             ////console.log(element.data().numQuest);
                             let tr = document.createElement('tr');
                             let td = document.createElement('td');
                             tr.appendChild(td);
-                            td.textContent=element.data().numQuest;
+                            td.textContent=element.id;
                             let td2 = document.createElement('td');
                   //now we start to be diffrent from stat_table
                             tr.appendChild(td2);
                             td2.textContent=element.data().quest;
                             
-
+                            let x0,x1,x2,x3,x4;
                             let sumofanswers=0
-                            let x0=element.data().answersstats[0];
-                            let x1=element.data().answersstats[1];
-                            let x2=element.data().answersstats[2];
-                            let x3=element.data().answersstats[3];
-                            let x4=element.data().answersstats[4];
+                            if(element.data().answersstats)
+                            {
+                             x0=element.data().answersstats[0];
+                             x1=element.data().answersstats[1];
+                             x2=element.data().answersstats[2];
+                             x3=element.data().answersstats[3];
+                             x4=element.data().answersstats[4];
+                            }
+                            
                             sumofanswers=x0+x1+x2+x3+x4;
-                            console.log(sumofanswers);
+                            //console.log(sumofanswers);
 
                             let td3 = document.createElement('td');
                         tr.appendChild(td3);
@@ -91,7 +65,7 @@ class Statistics extends React.Component{
                         td7.textContent=(x4*100/sumofanswers).toFixed(2)+"%";
                             document.getElementById("second_stat_table").appendChild(tr); 
                         }
-                    }
+                    
                 }
              });
         });
@@ -101,17 +75,18 @@ class Statistics extends React.Component{
        db.collection("Forms").get().then((ans)=>{
         ans.forEach(element => {
             if(element.exists){
-                { if(element.data())
+                 if(element.data())
                     {
-                         console.log(element.data().quest);
-                         //console.log(element.data().numQuest);
+                         //console.log(element.data().quest);
+                         ////console.log(element.data().numQuest);
                         let tr = document.createElement('tr');
                         let td = document.createElement('td');
                         tr.appendChild(td);
-                        td.textContent=element.data().numQuest;
+                         td.textContent=element.id;
+                        // td.textContent=element.data().numQuest;
                         let td2 = document.createElement('td');
                         tr.appendChild(td2);
-                        td2.id=element.data().numQuest;;
+                        td2.id=element.id;
                         td2.textContent=element.data().quest;
                         let td3 = document.createElement('td');
                         tr.appendChild(td3);
@@ -159,7 +134,7 @@ class Statistics extends React.Component{
                        numberchosen.id="numberchosen"
                        numberchosen.type="number";
                        numberchosen.placeholder=0;
-                       console.log(numberchosen);
+                       //console.log(numberchosen);
                        let br =document.createElement('br');
                        tr.appendChild(br)
                        tr.appendChild(numberchosen);
@@ -172,7 +147,7 @@ class Statistics extends React.Component{
                    setarray.placeholder=0;
                    setarray.size=4;
                    setarray.maxlength=4;
-                   console.log(setarray);
+                   //console.log(setarray);
                     br =document.createElement('br');
                    tr.appendChild(br)
                    tr.appendChild(setarray);
@@ -187,33 +162,39 @@ class Statistics extends React.Component{
                    submit.onclick=function() {
                     let i=document.getElementById("numberchosen").value;
                     i=i-1;
-                    console.log(i);
+                    //console.log(i);
                        //alert("submit")
-                    //    console.log(document.getElementById(i));
+                    //    //console.log(document.getElementById(i));
                    let newvalue=document.getElementById("setarray").value;
-                   console.log(newvalue);
+                   //console.log(newvalue);
                    newvalue=parseInt(newvalue);
                         
                    //now we set the db based on the value we got
-                   var d=element.data().numQuest.toString();
-                        if(i==0)
-                        {   db.collection('Forms').doc(d).update({
+                   var d=element.id.toString();
+                        if(i===0)
+                        {
+                            //console.log(element.data().answersstats);
+                            //console.log(newvalue);
+                            db.collection('Forms').doc(d).update({
                             answersstats:[newvalue,element.data().answersstats[1],element.data().answersstats[2],element.data().answersstats[3],element.data().answersstats[4]]
-                        } ,{ merge: true });    }
+                        } ,{ merge: true });   
+                    
+                        //console.log(element.data().answersstats)
+                    }
                         
-                        if(i==1)
+                        if(i===1)
                         {   db.collection('Forms').doc(d).update({
                             answersstats:[element.data().answersstats[0],newvalue,element.data().answersstats[2],element.data().answersstats[3],element.data().answersstats[4]]
                         } ,{ merge: true });    }
-                        if(i==2)
+                        if(i===2)
                         {   db.collection('Forms').doc(d).update({
                             answersstats:[element.data().answersstats[0],element.data().answersstats[1],newvalue,element.data().answersstats[3],element.data().answersstats[4]]
                         } ,{ merge: true });    }
-                        if(i==3)
+                        if(i===3)
                         {   db.collection('Forms').doc(d).update({
                             answersstats:[element.data().answersstats[0],element.data().answersstats[1],element.data().answersstats[2],newvalue,element.data().answersstats[4]]
                         } ,{ merge: true });    }
-                        if(i==4)
+                        if(i===4)
                         {   db.collection('Forms').doc(d).update({
                             answersstats:[element.data().answersstats[0],element.data().answersstats[1],element.data().answersstats[2],element.data().answersstats[3],newvalue]
                         } ,{ merge: true });    }
@@ -237,7 +218,7 @@ class Statistics extends React.Component{
 
                         
                     }
-                }
+                
             }
        }
         );
@@ -251,7 +232,6 @@ class Statistics extends React.Component{
             if(element.exists){
           
             element.data().users.forEach(e=>{
-                let i = 0
                 let test=e;
                 let tr = document.createElement('tr')
                 let td = document.createElement('td')
@@ -262,7 +242,6 @@ class Statistics extends React.Component{
             })
             
             element.data().admins.forEach(e=>{
-                let i = 0
                 let test=e;
                 let tr = document.createElement('tr')
                 let td = document.createElement('td')

@@ -1,17 +1,16 @@
 import {db} from '../firebase/firebase'
 import React from 'react'
-import {Form, Button, Card, Col} from 'react-bootstrap'
-import firebase from 'firebase/app'
+import {Form, Button, Card} from 'react-bootstrap'
 import "firebase/firestore";
-import { Document, pdf} from '@react-pdf/renderer';
 
 
 class FormHook extends React.Component{
 
     static numGlo = 0;
-    constructor(props){
-        super(props)
-    }
+    
+    // constructor(props){
+    //     super(props)
+    // }
 
     writeData(question,num) {
         let arrString = "";
@@ -22,7 +21,7 @@ class FormHook extends React.Component{
         }
         arrString = "quest" + (this.numGlo-1)
         megaString += document.getElementById(arrString).value
-        console.log(megaString)
+        //console.log(megaString)
 
         // db.collection("Forms").add(
         //     {
@@ -31,29 +30,48 @@ class FormHook extends React.Component{
         //         answers : megaString,
         //     }
         // )
-        
-        db.collection("Forms").doc(num).set(
-            {
-                quest: question,
-                numQuest : Number(num),
-                answers : megaString,
-                answersstats: [0,0,0,0,0]
-            }
-        )
+        //console.log(this.numGlo);
+        let yuvalquestionnum;
+        db.collection('questionsnum').get().then((ans) => {
+            ans.forEach(element => {
+                if(element.exists){
+                    yuvalquestionnum=element.data().yuvalquestionnum;
+                    //console.log(yuvalquestionnum);
+                    let d=yuvalquestionnum.toString();
+                    //update the forms
+                    db.collection("Forms").doc(d).update(
+                        {
+                            quest: question,
+                            numQuest : Number(num),
+                            answers : megaString,
+                            answersstats: [0,0,0,0,0]
+                        }
+                    )
+                    //add +1 to question num
+                    db.collection("questionsnum").doc("questionsnum").update(
+                        {
+                          yuvalquestionnum: yuvalquestionnum+1,
+                        }
+                    )
+            
+                }
+            });
+            });
+
         document.getElementById("plusQ").innerHTML = "";
         document.getElementById("numQuest").value = "";
         document.getElementById("add").value = "";
-        alert("התוספה שאלה !")
+        // alert("התוספה שאלה !")
     }
 
     suppData(question,num){
-        let id;
-        console.log(question)
-        // console.log(num)
+        
+        //console.log(question)
+        // //console.log(num)
         db.collection('Forms').get().then((ans) => {
             ans.forEach(element => {
                 if(element.exists){
-                    if(element.data().quest == question && element.data().numQuest == num)
+                    if(element.data().quest === question && element.data().numQuest === num)
                         db.collection('Forms').doc(element.id).delete();
                 }
             })
@@ -72,6 +90,7 @@ class FormHook extends React.Component{
         let clasString;
         document.getElementById('plusQ').innerHTML = "";
         this.numGlo = num
+        this.yuvalquestionnum++;
         for(let i = 0 ; i < num ; i++)
         {
             formC = document.createElement("input");
@@ -81,67 +100,71 @@ class FormHook extends React.Component{
         }
     }
     submitformclicked(document){
-        // console.log(document);
-        // console.log(document.getElementById("main_form").getAttribute('action'));
-        // console.log(document.getElementById("main_form"));
-        let main_form=document.getElementById("main_form");
-        // console.log(main_form);
-        let addQuestion=document.getElementById("addQuestion");
-        // console.log(addQuestion);
+        // //console.log(document);
+        // //console.log(document.getElementById("main_form").getAttribute('action'));
+        // //console.log(document.getElementById("main_form"));
+        // let main_form=document.getElementById("main_form");
+        // //console.log(main_form);
+        // let addQuestion=document.getElementById("addQuestion");
+        // //console.log(addQuestion);
 
+
+        // adding +1 to the answer given by the form
         db.collection('Forms').get().then((ans) => {
             ans.forEach(element => {
                 if(element.exists){
                     let test = element.data()
-                    //console.log(test);
-                    //console.log(test.answers);
-                   var answerarray=test.answers.split("$$")
-                   //console.log(answerarray);
+                    ////console.log(test);
+                    ////console.log(test.answers);
+                if(test.answers)    {
+                   var answerarray=test.answers.split("$$")}
+                   ////console.log(answerarray);
                    for(let answer in answerarray)
-                   {//console.log(answerarray[answer]);
-                    //console.log(document.getElementById(answerarray[answer]));
-                    var kkk=document.getElementById(answerarray[answer]);
+                   {////console.log(answerarray[answer]);
+                    ////console.log(document.getElementById(answerarray[answer]));
+                    var k=document.getElementById(answerarray[answer]);
                     var x0=element.data().answersstats[0];
                     var x1=element.data().answersstats[1];
                     var x2=element.data().answersstats[2];
                     var x3=element.data().answersstats[3];
                     var x4=element.data().answersstats[4];
-                    console.log(x0);
-                    console.log(x1);
-                    console.log(x2);
-                    console.log(x3);
-                    console.log(x4);
+                    //console.log(x0);
+                    //console.log(x1);
+                    //console.log(x2);
+                    //console.log(x3);
+                    //console.log(x4);
                     var d=element.data().numQuest.toString();
-                    if(kkk.checked) {
+                    if(k.checked) {
                         //now we add this to the statistics page
-                        console.log(true);
-                        console.log(answer);
-                        // console.log(element.data());
-                        // console.log(parseInt(answer));
-                        if(answer==0)
+                        //console.log(true);
+                        //console.log(answer);
+                        // //console.log(element.data());
+                        // //console.log(parseInt(answer));
+                        if(answer===0)
                         {   db.collection('Forms').doc(d).update({
                             answersstats:[x0+1,x1,x2,x3,x4]
                         } ,{ merge: true });    }
-                        if(answer==1)
+                        if(answer===1)
                         {   db.collection('Forms').doc(d).update({
                             answersstats:[x0,x1+1,x2,x3,x4]
                         } ,{ merge: true });    }
-                        if(answer==2)
+                        if(answer===2)
                         {   db.collection('Forms').doc(d).update({
                             answersstats:[x0,x1,x2+1,x3,x4]
                         } ,{ merge: true });    }
-                        if(answer==3)
+                        if(answer===3)
                         {   db.collection('Forms').doc(d).update({
                             answersstats:[x0,x1,x2,x3+1,x4]
                         } ,{ merge: true });    }
-                        if(answer==4)
+                        if(answer===4)
                         {   db.collection('Forms').doc(d).update({
                             answersstats:[x0+1,x1,x2,x3,x4+1]
                         } ,{ merge: true });    }
                       }else {
-                        console.log(false);
+                          //we dont add to stat page
+                        //console.log(false);
                     }
-                           console.log(element.data().answersstats)
+                           //console.log(element.data().answersstats)
                                         
                                          }
                    
@@ -155,12 +178,12 @@ class FormHook extends React.Component{
 
 
         
-        // console.log(document.getElementById("main_form").getAttribute());
+        // //console.log(document.getElementById("main_form").getAttribute());
     }
     
     render(){
       
-  
+///adding questions to forms  
         db.collection('Forms').get().then((ans) => {
             ans.forEach(element => {
                 if(element.exists){
@@ -171,15 +194,17 @@ class FormHook extends React.Component{
                     tdQuest.textContent = test.quest
                     tr.appendChild(tdQuest)
                     let tdAns = document.createElement("td")
-
-                    let arrAns = test.answers.split("$$");
-                    
+                    let arrAns
+                    if(test.answers){
+                    arrAns = test.answers.split("$$");
+                    }
                     for(let i = 0; i<test.numQuest ; i++){
 
                         var x = document.createElement("INPUT");
                         x.setAttribute("type", "radio");
                         x.setAttribute("id", arrAns[i])
-                        x.setAttribute("name", test.quest)
+                        x.setAttribute("name",test.quest)
+                        //x.setAttribute("name","question number:"+test.numQuest)
                         x.setAttribute("value",i+1)
                         
                         var y = document.createElement("LABEL");
@@ -189,8 +214,18 @@ class FormHook extends React.Component{
                         tdAns.appendChild(x)
                         tdAns.appendChild(y)
                     }
-                    tr.appendChild(tdAns)                  
-                    document.getElementById("addQuestion").appendChild(tr); 
+                    tr.appendChild(tdAns) 
+                    let j;     
+                    for(j=1;j<12;j++)           
+                    {if(parseInt(element.id)===j)
+                    {document.getElementById("שייכות").after(tr);} }
+                    for(j=12;j<21;j++)           
+                    {if(parseInt(element.id)===j)
+                    {document.getElementById("יאוש").after(tr);} }
+                    for(j=21;j<30;j++)           
+                    {if(parseInt(element.id)===j)
+                    {document.getElementById("בדידות").after(tr);} }
+
                 }
             });
           });
@@ -201,18 +236,21 @@ class FormHook extends React.Component{
                         let subjectslist="mailto:";
                         
                         if(element.data())
-                        {element.data().admins.forEach(e=>{
-                            console.log(e);
+                        {
+                            // console.log(element.data());
+                            // console.log(element.data().admins);
+                            element.data().admins.forEach(e=>{
+                            // console.log(e);
                             subjectslist+=e;
                             subjectslist+=";"
-                        })
-                        
+                            })
+                            // console.log(subjectslist);
                         subjectslist+="?subject=תשובות לשאלון משה";
-                        console.log(subjectslist);
+                        // console.log(subjectslist);
                         
-                        console.log( document.getElementById("main_form").getAttribute("action"));
+                        //console.log( document.getElementById("main_form").getAttribute("action"));
                         document.getElementById("main_form").action=subjectslist;
-                       console.log( document.getElementById("main_form").getAttribute("action"));
+                       //console.log( document.getElementById("main_form").getAttribute("action"));
                     
                     
                         }
@@ -232,9 +270,14 @@ class FormHook extends React.Component{
             <form id="main_form" encType="text/plain" action="mailto:" method="post"> 
 
             <h4 style={{"textaAlign":"center"}}>במקרים בהם יש סקאלה: 1-5, כאשר 1 מייצג מצב טוב ו-5 מייצג מצב גרוע</h4>
-            <h2 className="pre_titles">שייכות:</h2>
             
-            <table id="addQuestion"></table>
+            
+            
+            <table id="addQuestion">
+            <tbody id="שייכות" className="pre_titles"><tr><td>שייכות:</td></tr></tbody>
+            <tbody id="יאוש"className="pre_titles"><tr><td>יאוש/תקווה:</td></tr></tbody>
+            <tbody id="בדידות"className="pre_titles"><tr><td>בדידות/ניכור:</td></tr></tbody>
+            </table>
             {/* <hr width="300%"/> */}
             {/* <br/> */}
 

@@ -9,11 +9,9 @@ import firebase from "firebase/app";
 
 
 class SignIn extends React.Component{
-    constructor(props){
-        super(props) 
-
-        
-    }
+    // constructor(props){
+    //     super(props) 
+    // }
 //wow it works
 alterdb(email,adminstatus){
 console.log("in alter db");
@@ -31,15 +29,15 @@ newusertodb.update({
 //   user: firebase.firestore.FieldValue.arrayRemove(...[email,adminstatus]),
 // });
 console.log(adminstatus);
-console.log(adminstatus=="true");
-if(adminstatus=="true")
+console.log(adminstatus==="true");
+if(adminstatus==="true")
 {
   //Atomically add a new email and admin_status to the "admins" array field.
   newusertodb.update({
       admins: firebase.firestore.FieldValue.arrayUnion(...user),
   });
 }
-if(adminstatus=="false")
+if(adminstatus==="false")
 {
   //Atomically remove a new email and admin_status to the "admins" array field.
   newusertodb.update({
@@ -152,8 +150,8 @@ if(adminstatus=="false")
 
 }
 
-const SignIn1 = () => {
+// const SignIn1 = () => {
    
-}
+// }
 
 export default SignIn

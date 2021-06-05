@@ -1,13 +1,12 @@
 import { Route } from 'react-router-dom'
-import { Button, Card } from 'react-bootstrap'
-import React, { useRef } from 'react'
-import { auth } from '../firebase/firebase'
+import { Button, } from 'react-bootstrap'
+import React, {  } from 'react'
 import firebase from "firebase/app";
 import {db} from '../firebase/firebase'
 class Footer extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+  // constructor(props) {
+  //   super(props)
+  // }
 
   // const Footer = () => {
   componentDidMount() {

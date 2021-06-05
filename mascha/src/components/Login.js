@@ -1,13 +1,12 @@
 import{Link} from 'react-router-dom'
 import {Form, Button, Card} from 'react-bootstrap'
- import React, { useRef } from 'react'
-import firebase from "firebase/app";
+ import React, {  } from 'react'
 
 import {auth} from '../firebase/firebase'
 class Login extends React.Component{
-    constructor(props){
-        super(props)
-    }
+    // constructor(props){
+    //     super(props)
+    // }
 
     componentDidMount(){
         console.log("In Did mount")
@@ -66,8 +65,8 @@ class Login extends React.Component{
 
 }
 
-const Login1 = () => {
+// const Login1 = () => {
    
-}
+// }
 
 export default Login

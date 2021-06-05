@@ -1,4 +1,3 @@
-import{Link} from 'react-router-dom'
 
 import React from 'react'
 import {auth} from '../firebase/firebase'
@@ -10,9 +9,9 @@ import firebase from "firebase/app";
 
 
 class Areyousure extends React.Component{
-    constructor(props){
-        super(props) 
-    }
+    // constructor(props){
+    //     super(props) 
+    // }
 
     
     deletethisuser(props){
@@ -53,8 +52,8 @@ class Areyousure extends React.Component{
     }
 
 }
-const Areyousure1 = () => {
+// const Areyousure1 = () => {
    
-}
+// }
 
 export default Areyousure

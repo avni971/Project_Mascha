@@ -41,6 +41,61 @@ class Statistics extends React.Component{
      
 
     componentDidMount(){
+
+        db.collection("Forms").get().then((ans)=>{
+            ans.forEach(element => {
+                if(element.exists){
+                    { if(element.data())
+                        {
+                             console.log(element.data().quest);
+                             //console.log(element.data().numQuest);
+                            let tr = document.createElement('tr');
+                            let td = document.createElement('td');
+                            tr.appendChild(td);
+                            td.textContent=element.data().numQuest;
+                            let td2 = document.createElement('td');
+                  //now we start to be diffrent from stat_table
+                            tr.appendChild(td2);
+                            td2.textContent=element.data().quest;
+                            
+
+                            let sumofanswers=0
+                            let x0=element.data().answersstats[0];
+                            let x1=element.data().answersstats[1];
+                            let x2=element.data().answersstats[2];
+                            let x3=element.data().answersstats[3];
+                            let x4=element.data().answersstats[4];
+                            sumofanswers=x0+x1+x2+x3+x4;
+                            console.log(sumofanswers);
+
+                            let td3 = document.createElement('td');
+                        tr.appendChild(td3);
+                        
+                        let td4 = document.createElement('td');
+                        tr.appendChild(td4);
+                        
+                        let td5 = document.createElement('td');
+                        tr.appendChild(td5);
+                        
+                        let td6 = document.createElement('td');
+                        tr.appendChild(td6);
+                        
+                        let td7 = document.createElement('td');
+                        tr.appendChild(td7);
+
+                                //to show precentege only with doubles
+                        td3.textContent=(x0*100/sumofanswers).toFixed(2)+"%";
+                        td4.textContent=(x1*100/sumofanswers).toFixed(2)+"%";
+                        td5.textContent=(x2*100/sumofanswers).toFixed(2)+"%";
+                        td6.textContent=(x3*100/sumofanswers).toFixed(2)+"%";
+                        td7.textContent=(x4*100/sumofanswers).toFixed(2)+"%";
+                            document.getElementById("second_stat_table").appendChild(tr); 
+                        }
+                    }
+                }
+             });
+        });
+
     //getting the questions list and quest num to our stat list
 
        db.collection("Forms").get().then((ans)=>{
@@ -56,6 +111,7 @@ class Statistics extends React.Component{
                         td.textContent=element.data().numQuest;
                         let td2 = document.createElement('td');
                         tr.appendChild(td2);
+                        td2.id=element.data().numQuest;;
                         td2.textContent=element.data().quest;
                         let td3 = document.createElement('td');
                         tr.appendChild(td3);
@@ -173,7 +229,8 @@ class Statistics extends React.Component{
               
                 
                 };
-                    // console.log(setstat);
+
+                // /////////end of set stat 
 
 
                         document.getElementById("stat_table").appendChild(tr); 
@@ -227,18 +284,23 @@ class Statistics extends React.Component{
             );
         }
        
-      
-    
+        
+             
+
+            
 
     
  render(){
      return(
          <>
          <h1>statistics page</h1>
-        <table id="stat_table" onLoad={this.onload}>
-            <tr><th>מספר שאלה</th><th>שאלה</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>כפתור שינוי</th></tr>
-            
-        </table>
+        <table id="stat_table" >
+        <tbody> <tr><th>מספר שאלה</th><th>שאלה</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>כפתור שינוי</th></tr>
+        </tbody></table>
+        <br></br><br></br><br></br>
+        <table id="second_stat_table" >
+        <tbody> <tr><th>מספר שאלה</th><th>שאלה</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+        </tbody></table>
         <br></br><br></br><br></br>
         <table id="users_admin_table"><th id="list_of_current_users">users</th><th id="list_of_current_admins">admin?</th></table>
         

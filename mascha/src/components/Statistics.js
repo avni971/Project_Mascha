@@ -72,12 +72,15 @@ class Statistics extends React.Component{
                         let td7 = document.createElement('td');
                         tr.appendChild(td7);
 
+                       
+
                         if(element.data().answersstats)
                         {td3.textContent=element.data().answersstats[0];
                         td4.textContent=element.data().answersstats[1];
                         td5.textContent=element.data().answersstats[2];
                         td6.textContent=element.data().answersstats[3];
                         td7.textContent=element.data().answersstats[4];
+                        
                         }
                         else{
                         td3.textContent=0;
@@ -85,7 +88,94 @@ class Statistics extends React.Component{
                         td5.textContent=0;
                         td6.textContent=0;
                         td7.textContent=0;
+                       
                     }
+                    // ///////////////////set stats button
+                 
+                    let setstat = document.createElement('button');
+                    tr.appendChild(setstat);
+                    setstat.textContent="שנה ערכים";
+                   setstat.onclick=function() {
+                       //alert("meow");
+                       //decide which answerstat you want to change
+                       
+                       let numberchosen = document.createElement('input');
+                       numberchosen.id="numberchosen"
+                       numberchosen.type="number";
+                       numberchosen.placeholder=0;
+                       console.log(numberchosen);
+                       let br =document.createElement('br');
+                       tr.appendChild(br)
+                       tr.appendChild(numberchosen);
+                       tr.append("עמודה")
+                     
+                   let setarray = document.createElement('input');
+                   setarray.id="setarray"
+                   setarray.type="number";
+                   
+                   setarray.placeholder=0;
+                   setarray.size=4;
+                   setarray.maxlength=4;
+                   console.log(setarray);
+                    br =document.createElement('br');
+                   tr.appendChild(br)
+                   tr.appendChild(setarray);
+                   tr.append("ערך")
+                   br =document.createElement('br');
+                   tr.appendChild(br)
+                        
+                   
+                   let submit=document.createElement("button");
+                //    submit.type="submit"
+                   submit.innerHTML="בצע שינוי"
+                   submit.onclick=function() {
+                    let i=document.getElementById("numberchosen").value;
+                    i=i-1;
+                    console.log(i);
+                       //alert("submit")
+                    //    console.log(document.getElementById(i));
+                   let newvalue=document.getElementById("setarray").value;
+                   console.log(newvalue);
+                   newvalue=parseInt(newvalue);
+                        
+                   //now we set the db based on the value we got
+                   var d=element.data().numQuest.toString();
+                        if(i==0)
+                        {   db.collection('Forms').doc(d).update({
+                            answersstats:[newvalue,element.data().answersstats[1],element.data().answersstats[2],element.data().answersstats[3],element.data().answersstats[4]]
+                        } ,{ merge: true });    }
+                        
+                        if(i==1)
+                        {   db.collection('Forms').doc(d).update({
+                            answersstats:[element.data().answersstats[0],newvalue,element.data().answersstats[2],element.data().answersstats[3],element.data().answersstats[4]]
+                        } ,{ merge: true });    }
+                        if(i==2)
+                        {   db.collection('Forms').doc(d).update({
+                            answersstats:[element.data().answersstats[0],element.data().answersstats[1],newvalue,element.data().answersstats[3],element.data().answersstats[4]]
+                        } ,{ merge: true });    }
+                        if(i==3)
+                        {   db.collection('Forms').doc(d).update({
+                            answersstats:[element.data().answersstats[0],element.data().answersstats[1],element.data().answersstats[2],newvalue,element.data().answersstats[4]]
+                        } ,{ merge: true });    }
+                        if(i==4)
+                        {   db.collection('Forms').doc(d).update({
+                            answersstats:[element.data().answersstats[0],element.data().answersstats[1],element.data().answersstats[2],element.data().answersstats[3],newvalue]
+                        } ,{ merge: true });    }
+                        
+
+
+
+                    }
+              
+               tr.appendChild(submit);
+                   
+                
+              
+                
+                };
+                    // console.log(setstat);
+
+
                         document.getElementById("stat_table").appendChild(tr); 
 
                         
@@ -146,7 +236,7 @@ class Statistics extends React.Component{
          <>
          <h1>statistics page</h1>
         <table id="stat_table" onLoad={this.onload}>
-            <tr><th>מספר שאלה</th><th>שאלה</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+            <tr><th>מספר שאלה</th><th>שאלה</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>כפתור שינוי</th></tr>
             
         </table>
         <br></br><br></br><br></br>

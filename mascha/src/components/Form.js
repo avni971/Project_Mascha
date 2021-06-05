@@ -229,7 +229,7 @@ class FormHook extends React.Component{
         <Card style={{"padding": "1.5%", "borderColor":"#66CDAA"}}>
         <h1 style={{"textAlign":"center"}}>שאלון מש"ה</h1>
 
-            <form id="main_form" encType="text/plain" action="mailto:avni971@gmail.com" method="post"> 
+            <form id="main_form" encType="text/plain" action="mailto:" method="post"> 
 
             <h4 style={{"textaAlign":"center"}}>במקרים בהם יש סקאלה: 1-5, כאשר 1 מייצג מצב טוב ו-5 מייצג מצב גרוע</h4>
             <h2 className="pre_titles">שייכות:</h2>

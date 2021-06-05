@@ -99,7 +99,7 @@ class FormHook extends React.Component{
             document.getElementById("plusQ").appendChild(formC)
         }
     }
-    submitformclicked(document){
+    submitformclicked(){
         // //console.log(document);
         // //console.log(document.getElementById("main_form").getAttribute('action'));
         // //console.log(document.getElementById("main_form"));
@@ -110,70 +110,148 @@ class FormHook extends React.Component{
 
 
         // adding +1 to the answer given by the form
-        db.collection('Forms').get().then((ans) => {
-            ans.forEach(element => {
-                if(element.exists){
-                    let test = element.data()
-                    ////console.log(test);
-                    ////console.log(test.answers);
-                if(test.answers)    {
-                   var answerarray=test.answers.split("$$")}
-                   ////console.log(answerarray);
-                   for(let answer in answerarray)
-                   {////console.log(answerarray[answer]);
-                    ////console.log(document.getElementById(answerarray[answer]));
-                    var k=document.getElementById(answerarray[answer]);
-                    var x0=element.data().answersstats[0];
-                    var x1=element.data().answersstats[1];
-                    var x2=element.data().answersstats[2];
-                    var x3=element.data().answersstats[3];
-                    var x4=element.data().answersstats[4];
-                    //console.log(x0);
-                    //console.log(x1);
-                    //console.log(x2);
-                    //console.log(x3);
-                    //console.log(x4);
-                    var d=element.data().numQuest.toString();
-                    if(k.checked) {
-                        //now we add this to the statistics page
-                        //console.log(true);
-                        //console.log(answer);
-                        // //console.log(element.data());
-                        // //console.log(parseInt(answer));
-                        if(answer===0)
-                        {   db.collection('Forms').doc(d).update({
-                            answersstats:[x0+1,x1,x2,x3,x4]
-                        } ,{ merge: true });    }
-                        if(answer===1)
-                        {   db.collection('Forms').doc(d).update({
-                            answersstats:[x0,x1+1,x2,x3,x4]
-                        } ,{ merge: true });    }
-                        if(answer===2)
-                        {   db.collection('Forms').doc(d).update({
-                            answersstats:[x0,x1,x2+1,x3,x4]
-                        } ,{ merge: true });    }
-                        if(answer===3)
-                        {   db.collection('Forms').doc(d).update({
-                            answersstats:[x0,x1,x2,x3+1,x4]
-                        } ,{ merge: true });    }
-                        if(answer===4)
-                        {   db.collection('Forms').doc(d).update({
-                            answersstats:[x0+1,x1,x2,x3,x4+1]
-                        } ,{ merge: true });    }
-                      }else {
-                          //we dont add to stat page
-                        //console.log(false);
+        db.collection('Forms').get().then((ans)=>{
+            ans.forEach(element=>{
+                if(element.exists)
+                {
+                    //put in number the current question
+                    
+                    let currentquestion=element.id.toString();
+                    // console.log(currentquestion);
+                    console.log(element.data().quest);
+                    //split the answers
+                    let answeroptions
+                    if(element.data().answers)
+                    {
+                         answeroptions=element.data().answers.split("$$");
+                        // console.log(answeroptions);                
                     }
-                           //console.log(element.data().answersstats)
-                                        
-                                         }
-                   
+                    //get the stats already in firestore
+                    let x0,x1,x2,x3,x4;
+                    // console.log(element.data().answersstats);
+                    if(element.data().answersstats)
+                    {
+                        x0=parseInt(element.data().answersstats[0]);
+                        
+                        x1=parseInt(element.data().answersstats[1]);
+                        
+                        x2=parseInt(element.data().answersstats[2]);
+                        
+                        x3=parseInt(element.data().answersstats[3]);
+                        
+                        x4=parseInt(element.data().answersstats[4]);
+                    }
+                    // console.log(x0,x1,x2,x3,x4);
+                    
+                    //find the picked answer from the form
+                   for(let answer in answeroptions)
+                   {
+                    // console.log(answer);   
+                    // console.log(answeroptions[answer]);
+                    var k=document.getElementById(answeroptions[answer]);
+                    if(k.checked)
+                    {
+                        //  console.log(k);
+                        let place=parseInt(k.value)-1;
+                        console.log(place);
+                    //change the correct stat
+                    if(place===0)
+                    db.collection("Forms").doc(currentquestion).update({
+                        answersstats:[Number(x0+1),Number(x1),Number(x2),Number(x3),Number(x4)],
+                    },{ merge: true });
+                    if(place===1)
+                    db.collection("Forms").doc(currentquestion).update({
+                        answersstats:[Number(x0),Number(x1+1),Number(x2),Number(x3),Number(x4)],
+                    },{ merge: true });
+                    if(place===2)
+                    db.collection("Forms").doc(currentquestion).update({
+                        answersstats:[Number(x0),Number(x1),Number(x2+1),Number(x3),Number(x4)],
+                    },{ merge: true });
+                    if(place===3)
+                    db.collection("Forms").doc(currentquestion).update({
+                        answersstats:[Number(x0),Number(x1),Number(x2),Number(x3+1),Number(x4)],
+                    },{ merge: true });
+                    if(place===4)
+                    db.collection("Forms").doc(currentquestion).update({
+                        answersstats:[Number(x0),Number(x1),Number(x2),Number(x3),Number(x4+1)],
+                    },{ merge: true });
+                        
+                    // //to make sure we dont go over same answer twcie
+                    // k.checked=false;
+                    console.log(element.data());
+                    }
+
+
+                   }
+                
+
+                    
+                    
+
+                    //put it back in firestore
                 }
-            }
+
+            });
         
-            );
-        }
-        );
+        });
+
+
+
+        // db.collection('Forms').get().then((ans) => {
+        //     ans.forEach(element => {
+        //         if(element.exists){
+        //             let test = element.data()
+                    
+        //         if(test.answers)    {
+        //            var answerarray=test.answers.split("$$")}
+        //            for(let answer in answerarray)
+        //            {
+        //             var k=document.getElementById(answerarray[answer]);
+        //             console.log(k);
+        //             var x0=element.data().answersstats[0];
+        //             var x1=element.data().answersstats[1];
+        //             var x2=element.data().answersstats[2];
+        //             var x3=element.data().answersstats[3];
+        //             var x4=element.data().answersstats[4];
+                    
+        //             var d=element.id.toString();
+        //             if(k.checked) {
+        //                 //now we add this to the statistics page
+        //                console.log(true);
+                       
+        //                 if(answer===0)
+        //                 {   db.collection('Forms').doc(d).update({
+        //                     answersstats:[x0+1,x1,x2,x3,x4]
+        //                 } ,{ merge: true });    }
+        //                 if(answer===1)
+        //                 {   db.collection('Forms').doc(d).update({
+        //                     answersstats:[x0,x1+1,x2,x3,x4]
+        //                 } ,{ merge: true });    }
+        //                 if(answer===2)
+        //                 {   db.collection('Forms').doc(d).update({
+        //                     answersstats:[x0,x1,x2+1,x3,x4]
+        //                 } ,{ merge: true });    }
+        //                 if(answer===3)
+        //                 {   db.collection('Forms').doc(d).update({
+        //                     answersstats:[x0,x1,x2,x3+1,x4]
+        //                 } ,{ merge: true });    }
+        //                 if(answer===4)
+        //                 {   db.collection('Forms').doc(d).update({
+        //                     answersstats:[x0+1,x1,x2,x3,x4+1]
+        //                 } ,{ merge: true });    }
+        //               }else {
+        //                   //we dont add to stat page
+        //                 console.log(false);
+        //             }
+                                        
+        //                                  }
+                   
+        //         }
+        //     }
+        
+        //     );
+        // }
+        // );
        
 
 
@@ -244,9 +322,10 @@ class FormHook extends React.Component{
                             subjectslist+=e;
                             subjectslist+=";"
                             })
+                           
                             // console.log(subjectslist);
                         subjectslist+="?subject=תשובות לשאלון משה";
-                        // console.log(subjectslist);
+                        console.log(subjectslist);
                         
                         //console.log( document.getElementById("main_form").getAttribute("action"));
                         document.getElementById("main_form").action=subjectslist;
@@ -283,7 +362,7 @@ class FormHook extends React.Component{
 
 
             {/* <br/> */}
-            <button className="btn btn-primary"  onClick={()=>{this.submitformclicked(document)}} style = {{"marginRight": "45%","backgroundcolor" : "#66CDAA", "borderColor":"#66CDAA"}}>שלח</button>
+            <button className="btn btn-primary"  onClick={()=>{this.submitformclicked()}} style = {{"marginRight": "45%","backgroundcolor" : "#66CDAA", "borderColor":"#66CDAA"}}>שלח</button>
             </form>
             </Card>
 

@@ -261,3 +261,9 @@ input[type='radio']:checked:after {
 {
   font-size: 40px;
 }
+.card_add_disabled{
+  opacity: 0;
+}
+.card_add_enabled{
+  opacity: 1;
+}

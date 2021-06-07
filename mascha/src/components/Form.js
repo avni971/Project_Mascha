@@ -2,6 +2,7 @@ import {db} from '../firebase/firebase'
 import React from 'react'
 import {Form, Button, Card} from 'react-bootstrap'
 import "firebase/firestore";
+import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 
 
 class FormHook extends React.Component{
@@ -20,7 +21,7 @@ class FormHook extends React.Component{
         let secs1=[]
         let secs2=[]
         let secs3=[]
-        let secs4=[]
+  
        
 
         let forms = await db.collection("Forms").get()
@@ -244,15 +245,74 @@ class FormHook extends React.Component{
     render(){
       
 ///adding questions to forms  
-        db.collection('Forms').get().then((ans) => {
-            ans.forEach(element => {
-                if(element.exists){
-                    // console.log("in add element : "+element.id);
-                    let test = element.data()
-                    let tr = document.createElement('tr')
+        // db.collection('Forms').get().then((ans) => {
+        //     ans.forEach(element => {
+        //         if(element.exists){
+        //             // console.log("in add element : "+element.id);
+        //             let test = element.data()
+        //             let tr = document.createElement('tr')
+        //             let tdQuest = document.createElement('td')
+        //             tdQuest.classList.add("pQ");
+        //             tdQuest.id=parseInt(element.id);
+        //             tdQuest.textContent = test.quest
+        //             tr.appendChild(tdQuest)
+        //             // console.log(tdQuest);
+        //             let tdAns = document.createElement("td")
+        //             let arrAns
+        //             if(test.answers){
+        //             arrAns = test.answers.split("$$");
+        //             }
+        //             for(let i = 0; i<test.numQuest ; i++){
+
+        //                 var x = document.createElement("INPUT");
+        //                 x.setAttribute("type", "radio");
+        //                 x.setAttribute('onChange',this.test1());
+        //                 x.setAttribute("id", arrAns[i])
+        //                 x.setAttribute("name",test.quest)
+        //                 //x.setAttribute("name","question number:"+test.numQuest)
+        //                 x.setAttribute("value",i+1)
+                        
+        //                 var y = document.createElement("LABEL");
+        //                 var t = document.createTextNode(arrAns[i]);
+        //                 y.setAttribute("htmlFor", arrAns[i]);
+        //                 y.appendChild(t);
+        //                 tdAns.appendChild(x)
+        //                 tdAns.appendChild(y)
+                        
+        //             }
+        //             tr.appendChild(tdAns) 
+        //             // let j;     
+                    // for(j=1;j<12;j++)           
+                    // {if(parseInt(element.id)===j)
+                    // {document.getElementById("שייכות").after(tr);} }
+                    // for(j=12;j<21;j++)           
+                    // {if(parseInt(element.id)===j)
+                    // {document.getElementById("יאוש").after(tr);} }
+                    // for(j=21;j<40;j++)           
+                    // {if(parseInt(element.id)===j)
+                    // {document.getElementById("בדידות").after(tr);} }
+                    
+
+
+                        // sorttablebyid("בדידות");
+
+                // }
+
+            // });
+        //   });
+       let textarray=[];
+            console.log(this.state.secs1);
+            if(this.state.secs1)
+            {for(let index=0;index<this.state.secs1.length;index++)
+            {
+                console.log(index);
+              
+                let test = this.state.secs1[index];
+                console.log(test);
+                let tr = document.createElement('tr')
                     let tdQuest = document.createElement('td')
                     tdQuest.classList.add("pQ");
-                    tdQuest.id=parseInt(element.id);
+                    tdQuest.id=parseInt(test.questionNumber);
                     tdQuest.textContent = test.quest
                     tr.appendChild(tdQuest)
                     // console.log(tdQuest);
@@ -277,26 +337,35 @@ class FormHook extends React.Component{
                         y.appendChild(t);
                         tdAns.appendChild(x)
                         tdAns.appendChild(y)
+                        
                     }
-                    tr.appendChild(tdAns) 
-                    // console.log(tr);
-                    let j;     
-                    for(j=1;j<12;j++)           
-                    {if(parseInt(element.id)===j)
-                    {document.getElementById("שייכות").after(tr);} }
-                    for(j=12;j<21;j++)           
-                    {if(parseInt(element.id)===j)
-                    {document.getElementById("יאוש").after(tr);} }
-                    for(j=21;j<40;j++)           
-                    {if(parseInt(element.id)===j)
-                    {document.getElementById("בדידות").after(tr);} }
-                    
-                        // sorttablebyid("בדידות");
-
+                    ///stuck here we have zone 1 but it won't go in order
+                    tr.appendChild(tdAns)
+                    console.log(tr);
+                    textarray.push(tr);
+                   console.log(textarray);
+                   
                 }
-            });
-          });
-
+                document.getElementById("שייכות").appendChild(textarray);
+                    
+                // document.getElementById("שייכות").after(textarray);
+            }
+            //   {
+        //             //console.log(tdQuest.id);
+        //             if(element.data().questionNumber)
+        //             { //{console.log(element.data().questionNumber);}
+        //              // console.log(this.state.secs1);
+        //              for(let index in this.state.secs1)
+        //              {
+        //                  //console.log(this.state.secs1[index]);
+        //                  if(element.data().questionNumber === this.state.secs1[index].questionNumber)
+        //              {
+        //                  console.log(element.data().questionNumber);
+        //                  document.getElementById("שייכות").after(tr);
+        //              }
+        //          }
+        //      }
+        //     }
             db.collection('users').get().then((ans) => {
                 ans.forEach(element => {
                     if(element){
@@ -325,14 +394,30 @@ class FormHook extends React.Component{
                 });
             }
             );
-    return (
+   
+   
+   
+   
+            return (
         
         
         <div id="F1" dir="rtl">
         <Card style={{"padding": "1.5%", "borderColor":"#66CDAA"}}>
         <h1 style={{"textAlign":"center"}}>שאלון מש"ה</h1>
 
-            <form id="main_form" encType="text/plain" action="mailto:" method="post"> 
+        {/* <form method="method" action="mailto:a@b.c" encType="text/plain">
+<input type="text" name="subject" value="d e"/>
+<input type="text" name="body" value="אהבסבהבה"/>
+        <button type="submit">k</button>
+        </form> */}
+            {/* <form id="main_form" encType="text/plain" action="mailto:" method="post" accept-charset="UTF-8">  */}
+            
+            
+            <form id="main_form" method="method" action="mailto:avni@gmail.com" encType="text/plain"> 
+            <input type="text" name="subject" defaultValue="d e"/>
+            <input type="text" name="body" defaultValue="אהבסבהבה"/>
+
+
 
             <h4 style={{"textAlign":"center"}}>במקרים בהם יש סקאלה: 1-5, כאשר 1 מייצג מצב טוב ו-5 מייצג מצב גרוע</h4>
             
@@ -352,8 +437,7 @@ class FormHook extends React.Component{
             </form>
             </Card>
 
-
-            <Card style= {{"marginTop" : "55px","borderColor":"#66CDAA" }}>
+            {/* <Card style= {{"marginTop" : "55px","borderColor":"#66CDAA" }}>
                 <Card.Body>
 
                     <Form>
@@ -394,7 +478,7 @@ class FormHook extends React.Component{
                          onClick={()=>{this.suppData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>מחיקה</Button>
 
                 </Card.Body> 
-            </Card>  
+            </Card>   */}
             
     </div>
     

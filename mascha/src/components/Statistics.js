@@ -5,9 +5,7 @@ import "firebase/firestore";
 
 
 class Statistics extends React.Component{
-    // constructor(props){
-    //     super(props) 
-    // }
+ 
      
 
     componentDidMount(){
@@ -18,8 +16,6 @@ class Statistics extends React.Component{
                 if(element.exists){
                      if(element.data())
                         {
-                             //console.log(element.data().quest);
-                             ////console.log(element.data().numQuest);
                             let tr = document.createElement('tr');
                             let td = document.createElement('td');
                             tr.appendChild(td);
@@ -41,7 +37,6 @@ class Statistics extends React.Component{
                             }
                             
                             sumofanswers=x0+x1+x2+x3+x4;
-                            //console.log(sumofanswers);
 
                             let td3 = document.createElement('td');
                         tr.appendChild(td3);
@@ -79,14 +74,12 @@ class Statistics extends React.Component{
             if(element.exists){
                  if(element.data())
                     {
-                         //console.log(element.data().quest);
-                         ////console.log(element.data().numQuest);
                         let tr = document.createElement('tr');
                         let td = document.createElement('td');
                         tr.appendChild(td);
                          td.textContent=element.id;
-                        // td.textContent=element.data().numQuest;
-                        let td2 = document.createElement('td');
+
+                         let td2 = document.createElement('td');
                         tr.appendChild(td2);
                         td2.id=element.id;
                         td2.textContent=element.data().quest;
@@ -129,14 +122,15 @@ class Statistics extends React.Component{
                     tr.appendChild(setstat);
                     setstat.textContent="שנה ערכים";
                    setstat.onclick=function() {
-                       //alert("meow");
-                       //decide which answerstat you want to change
+
+
+                    //decide which answerstat you want to change
                        
                        let numberchosen = document.createElement('input');
                        numberchosen.id="numberchosen"
                        numberchosen.type="number";
                        numberchosen.placeholder=0;
-                       //console.log(numberchosen);
+
                        let br =document.createElement('br');
                        tr.appendChild(br)
                        tr.appendChild(numberchosen);
@@ -149,7 +143,6 @@ class Statistics extends React.Component{
                    setarray.placeholder=0;
                    setarray.size=4;
                    setarray.maxlength=4;
-                   //console.log(setarray);
                     br =document.createElement('br');
                    tr.appendChild(br)
                    tr.appendChild(setarray);
@@ -158,30 +151,22 @@ class Statistics extends React.Component{
                    tr.appendChild(br)
                         
                    
-                   let submit=document.createElement("button");
-                //    submit.type="submit"
-                   submit.innerHTML="בצע שינוי"
-                   submit.onclick=function() {
+                    let submit=document.createElement("button");
+                    submit.innerHTML="בצע שינוי"
+                    submit.onclick=function() {
                     let i=document.getElementById("numberchosen").value;
                     i=i-1;
-                    //console.log(i);
-                       //alert("submit")
-                    //    //console.log(document.getElementById(i));
-                   let newvalue=document.getElementById("setarray").value;
-                   //console.log(newvalue);
-                   newvalue=parseInt(newvalue);
+
+                    let newvalue=document.getElementById("setarray").value;
+                    newvalue=parseInt(newvalue);
                         
                    //now we set the db based on the value we got
                    var d=element.id.toString();
                         if(i===0)
                         {
-                            //console.log(element.data().answersstats);
-                            //console.log(newvalue);
                             db.collection('Forms').doc(d).update({
                             answersstats:[newvalue,element.data().answersstats[1],element.data().answersstats[2],element.data().answersstats[3],element.data().answersstats[4]]
                         } ,{ merge: true });   
-                    
-                        //console.log(element.data().answersstats)
                     }
                         
                         if(i===1)
@@ -240,7 +225,7 @@ class Statistics extends React.Component{
                 let test=e;
                 let tr = document.createElement('tr')
                 let td = document.createElement('td')
-                // td.classList.add("users_list");
+
                 td.textContent = test
                 tr.appendChild(td)
                 document.getElementById("list_of_current_users").appendChild(tr); 
@@ -250,7 +235,7 @@ class Statistics extends React.Component{
                 let test=e;
                 let tr = document.createElement('tr')
                 let td = document.createElement('td')
-                // td.classList.add("admins_list");
+
                 td.textContent = test
                 tr.appendChild(td)
                 document.getElementById("list_of_current_admins").appendChild(tr); 
@@ -316,7 +301,7 @@ class Statistics extends React.Component{
                 if(element.exists){
                     let d=parseInt(element.id);
                     d=d.toString();
-                    console.log(d);
+                    
                     if(element.data().answersstats)
                     {
                      

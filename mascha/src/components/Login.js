@@ -9,12 +9,10 @@ class Login extends React.Component{
     // }
 
     componentDidMount(){
-        console.log("In Did mount")
     }
     login()
     {  auth.signInWithEmailAndPassword(document.getElementById("email").value,document.getElementById("password").value)
         .then(user=>{
-            console.log(user)
             this.props.history.push({
                 pathname:"/Form",
                 data:user,
@@ -25,9 +23,7 @@ class Login extends React.Component{
         )
         .catch(err=>{
             alert("email or password are not correct")
-            console.log("email or password are not correct")
         });
-        console.log(auth.currentUser);
         
     }
 

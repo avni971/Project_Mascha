@@ -10,18 +10,14 @@ const Header = ({ title, onAdd, showAdd }) => {
 
             <h1 className='m0'>{title}</h1>
             {location.pathname==='/' &&(
-            // <Button 
-            // color={showAdd?'red':'green'}
-            //  text={showAdd? 'Close':'Add'} onClick={onAdd} />
+         
             <div></div>)}
-             {/* <Button  text='hello1' />
-            <Button color='red' text='hello3' /> */}
-        </header>
+         </header>
     )
 }
 
 Header.defaultProps = {
-    title: 'Mascha',
+    title: 'Moshe',
   }
   
   Header.propTypes = {

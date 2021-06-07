@@ -9,13 +9,8 @@ import firebase from "firebase/app";
 
 
 class SignIn extends React.Component{
-    // constructor(props){
-    //     super(props) 
-    // }
-//wow it works
+ 
 alterdb(email,adminstatus){
-console.log("in alter db");
-console.log(adminstatus);
 var newusertodb = db.collection("users").doc("users_doc");
 
 let user=[email];
@@ -25,11 +20,7 @@ newusertodb.update({
 });
 
 // // Atomically remove a region from the "regions" array field.
-// newusertodb.update({
-//   user: firebase.firestore.FieldValue.arrayRemove(...[email,adminstatus]),
-// });
-console.log(adminstatus);
-console.log(adminstatus==="true");
+
 if(adminstatus==="true")
 {
   //Atomically add a new email and admin_status to the "admins" array field.
@@ -62,13 +53,8 @@ if(adminstatus==="false")
         }
         var email=document.getElementById("email").value;
         var password=document.getElementById("password").value;
-        console.log(document.getElementById("email").value);
-        console.log(document.getElementById("password").value);
-        console.log(document.getElementById("admincheckbox").value2);
         
-        // auth.signInWithEmailAndPassword(document.getElementById("email").value,document.getElementById("password").value).then(res=>{
-          //   console.log(res)
-         //})
+        
       
         auth.createUserWithEmailAndPassword(email,password).then((userCredential) => {
             let alertmessege="User created email: ";
@@ -83,30 +69,15 @@ if(adminstatus==="false")
               .catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                console.log(errorCode);
                 alert(errorMessage);
               });
               
          auth.onAuthStateChanged(user=>{
-           //this changes the user not the string we try to change.
-
-            console.log(user)
-            // user.updateProfile({
-            //     displayName: document.getElementById("admincheckbox").value2,
-            //   }).then(function(){
-            //   }
-            //   ).catch(function(error) {
-            //     // An error happened.
-            //   });
+           
               this.alterdb(email,document.getElementById("admincheckbox").value2);
          })
     }
-    // deletethisuser(){
-    //     var user=auth.currentUser;
-    //     console.log(user);
-    //     user.delete();
-        
-    // }
+  
 
     render(){
         
@@ -114,7 +85,6 @@ if(adminstatus==="false")
             <div>
                <h4>ADD USER</h4> 
                <input type="email" placeholder="example@gmail.com" id="email" onBlur={(event)=>{
-                   console.log(event.target.value)
                }}/>
                <input type="password" placeholder="6lettersatleast" id="password" />
                
@@ -128,7 +98,6 @@ if(adminstatus==="false")
                        else if(event.target.value==="off") 
                        { event.target.value="on";}
                        
-                       console.log(event.target.value);
 
                
                    
@@ -138,9 +107,7 @@ if(adminstatus==="false")
                         this.signin()
                }}>Create User/צור משתמש</Button>
                 
-                {/* <Button className="btn" id="spa" type = "submit" onClick={()=>{
-                        this.deletethisuser()
-               }}>Delete This User/מחק משתמש זה</Button> */}
+                
                
                <Link to='/Login'><Button className="w-20">Back</Button></Link>
             </div>
@@ -149,9 +116,5 @@ if(adminstatus==="false")
 
 
 }
-
-// const SignIn1 = () => {
-   
-// }
 
 export default SignIn

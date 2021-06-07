@@ -1,8 +1,8 @@
 import {db} from '../firebase/firebase'
 import React from 'react'
-import {Form, Button, Card} from 'react-bootstrap'
+import {Card} from 'react-bootstrap'
 import "firebase/firestore";
-import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
+// import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 
 
 class FormHook extends React.Component{
@@ -23,7 +23,7 @@ class FormHook extends React.Component{
         let secs3=[]
   
        
-
+try{
         let forms = await db.collection("Forms").get()
         let i=0;
         forms.docs.forEach((form,index) =>{
@@ -42,6 +42,10 @@ class FormHook extends React.Component{
         })
         this.setState({secs1:secs1,secs2:secs2,secs3:secs3})
         console.log(this.state)
+}
+catch(error){
+    alert(error);
+}
     }
 
 

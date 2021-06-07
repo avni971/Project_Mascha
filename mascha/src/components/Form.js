@@ -337,7 +337,7 @@ class FormHook extends React.Component{
 
             <form id="main_form" encType="text/plain" action="mailto:" method="post"> 
 
-            <h4 style={{"textaAlign":"center"}}>במקרים בהם יש סקאלה: 1-5, כאשר 1 מייצג מצב טוב ו-5 מייצג מצב גרוע</h4>
+            <h4 style={{"textAlign":"center"}}>במקרים בהם יש סקאלה: 1-5, כאשר 1 מייצג מצב טוב ו-5 מייצג מצב גרוע</h4>
             
             
             
@@ -351,7 +351,7 @@ class FormHook extends React.Component{
 
 
             {/* <br/> */}
-            <button className="btn btn-primary"  onClick={()=>{this.submitformclicked()}} style = {{"marginRight": "45%","backgroundcolor" : "#66CDAA", "borderColor":"#66CDAA"}}>שלח</button>
+            <button className="btn btn-primary"  onClick={()=>{this.submitformclicked()}} style = {{"marginRight": "45%"}}>שלח</button>
             </form>
             </Card>
 
@@ -381,7 +381,7 @@ class FormHook extends React.Component{
                         </Card.Body>
                     </Card>
 
-                    <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "40%", "marginTop" : "10px", "backgroundColor" : "#66CDAA", "borderColor":"#66CDAA"}} type = "submit" 
+                    <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "40%", "marginTop" : "10px","backgroundColor" : "#66CDAA", "borderColor":"#66CDAA"}} type = "submit" 
                          onClick={()=>{this.writeData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>הוספה</Button>
                     <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "7%", "marginTop" : "10px", "backgroundColor" : "red", "borderColor":"red"}} type = "submit" 
                          onClick={()=>{this.suppData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>מחיקה</Button>

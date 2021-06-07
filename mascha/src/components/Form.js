@@ -8,9 +8,47 @@ class FormHook extends React.Component{
 
     static numGlo = 0;
     
-    // constructor(props){
-    //     super(props)
-    // }
+    constructor(props){
+        super(props)
+        this.state={
+                           
+        }
+       
+    }
+
+    async componentDidMount(){
+        let secs1=[]
+        let secs2=[]
+        let secs3=[]
+        let secs4=[]
+       
+
+        let forms = await db.collection("Forms").get()
+        let i=0;
+        forms.docs.forEach((form,index) =>{
+           if(index<10)
+            {
+                secs1.push(form.data())
+            }
+            else if(index<20)
+            {
+                secs2.push(form.data())
+            }
+            else if(index<30)
+            {
+                secs3.push(form.data())
+            }
+            else if(index<40)
+            {
+                secs4.push(form.data())
+            }
+        
+        })
+        this.setState({secs1:secs1,secs2:secs2,secs3:secs3,secs4:secs4})
+        console.log(this.state)
+    }
+
+
 
     writeData(question,num) {
         let arrString = "";
@@ -61,7 +99,7 @@ class FormHook extends React.Component{
         document.getElementById("plusQ").innerHTML = "";
         document.getElementById("numQuest").value = "";
         document.getElementById("add").value = "";
-        // alert("התוספה שאלה !")
+        alert("נוספה שאלה !")
     }
 
     suppData(question,num){
@@ -99,14 +137,13 @@ class FormHook extends React.Component{
             document.getElementById("plusQ").appendChild(formC)
         }
     }
+
+    test1()
+    {
+        console.log('in')
+    }
     submitformclicked(){
-        // //console.log(document);
-        // //console.log(document.getElementById("main_form").getAttribute('action'));
-        // //console.log(document.getElementById("main_form"));
-        // let main_form=document.getElementById("main_form");
-        // //console.log(main_form);
-        // let addQuestion=document.getElementById("addQuestion");
-        // //console.log(addQuestion);
+        
 
 
         // adding +1 to the answer given by the form
@@ -118,7 +155,7 @@ class FormHook extends React.Component{
                     
                     let currentquestion=element.id.toString();
                     // console.log(currentquestion);
-                    console.log(element.data().quest);
+                    // console.log(element.data().quest);
                     //split the answers
                     let answeroptions
                     if(element.data().answers)
@@ -153,7 +190,7 @@ class FormHook extends React.Component{
                     {
                         //  console.log(k);
                         let place=parseInt(k.value)-1;
-                        console.log(place);
+                        // console.log(place);
                     //change the correct stat
                     if(place===0)
                     db.collection("Forms").doc(currentquestion).update({
@@ -178,7 +215,7 @@ class FormHook extends React.Component{
                         
                     // //to make sure we dont go over same answer twcie
                     // k.checked=false;
-                    console.log(element.data());
+                    // console.log(element.data());
                     }
 
 
@@ -196,67 +233,15 @@ class FormHook extends React.Component{
         });
 
 
-
-        // db.collection('Forms').get().then((ans) => {
-        //     ans.forEach(element => {
-        //         if(element.exists){
-        //             let test = element.data()
-                    
-        //         if(test.answers)    {
-        //            var answerarray=test.answers.split("$$")}
-        //            for(let answer in answerarray)
-        //            {
-        //             var k=document.getElementById(answerarray[answer]);
-        //             console.log(k);
-        //             var x0=element.data().answersstats[0];
-        //             var x1=element.data().answersstats[1];
-        //             var x2=element.data().answersstats[2];
-        //             var x3=element.data().answersstats[3];
-        //             var x4=element.data().answersstats[4];
-                    
-        //             var d=element.id.toString();
-        //             if(k.checked) {
-        //                 //now we add this to the statistics page
-        //                console.log(true);
-                       
-        //                 if(answer===0)
-        //                 {   db.collection('Forms').doc(d).update({
-        //                     answersstats:[x0+1,x1,x2,x3,x4]
-        //                 } ,{ merge: true });    }
-        //                 if(answer===1)
-        //                 {   db.collection('Forms').doc(d).update({
-        //                     answersstats:[x0,x1+1,x2,x3,x4]
-        //                 } ,{ merge: true });    }
-        //                 if(answer===2)
-        //                 {   db.collection('Forms').doc(d).update({
-        //                     answersstats:[x0,x1,x2+1,x3,x4]
-        //                 } ,{ merge: true });    }
-        //                 if(answer===3)
-        //                 {   db.collection('Forms').doc(d).update({
-        //                     answersstats:[x0,x1,x2,x3+1,x4]
-        //                 } ,{ merge: true });    }
-        //                 if(answer===4)
-        //                 {   db.collection('Forms').doc(d).update({
-        //                     answersstats:[x0+1,x1,x2,x3,x4+1]
-        //                 } ,{ merge: true });    }
-        //               }else {
-        //                   //we dont add to stat page
-        //                 console.log(false);
-        //             }
-                                        
-        //                                  }
-                   
-        //         }
-        //     }
-        
-        //     );
-        // }
-        // );
-       
-
+        // console.log(document.getElementById("main_form").getAttribute("action"));
+        // let x=document.getElementById("main_form").getAttribute("action");
+        // x+=`?body='meow'`;
+        // console.log(x);
+        // document.getElementById("main_form").action=x;
+        // console.log(document.getElementById("main_form").getAttribute("action"));
 
         
-        // //console.log(document.getElementById("main_form").getAttribute());
+
     }
     
     render(){
@@ -265,12 +250,15 @@ class FormHook extends React.Component{
         db.collection('Forms').get().then((ans) => {
             ans.forEach(element => {
                 if(element.exists){
+                    // console.log("in add element : "+element.id);
                     let test = element.data()
                     let tr = document.createElement('tr')
                     let tdQuest = document.createElement('td')
                     tdQuest.classList.add("pQ");
+                    tdQuest.id=parseInt(element.id);
                     tdQuest.textContent = test.quest
                     tr.appendChild(tdQuest)
+                    // console.log(tdQuest);
                     let tdAns = document.createElement("td")
                     let arrAns
                     if(test.answers){
@@ -280,6 +268,7 @@ class FormHook extends React.Component{
 
                         var x = document.createElement("INPUT");
                         x.setAttribute("type", "radio");
+                        x.setAttribute('onChange',this.test1());
                         x.setAttribute("id", arrAns[i])
                         x.setAttribute("name",test.quest)
                         //x.setAttribute("name","question number:"+test.numQuest)
@@ -293,6 +282,7 @@ class FormHook extends React.Component{
                         tdAns.appendChild(y)
                     }
                     tr.appendChild(tdAns) 
+                    // console.log(tr);
                     let j;     
                     for(j=1;j<12;j++)           
                     {if(parseInt(element.id)===j)
@@ -300,9 +290,11 @@ class FormHook extends React.Component{
                     for(j=12;j<21;j++)           
                     {if(parseInt(element.id)===j)
                     {document.getElementById("יאוש").after(tr);} }
-                    for(j=21;j<30;j++)           
+                    for(j=21;j<40;j++)           
                     {if(parseInt(element.id)===j)
                     {document.getElementById("בדידות").after(tr);} }
+                    
+                        // sorttablebyid("בדידות");
 
                 }
             });
@@ -318,14 +310,13 @@ class FormHook extends React.Component{
                             // console.log(element.data());
                             // console.log(element.data().admins);
                             element.data().admins.forEach(e=>{
-                            // console.log(e);
                             subjectslist+=e;
                             subjectslist+=";"
                             })
                            
                             // console.log(subjectslist);
                         subjectslist+="?subject=תשובות לשאלון משה";
-                        console.log(subjectslist);
+                        // console.log(subjectslist);
                         
                         //console.log( document.getElementById("main_form").getAttribute("action"));
                         document.getElementById("main_form").action=subjectslist;
@@ -337,8 +328,6 @@ class FormHook extends React.Component{
                 });
             }
             );
-
-            
     return (
         
         

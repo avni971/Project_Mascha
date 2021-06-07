@@ -26,31 +26,26 @@ class FormHook extends React.Component{
         let forms = await db.collection("Forms").get()
         let i=0;
         forms.docs.forEach((form,index) =>{
-           if(index<10)
-            {
-                secs1.push(form.data())
-            }
-            else if(index<20)
-            {
-                secs2.push(form.data())
-            }
-            else if(index<30)
-            {
-                secs3.push(form.data())
-            }
-            else if(index<40)
-            {
-                secs4.push(form.data())
-            }
-        
+           if(form.data().zone===1)
+           {
+            secs1.push(form.data())
+           }
+           if(form.data().zone===2)
+           {
+            secs2.push(form.data())
+           }
+           if(form.data().zone===3)
+           {
+            secs3.push(form.data())
+           }
         })
-        this.setState({secs1:secs1,secs2:secs2,secs3:secs3,secs4:secs4})
+        this.setState({secs1:secs1,secs2:secs2,secs3:secs3})
         console.log(this.state)
     }
 
 
 
-    writeData(question,num) {
+    writeData(question,num,zone) {
         let arrString = "";
         let megaString = "";
         for(let i = 0; i < this.numGlo-1 ; i++){
@@ -77,12 +72,14 @@ class FormHook extends React.Component{
                     //console.log(yuvalquestionnum);
                     let d=yuvalquestionnum.toString();
                     //update the forms
+                    let docnum=parseInt(d);
                     db.collection("Forms").doc(d).update(
                         {
                             quest: question,
                             numQuest : Number(num),
                             answers : megaString,
-                            answersstats: [0,0,0,0,0]
+                            answersstats: [0,0,0,0,0],
+                            questionNumber:Number(docnum),
                         }
                     )
                     //add +1 to question num
@@ -140,7 +137,7 @@ class FormHook extends React.Component{
 
     test1()
     {
-        console.log('in')
+      //  console.log('in')
     }
     submitformclicked(){
         
@@ -372,6 +369,16 @@ class FormHook extends React.Component{
                             </Form>
                         </Card.Body>
                     </Card>
+                    <Card style = {{"width": "20%","display": "inline-block", "borderColor":"#66CDAA"}}>
+                       
+                        <Card.Body>
+                            <Form>
+                                <Form.Label className = "pQ" >איזה אזור לשאלה ?</Form.Label>
+                                <Form.Control type="number" onChange = {()=>{this.zone(document.getElementById("zone").value)}} id = "zone" style = {{"borderColor":"#66CDAA"}}/>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                    
                     <Card style = {{"marginRight":"10%","display": "inline-block","width": "60%", "borderColor":"#66CDAA"}}>
                         <Card.Body>
                             <Form id ="plusQ">
@@ -382,7 +389,7 @@ class FormHook extends React.Component{
                     </Card>
 
                     <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "40%", "marginTop" : "10px","backgroundColor" : "#66CDAA", "borderColor":"#66CDAA"}} type = "submit" 
-                         onClick={()=>{this.writeData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>הוספה</Button>
+                         onClick={()=>{this.writeData(document.getElementById("add").value,document.getElementById("numQuest").value,document.getElementById("zone").value)}}>הוספה</Button>
                     <Button className = "w-15" style= {{"display" : "inline-block","marginRight" : "7%", "marginTop" : "10px", "backgroundColor" : "red", "borderColor":"red"}} type = "submit" 
                          onClick={()=>{this.suppData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>מחיקה</Button>
 

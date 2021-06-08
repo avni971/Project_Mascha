@@ -5,22 +5,17 @@ import React, {  } from 'react'
 import firebase from "firebase/app";
 import {db} from '../firebase/firebase'
 class Footer extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  // }
-
-  // const Footer = () => {
+ 
   componentDidMount() {
-    // console.log("In Did mount");
+   
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        console.log("+");
-        console.log(user);
+        // console.log("+");
+        // console.log(user);
 
         var x = document.getElementById('signinbtn');
         var y = document.getElementById('show_add_card')
-        console.log(x);
-        console.log(y);
+
         if (x)
 {
   db.collection('users').get().then((ans) => {
@@ -88,7 +83,7 @@ class Footer extends React.Component {
 
     }//no user
     else{
-      console.log("-");
+      // console.log("-");
     }
 
 

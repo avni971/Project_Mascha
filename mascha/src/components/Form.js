@@ -16,11 +16,11 @@ class FormHook extends React.Component{
         }
        
     }
-
+//__________________________________________COMMPONENT DID MOUNT______________________________________________
     async componentDidMount(){
-        let secs1=Array()
-        let secs2=Array()
-        let secs3=Array()
+        let secs1=[]
+        let secs2=[]
+        let secs3=[]
   
        
 try{
@@ -44,12 +44,7 @@ try{
         //     secs3.push(form.data())
         //    }
         })
-        // console.log(indexarray);
         indexarray.sort((a,b)=>a-b);
-        // console.log(indexarray);
-
-
-// console.log(secs1);
 for(let j=0;j<indexarray.length;j++)
 {   let k=j.toString()
  
@@ -74,76 +69,19 @@ docRef.get().then((doc) => {
 
 this.setState({secs1:secs1,secs2:secs2,secs3:secs3})
 console.log(this.state) 
-// this.updatepage();
-        //everysinge secs has his own array filled with the right questions
 }
 catch(error){
     alert(error);
 }
     }
+//__________________________________________END OF COMPONENT MOUNT_________________________________________
 
 
 
     
-//    async updatepage()
-//             {
-//                 console.log(typeof(this.state));
-//             if(this.state)
-//             {
-//                 let secs_array =this.state;
-//                  for(let element in secs_array)
-//                 //   for(let index=0;index<this.state.secs1.length;index++)
-//                 {
-//                 console.log("in");
-                
-//                 // let test = secs_array.secs1;
-//                 let test=element;
-//                 console.log(test);
-               
-//                 let tr = document.createElement('tr')
-//                     let tdQuest = document.createElement('td')
-//                     tdQuest.classList.add("pQ");
-//                     tdQuest.id=parseInt(test.questionNumber);
-//                     tdQuest.textContent = test.quest
-//                     tr.appendChild(tdQuest)
-//                     console.log(tdQuest);
-//                     let tdAns = document.createElement("td")
-//                     let arrAns
-//                     if(test.answers){
-//                     arrAns = test.answers.split("$$");
-//                     }
-//                     for(let i = 0; i<test.numQuest ; i++){
+//__________________________________________FUNCTIONS_______________________________________________________
 
-//                         var x = document.createElement("INPUT");
-//                         x.setAttribute("type", "radio");
-//                         x.setAttribute('onChange',this.test1());
-//                         x.setAttribute("id", arrAns[i])
-//                         x.setAttribute("name",test.quest)
-//                         //x.setAttribute("name","question number:"+test.numQuest)
-//                         x.setAttribute("value",i+1)
-                        
-//                         var y = document.createElement("LABEL");
-//                         var t = document.createTextNode(arrAns[i]);
-//                         y.setAttribute("htmlFor", arrAns[i]);
-//                         y.appendChild(t);
-//                         tdAns.appendChild(x)
-//                         tdAns.appendChild(y)
-                        
-//                     }
-//                     ///stuck here we have zone 1 but it won't go in order
-//                     tr.appendChild(tdAns)
-//                     console.log(tr);
-//                 //     textarray.push(tr);
-//                 // //    console.log(textarray);
-                   
-//                 document.getElementById("שייכות").after(tr);
-//                 }
-                    
-//                 // document.getElementById("שייכות").after(textarray);
-//             }
-
-//         }
-
+//WRITE DATA put the data we get from the add question card and update our firestore db
     writeData(question,num,zone) {
         let arrString = "";
         let megaString = "";
@@ -189,6 +127,8 @@ catch(error){
         alert("נוספה שאלה !")
     }
 
+
+  //SUPP DATA removes a question from our firestore db  
     suppData(question,num){
         
         //console.log(question)
@@ -208,7 +148,7 @@ catch(error){
         alert("שאלה נמחקה !")
 
     }
-
+//QUESTION NUM is a helper funtion to get a name (quest-i) that only exist for our current question
     questionNum(num){
 
         let formC;
@@ -229,116 +169,112 @@ catch(error){
     {
       //  console.log('in')
     }
+
+//SUBMIT FORM CLICKED is called when the submit button was clicked.
+//it updates the firestore so the stat page will be ready for next read
     submitformclicked(){
         
 
 
-        // // adding +1 to the answer given by the form
-        // db.collection('Forms').get().then((ans)=>{
-        //     ans.forEach(element=>{
-        //         if(element.exists)
-        //         {
-        //             //put in number the current question
+        // adding +1 to the answer given by the form
+        db.collection('Forms').get().then((ans)=>{
+            ans.forEach(element=>{
+                if(element.exists)
+                {
+                    //put in number the current question
                     
-        //             let currentquestion=element.id.toString();
-        //             // console.log(currentquestion);
-        //             // console.log(element.data().quest);
-        //             //split the answers
-        //             let answeroptions
-        //             if(element.data().answers)
-        //             {
-        //                  answeroptions=element.data().answers.split("$$");
-        //                 // console.log(answeroptions);                
-        //             }
-        //             //get the stats already in firestore
-        //             let x0,x1,x2,x3,x4;
-        //             // console.log(element.data().answersstats);
-        //             if(element.data().answersstats)
-        //             {
-        //                 x0=parseInt(element.data().answersstats[0]);
+                    let currentquestion=element.id.toString();
+                    // console.log(currentquestion);
+                    // console.log(element.data().quest);
+                    //split the answers
+                    let answeroptions
+                    if(element.data().answers)
+                    {
+                         answeroptions=element.data().answers.split("$$");
+                        // console.log(answeroptions);                
+                    }
+                    //get the stats already in firestore
+                    let x0,x1,x2,x3,x4;
+                    // console.log(element.data().answersstats);
+                    if(element.data().answersstats)
+                    {
+                        x0=parseInt(element.data().answersstats[0]);
                         
-        //                 x1=parseInt(element.data().answersstats[1]);
+                        x1=parseInt(element.data().answersstats[1]);
                         
-        //                 x2=parseInt(element.data().answersstats[2]);
+                        x2=parseInt(element.data().answersstats[2]);
                         
-        //                 x3=parseInt(element.data().answersstats[3]);
+                        x3=parseInt(element.data().answersstats[3]);
                         
-        //                 x4=parseInt(element.data().answersstats[4]);
-        //             }
-        //             // console.log(x0,x1,x2,x3,x4);
+                        x4=parseInt(element.data().answersstats[4]);
+                    }
+                    // console.log(x0,x1,x2,x3,x4);
                     
-        //             //find the picked answer from the form
-        //            for(let answer in answeroptions)
-        //            {
-        //             // console.log(answer);   
-        //             // console.log(answeroptions[answer]);
-        //             var k=document.getElementById(answeroptions[answer]);
-        //             if(k.checked)
-        //             {
-        //                 //  console.log(k);
-        //                 let place=parseInt(k.value)-1;
-        //                 // console.log(place);
-        //             //change the correct stat
-        //             if(place===0)
-        //             db.collection("Forms").doc(currentquestion).update({
-        //                 answersstats:[Number(x0+1),Number(x1),Number(x2),Number(x3),Number(x4)],
-        //             },{ merge: true });
-        //             if(place===1)
-        //             db.collection("Forms").doc(currentquestion).update({
-        //                 answersstats:[Number(x0),Number(x1+1),Number(x2),Number(x3),Number(x4)],
-        //             },{ merge: true });
-        //             if(place===2)
-        //             db.collection("Forms").doc(currentquestion).update({
-        //                 answersstats:[Number(x0),Number(x1),Number(x2+1),Number(x3),Number(x4)],
-        //             },{ merge: true });
-        //             if(place===3)
-        //             db.collection("Forms").doc(currentquestion).update({
-        //                 answersstats:[Number(x0),Number(x1),Number(x2),Number(x3+1),Number(x4)],
-        //             },{ merge: true });
-        //             if(place===4)
-        //             db.collection("Forms").doc(currentquestion).update({
-        //                 answersstats:[Number(x0),Number(x1),Number(x2),Number(x3),Number(x4+1)],
-        //             },{ merge: true });
+                    //find the picked answer from the form
+                   for(let answer in answeroptions)
+                   {
+                    // console.log(answer);   
+                    // console.log(answeroptions[answer]);
+                    var k=document.getElementById(answeroptions[answer]);
+                    if(k.checked)
+                    {
+                        //  console.log(k);
+                        let place=parseInt(k.value)-1;
+                        // console.log(place);
+                    //change the correct stat
+                    if(place===0)
+                    db.collection("Forms").doc(currentquestion).update({
+                        answersstats:[Number(x0+1),Number(x1),Number(x2),Number(x3),Number(x4)],
+                    },{ merge: true });
+                    if(place===1)
+                    db.collection("Forms").doc(currentquestion).update({
+                        answersstats:[Number(x0),Number(x1+1),Number(x2),Number(x3),Number(x4)],
+                    },{ merge: true });
+                    if(place===2)
+                    db.collection("Forms").doc(currentquestion).update({
+                        answersstats:[Number(x0),Number(x1),Number(x2+1),Number(x3),Number(x4)],
+                    },{ merge: true });
+                    if(place===3)
+                    db.collection("Forms").doc(currentquestion).update({
+                        answersstats:[Number(x0),Number(x1),Number(x2),Number(x3+1),Number(x4)],
+                    },{ merge: true });
+                    if(place===4)
+                    db.collection("Forms").doc(currentquestion).update({
+                        answersstats:[Number(x0),Number(x1),Number(x2),Number(x3),Number(x4+1)],
+                    },{ merge: true });
                         
-        //             // //to make sure we dont go over same answer twcie
-        //             // k.checked=false;
-        //             // console.log(element.data());
-        //             }
+                    // //to make sure we dont go over same answer twcie
+                    // k.checked=false;
+                    // console.log(element.data());
+                    }
 
 
-        //            }
+                   }
                 
 
                     
                     
 
-        //             //put it back in firestore
-        //         }
+                    //put it back in firestore
+                }
 
-        //     });
+            });
         
-        // });
-
-
-        // console.log(document.getElementById("main_form").getAttribute("action"));
-        // let x=document.getElementById("main_form").getAttribute("action");
-        // x+=`?body='meow'`;
-        // console.log(x);
-        // document.getElementById("main_form").action=x;
-        // console.log(document.getElementById("main_form").getAttribute("action"));
-
+        });
         
 
     }
-    
+//____________________render happens after commponent did mount in order to load the page_____________________    
     render(){
       
-//adding questions to forms  
+ //_____________________________the following code gets the questions from the db,
+ //_____________________________builds an html tr for that question,
+ //_____________________________check based on the secs where that question needs to go in the page and sends 
         let textarray=Array(100);
             db.collection('Forms').get().then((ans) => {
             ans.forEach(element => {
                 if(element.exists){
-                    // console.log("in add element : "+element.id);
+
                     let test = element.data()
                     let tr = document.createElement('tr')
                     let tdQuest = document.createElement('td')
@@ -375,51 +311,11 @@ catch(error){
                     }
                     tr.appendChild(tdAns) 
                     
-                    // console.log(tdQuest.id);
                     textarray[parseInt(tdQuest.id)]=tr;
-                //   console.log(textarray);
                     }
                     
-                    // if(this.state.secs1)
-                    // {
-                        // for(let i=0;i<this.state.secs1.length;i++)
-                        // {
-                            // for(let j=0;j<textarray.length;j++)
-                            // {
-                            //     console.log(textarray[j]);
-                            // }
-                        // }
-                        // console.log(parseInt(tdQuest.id));
-                        // // console.log(this.state.secs1.length);
-                        // if(parseInt(tdQuest.id)<this.state.secs1.length)
-                        // {
-                        //     console.log(true);
-                        //     document.getElementById("שייכות").after(tr);
-                        // }
-                    // console.log(this.state.secs1.length)
-                    // console.log(this.state.secs1[0])
-
-
-                    // // let j;     
-                    // for(j=1;j<12;j++)           
-                    // {if(parseInt(element.id)===j)
-                    // {document.getElementById("שייכות").after(tr);} }
-                    // for(j=12;j<21;j++)           
-                    // {if(parseInt(element.id)===j)
-                    // {document.getElementById("יאוש").after(tr);} }
-                    // for(j=21;j<40;j++)           
-                    // {if(parseInt(element.id)===j)
-                    // {document.getElementById("בדידות").after(tr);} }
-                    
-                    
-
-                    
                 }
-            
-
             );
-            // console.log(textarray);
-            // console.log(textarray.length);
             if(this.state.secs1 && this.state.secs2 && this.state.secs3)
                     {
                         for(let i=this.state.secs1.length;i>1;i--)
@@ -445,23 +341,7 @@ catch(error){
 
 
 
-
-            //   {
-        //             //console.log(tdQuest.id);
-        //             if(element.data().questionNumber)
-        //             { //{console.log(element.data().questionNumber);}
-        //              // console.log(this.state.secs1);
-        //              for(let index in this.state.secs1)
-        //              {
-        //                  //console.log(this.state.secs1[index]);
-        //                  if(element.data().questionNumber === this.state.secs1[index].questionNumber)
-        //              {
-        //                  console.log(element.data().questionNumber);
-        //                  document.getElementById("שייכות").after(tr);
-        //              }
-        //          }
-        //      }
-        //     }
+//______________________________this codes get the users from firestore db and creates an email to send to admins
             db.collection('users').get().then((ans) => {
                 ans.forEach(element => {
                     if(element){
@@ -492,7 +372,7 @@ catch(error){
             );
    
    
-   
+//______________this page is loaded after header and it hiererchy is this header,form[tables],footer[admin zone],about
    
             return (
         

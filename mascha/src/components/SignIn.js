@@ -4,7 +4,7 @@ import React from 'react'
 import {auth} from '../firebase/firebase'
 import "firebase/firestore";
 import {Button} from 'react-bootstrap'
-import {db} from '../firebase/firebase'
+// import {db} from '../firebase/firebase'
 import firebase from "firebase/app";
 
 
@@ -69,7 +69,7 @@ if(adminstatus==="false")
               .catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                alert(errorMessage);
+                alert("error message: "+errorMessage+"error code : "+errorCode);
               });
               
          auth.onAuthStateChanged(user=>{

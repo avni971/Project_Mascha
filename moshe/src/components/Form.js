@@ -1,20 +1,10 @@
 import {db} from '../firebase/firebase'
 import React from 'react'
-import {Card} from 'react-bootstrap'
+import {Card,Form,Button} from 'react-bootstrap'
 import "firebase/firestore";
 // import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 
-// const handleSubmit = (e) => {
-//     console.log(e);
-//     e.preventDefault(); // Prevents default refresh by the browser
-//     emailjs.sendForm(`gmail`, apiKey.TEMPLATE_ID, e.target, apiKey.USER_ID)
-//     .then((result) => {
-//     alert("Message Sent, We will get back to you shortly", result.text);
-//     },
-//     (error) => {
-//     alert("An error occurred, Please try again", error.text);
-//     });
-//     };
+
 
 class FormHook extends React.Component{
 
@@ -23,7 +13,11 @@ class FormHook extends React.Component{
     constructor(props){
         super(props)
         this.state={
-                           
+            quest:"",
+            answers:"",
+            numQuest:"num",
+            answerstats:[0,0,0,0,0],
+            zone:""            
         }
        
     }
@@ -93,7 +87,23 @@ catch(error){
 //__________________________________________FUNCTIONS_______________________________________________________
 
 //WRITE DATA put the data we get from the add question card and update our firestore db
-    writeData(question,num,zone) {
+   
+handleSubmit () {
+    console.log(this.state);
+    console.log('in');
+    // console.log(e);
+    // e.preventDefault(); // Prevents default refresh by the browser
+    // emailjs.sendForm(`gmail`, apiKey.TEMPLATE_ID, e.target, apiKey.USER_ID)
+    // .then((result) => {
+    // alert("Message Sent, We will get back to you shortly", result.text);
+    // },
+    // (error) => {
+    // alert("An error occurred, Please try again", error.text);
+    // });
+    };
+
+
+writeData(question,num,zone) {
         let arrString = "";
         let megaString = "";
         for(let i = 0; i < this.numGlo-1 ; i++){
@@ -178,7 +188,7 @@ catch(error){
 
     test1()
     {
-      //  console.log('in')
+       console.log('in')
     }
 
 //SUBMIT FORM CLICKED is called when the submit button was clicked.
@@ -274,78 +284,145 @@ catch(error){
         
 
     }
+
+createData(q,a,num,i)
+{
+    var data={
+        quest:q,
+        answers:a,
+        numQuest:num,
+        answerstats:[0,0,0,0,0],
+        zone:this.state.zone,
+    }
+    // quest = ""
+    // answers="abc$$efg"
+    // numQuest = 5 //number of question
+    //answerstats=[0,0,0,0,0]
+    //questionNumber=parseint(id)
+    // element.id
+
+    this.createDocElement(data,i)
+}
+
+createDocElement(data,id)
+{
+    let textarray=Array(100);
+       
+        let test = data
+        let tr = document.createElement('tr')
+        let tdQuest = document.createElement('td')
+        tdQuest.classList.add("pQ");
+        tdQuest.id=parseInt(id);
+
+      
+
+        tdQuest.textContent = test.quest
+        tr.appendChild(tdQuest)
+        // console.log(tdQuest);
+        let tdAns = document.createElement("td")
+        let arrAns
+        if(test.answers){
+        arrAns = test.answers.split("$$");
+        }
+        for(let i = 0; i<test.numQuest ; i++){
+
+            var x = document.createElement("INPUT");
+            x.setAttribute("type", "radio");
+            x.setAttribute("onChange","{this.test1()}");
+            x.setAttribute("id", arrAns[i])
+            x.setAttribute("name",test.quest)
+            //x.setAttribute("name","question number:"+test.numQuest)
+            x.setAttribute("value",i+1)
+            
+            var y = document.createElement("LABEL");
+            var t = document.createTextNode(arrAns[i]);
+            y.setAttribute("htmlFor", arrAns[i]);
+            y.appendChild(t);
+            tdAns.appendChild(x)
+            tdAns.appendChild(y)
+            
+        }
+        tr.appendChild(tdAns) 
+        
+        textarray[parseInt(tdQuest.id)]=tr;
+        
+        
+}
+
+
 //____________________render happens after commponent did mount in order to load the page_____________________    
     render(){
       
  //_____________________________the following code gets the questions from the db,
  //_____________________________builds an html tr for that question,
  //_____________________________check based on the secs where that question needs to go in the page and sends 
-        let textarray=Array(100);
-            db.collection('Forms').get().then((ans) => {
-            ans.forEach(element => {
-                if(element.exists){
-
-                    let test = element.data()
-                    let tr = document.createElement('tr')
-                    let tdQuest = document.createElement('td')
-                    tdQuest.classList.add("pQ");
-                    tdQuest.id=parseInt(element.id);
+        // let textarray=Array(100);
+        //     db.collection('Forms').get().then((ans) => {
+        //     ans.forEach(element => {
+        //         if(element.exists)
+        //         {
+        //             this.createDocElement(element.data(),element.id)
+        //             // let test = element.data()
+        //             // let tr = document.createElement('tr')
+        //             // let tdQuest = document.createElement('td')
+        //             // tdQuest.classList.add("pQ");
+        //             // tdQuest.id=parseInt(element.id);
 
                   
 
-                    tdQuest.textContent = test.quest
-                    tr.appendChild(tdQuest)
-                    // console.log(tdQuest);
-                    let tdAns = document.createElement("td")
-                    let arrAns
-                    if(test.answers){
-                    arrAns = test.answers.split("$$");
-                    }
-                    for(let i = 0; i<test.numQuest ; i++){
+        //             // tdQuest.textContent = test.quest
+        //             // tr.appendChild(tdQuest)
+        //             // // console.log(tdQuest);
+        //             // let tdAns = document.createElement("td")
+        //             // let arrAns
+        //             // if(test.answers){
+        //             // arrAns = test.answers.split("$$");
+        //             // }
+        //             // for(let i = 0; i<test.numQuest ; i++){
 
-                        var x = document.createElement("INPUT");
-                        x.setAttribute("type", "radio");
-                        x.setAttribute('onChange',this.test1());
-                        x.setAttribute("id", arrAns[i])
-                        x.setAttribute("name",test.quest)
-                        //x.setAttribute("name","question number:"+test.numQuest)
-                        x.setAttribute("value",i+1)
+        //             //     var x = document.createElement("INPUT");
+        //             //     x.setAttribute("type", "radio");
+        //             //     x.setAttribute("onChange","{this.test1()}");
+        //             //     x.setAttribute("id", arrAns[i])
+        //             //     x.setAttribute("name",test.quest)
+        //             //     //x.setAttribute("name","question number:"+test.numQuest)
+        //             //     x.setAttribute("value",i+1)
                         
-                        var y = document.createElement("LABEL");
-                        var t = document.createTextNode(arrAns[i]);
-                        y.setAttribute("htmlFor", arrAns[i]);
-                        y.appendChild(t);
-                        tdAns.appendChild(x)
-                        tdAns.appendChild(y)
+        //             //     var y = document.createElement("LABEL");
+        //             //     var t = document.createTextNode(arrAns[i]);
+        //             //     y.setAttribute("htmlFor", arrAns[i]);
+        //             //     y.appendChild(t);
+        //             //     tdAns.appendChild(x)
+        //             //     tdAns.appendChild(y)
                         
-                    }
-                    tr.appendChild(tdAns) 
+        //             // }
+        //             // tr.appendChild(tdAns) 
                     
-                    textarray[parseInt(tdQuest.id)]=tr;
-                    }
+        //             // textarray[parseInt(tdQuest.id)]=tr;
+        //             }
                     
-                }
-            );
-            if(this.state.secs1 && this.state.secs2 && this.state.secs3)
-                    {
-                        // console.log(this.state.secs1.length);
-                        for(let i=this.state.secs1.length;i>0;i--)
-                        {
-                            document.getElementById("שייכות").after(textarray[i]);       
-                        }
-                        // console.log(this.state.secs2.length+this.state.secs1.length);
-                        for(let j=(this.state.secs2.length+this.state.secs1.length);j>this.state.secs1.length;j--)
-                        {
-                            document.getElementById("יאוש").after(textarray[j]);       
-                        }
-                        // console.log(this.state.secs3.length+this.state.secs2.length+this.state.secs1.length);
-                        for(let m=(this.state.secs3.length+this.state.secs2.length+this.state.secs1.length);m>(this.state.secs2.length+this.state.secs1.length);m--)
-                        {
-                            document.getElementById("בדידות").after(textarray[m]);       
-                        }
+        //         }
+        //     );
+        //     if(this.state.secs1 && this.state.secs2 && this.state.secs3)
+        //             {
+        //                 // console.log(this.state.secs1.length);
+        //                 for(let i=this.state.secs1.length;i>0;i--)
+        //                 {
+        //                     document.getElementById("שייכות").after(textarray[i]);       
+        //                 }
+        //                 // console.log(this.state.secs2.length+this.state.secs1.length);
+        //                 for(let j=(this.state.secs2.length+this.state.secs1.length);j>this.state.secs1.length;j--)
+        //                 {
+        //                     document.getElementById("יאוש").after(textarray[j]);       
+        //                 }
+        //                 // console.log(this.state.secs3.length+this.state.secs2.length+this.state.secs1.length);
+        //                 for(let m=(this.state.secs3.length+this.state.secs2.length+this.state.secs1.length);m>(this.state.secs2.length+this.state.secs1.length);m--)
+        //                 {
+        //                     document.getElementById("בדידות").after(textarray[m]);       
+        //                 }
                        
-                    }
-          });
+        //             }
+        //   });
         
 
 
@@ -396,7 +473,7 @@ catch(error){
 <input type="text" name="body" value="אהבסבהבה"/>
         <button type="submit">k</button>
         </form> */}
-            <form id="main_form" encType="text/plain"> 
+            {/* <form id="main_form" encType="text/plain">  */}
             
             
             {/* <form id="main_form" method="method" action="mailto:avni@gmail.com" encType="text/plain">  */}
@@ -420,10 +497,13 @@ catch(error){
 
             {/* <br/> */}
             <button className="btn btn-primary"  onClick={()=>{this.handleSubmit ()}} style = {{"marginRight": "45%"}}>שלח</button>
-            </form>
+            {/* </form> */}
             </Card>
 
-            {/* <Card style= {{"marginTop" : "55px","borderColor":"#66CDAA" }}>
+           
+<div id="card_add_div" className="card_add_disabled">
+
+           <Card style= {{"marginTop" : "55px","borderColor":"#66CDAA" }}>
                 <Card.Body>
 
                     <Form>
@@ -434,8 +514,9 @@ catch(error){
                     <Card style = {{"width": "20%","display": "inline-block", "borderColor":"#66CDAA"}}>
                         <Card.Body>
                             <Form>
-                                <Form.Label className = "pQ" >כמה בחירות לשאלה ?</Form.Label>
+                                <Form.Label className = "pQ"  >כמה בחירות לשאלה ?</Form.Label>
                                 <Form.Control type="number" onChange = {()=>{this.questionNum(document.getElementById("numQuest").value)}} id = "numQuest" style = {{"borderColor":"#66CDAA"}}/>
+
                             </Form>
                         </Card.Body>
                     </Card>
@@ -444,7 +525,7 @@ catch(error){
                         <Card.Body>
                             <Form>
                                 <Form.Label className = "pQ" >איזה אזור לשאלה ?</Form.Label>
-                                <Form.Control type="number" onChange = {()=>{this.zone(document.getElementById("zone").value)}} id = "zone" style = {{"borderColor":"#66CDAA"}}/>
+                                <Form.Control type="number" onChange = {()=>{this.setState({zone:document.getElementById("zone").value})}} id = "zone" style = {{"borderColor":"#66CDAA"}}/>
                             </Form>
                         </Card.Body>
                     </Card>
@@ -464,7 +545,13 @@ catch(error){
                          onClick={()=>{this.suppData(document.getElementById("add").value,document.getElementById("numQuest").value)}}>מחיקה</Button>
 
                 </Card.Body> 
-            </Card>   */}
+            </Card>  
+</div>
+ 
+
+
+
+
             
     </div>
     
@@ -473,3 +560,4 @@ catch(error){
 }
 
 export default FormHook
+

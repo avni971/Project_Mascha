@@ -4,6 +4,17 @@ import {Card} from 'react-bootstrap'
 import "firebase/firestore";
 // import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 
+const handleSubmit = (e) => {
+    console.log(e);
+    e.preventDefault(); // Prevents default refresh by the browser
+    emailjs.sendForm(`gmail`, apiKey.TEMPLATE_ID, e.target, apiKey.USER_ID)
+    .then((result) => {
+    alert("Message Sent, We will get back to you shortly", result.text);
+    },
+    (error) => {
+    alert("An error occurred, Please try again", error.text);
+    });
+    };
 
 class FormHook extends React.Component{
 
@@ -172,138 +183,97 @@ catch(error){
 
 //SUBMIT FORM CLICKED is called when the submit button was clicked.
 //it updates the firestore so the stat page will be ready for next read
-    // submitformclicked(){
-        
-
-
-    //     // adding +1 to the answer given by the form
-    //     db.collection('Forms').get().then((ans)=>{
-    //         ans.forEach(element=>{
-    //             if(element.exists)
-    //             {
-    //                 //put in number the current question
-                    
-    //                 let currentquestion=element.id.toString();
-    //                 // console.log(currentquestion);
-    //                 // console.log(element.data().quest);
-    //                 //split the answers
-    //                 let answeroptions
-    //                 if(element.data().answers)
-    //                 {
-    //                      answeroptions=element.data().answers.split("$$");
-    //                     }
-    //                     // console.log(answeroptions);                
-    //                 //get the stats already in firestore
-    //                 let x0,x1,x2,x3,x4;
-    //                 // console.log(element.data().answersstats);
-    //                 if(element.data().answersstats)
-    //                 {
-    //                     x0=parseInt(element.data().answersstats[0]);
-                        
-    //                     x1=parseInt(element.data().answersstats[1]);
-                        
-    //                     x2=parseInt(element.data().answersstats[2]);
-                        
-    //                     x3=parseInt(element.data().answersstats[3]);
-                        
-    //                     x4=parseInt(element.data().answersstats[4]);
-    //                 }
-    //                 // console.log(x0,x1,x2,x3,x4);
-                    
-    //                 //find the picked answer from the form
-    //                for(let answer in answeroptions)
-    //                {
-    //                 // console.log(answer);   
-    //                 // console.log(answeroptions[answer]);
-    //                 var k=document.getElementById(answeroptions[answer]);
-                    
-    //                 if(k && k.checked)
-    //                 {
-    //                      console.log(k);
-    //                     let place=parseInt(k.value)-1;
-    //                     console.log(place);
-    //                 //change the correct stat
-                    
-    //             //     if(place===0)
-    //             //     {
-    //             //         db.collection("Forms").doc(currentquestion).update({
-    //             //         answersstats:[Number(x0+1),Number(x1),Number(x2),Number(x3),Number(x4)],
-    //             //     },{ merge: true });}
-    //             //     if(place===1)
-    //             //    { db.collection("Forms").doc(currentquestion).update({
-    //             //         answersstats:[Number(x0),Number(x1+1),Number(x2),Number(x3),Number(x4)],
-    //             //     },{ merge: true });}
-    //             //     if(place===2)
-    //             //     {db.collection("Forms").doc(currentquestion).update({
-    //             //         answersstats:[Number(x0),Number(x1),Number(x2+1),Number(x3),Number(x4)],
-    //             //     },{ merge: true });}
-    //             //     if(place===3)
-    //             //    { db.collection("Forms").doc(currentquestion).update({
-    //             //         answersstats:[Number(x0),Number(x1),Number(x2),Number(x3+1),Number(x4)],
-    //             //     },{ merge: true });}
-    //             //     if(place===4)
-    //             //    { db.collection("Forms").doc(currentquestion).update({
-    //             //         answersstats:[Number(x0),Number(x1),Number(x2),Number(x3),Number(x4+1)],
-    //             //     },{ merge: true });}
-                        
-    //                 // //to make sure we dont go over same answer twcie
-    //                 // k.checked=false;
-    //                 // console.log(element.data());
-    //                 }
-
-
-    //                }
-                
-
     submitformclicked(){
         
-        console.log(this.state);
-        if(this.state)
-        {
-           let c=document.getElementById("addQuestion")
-           console.log(c);
-           let g=document.getElementById("main_form").getAttribute("action");
 
-           g+="&body";
-           let f="";
-      if(this.state.secs1)
-      {
-          for(let e in this.state.secs1)
-            {
-            if(this.state.secs1[e])
-            {
-               console.log(e);
-               let d=document.getElementById(e);
-               console.log(d);
-               if(d){
-                f+=d.innerHTML;
-                f+=":\n"
-               
-              
 
-            }
-                
-            }
-        }
-        console.log(f);
-        let x=document.getElementById("main_form");
-        x.setAttribute("action",g+encodeURIComponent(f))
-
-        console.log(x);
-      }
-        }
-}           
+        // adding +1 to the answer given by the form
+        db.collection('Forms').get().then((ans)=>{
+            ans.forEach(element=>{
+                if(element.exists)
+                {
+                    //put in number the current question
                     
+                    let currentquestion=element.id.toString();
+                    // console.log(currentquestion);
+                    // console.log(element.data().quest);
+                    //split the answers
+                    let answeroptions
+                    if(element.data().answers)
+                    {
+                         answeroptions=element.data().answers.split("$$");
+                        }
+                        // console.log(answeroptions);                
+                    //get the stats already in firestore
+                    let x0,x1,x2,x3,x4;
+                    // console.log(element.data().answersstats);
+                    if(element.data().answersstats)
+                    {
+                        x0=parseInt(element.data().answersstats[0]);
+                        
+                        x1=parseInt(element.data().answersstats[1]);
+                        
+                        x2=parseInt(element.data().answersstats[2]);
+                        
+                        x3=parseInt(element.data().answersstats[3]);
+                        
+                        x4=parseInt(element.data().answersstats[4]);
+                    }
+                    // console.log(x0,x1,x2,x3,x4);
+                    
+                    //find the picked answer from the form
+                   for(let answer in answeroptions)
+                   {
+                    // console.log(answer);   
+                    // console.log(answeroptions[answer]);
+                    var k=document.getElementById(answeroptions[answer]);
+                    
+                    if(k && k.checked)
+                    {
+                         console.log(k);
+                        let place=parseInt(k.value)-1;
+                        console.log(place);
+                    //change the correct stat
+                    
+                //     if(place===0)
+                //     {
+                //         db.collection("Forms").doc(currentquestion).update({
+                //         answersstats:[Number(x0+1),Number(x1),Number(x2),Number(x3),Number(x4)],
+                //     },{ merge: true });}
+                //     if(place===1)
+                //    { db.collection("Forms").doc(currentquestion).update({
+                //         answersstats:[Number(x0),Number(x1+1),Number(x2),Number(x3),Number(x4)],
+                //     },{ merge: true });}
+                //     if(place===2)
+                //     {db.collection("Forms").doc(currentquestion).update({
+                //         answersstats:[Number(x0),Number(x1),Number(x2+1),Number(x3),Number(x4)],
+                //     },{ merge: true });}
+                //     if(place===3)
+                //    { db.collection("Forms").doc(currentquestion).update({
+                //         answersstats:[Number(x0),Number(x1),Number(x2),Number(x3+1),Number(x4)],
+                //     },{ merge: true });}
+                //     if(place===4)
+                //    { db.collection("Forms").doc(currentquestion).update({
+                //         answersstats:[Number(x0),Number(x1),Number(x2),Number(x3),Number(x4+1)],
+                //     },{ merge: true });}
+                        
+                    // //to make sure we dont go over same answer twcie
+                    // k.checked=false;
+                    // console.log(element.data());
+                    }
 
-    //                 //put it back in firestore
-    //             }
 
-    //         });
+                   }
+            
+                    //put it back in firestore
+                }
+
+            });
         
-    //     });
+        });
         
 
-    // }
+    }
 //____________________render happens after commponent did mount in order to load the page_____________________    
     render(){
       
@@ -398,15 +368,11 @@ catch(error){
                             subjectslist+=e;
                             subjectslist+=";"
                             })
-                           
-                            // console.log(subjectslist);
-                        // subjectslist+="?subject=תשובות לשאלון משה";
-                        // console.log(subjectslist);
-                        
-                        //console.log( document.getElementById("main_form").getAttribute("action"));
+                
+                            subjectslist+="?subject=מענה לשאלות משה"
                         document.getElementById("main_form").action=subjectslist;
-                       //console.log( document.getElementById("main_form").getAttribute("action"));
-                    
+                       
+                          
                     
                         }
                     }
@@ -430,12 +396,12 @@ catch(error){
 <input type="text" name="body" value="אהבסבהבה"/>
         <button type="submit">k</button>
         </form> */}
-            {/* <form id="main_form" encType="text/plain" action="mailto:" method="post" accept-charset="UTF-8">  */}
+            <form id="main_form" encType="text/plain"> 
             
             
-            <form id="main_form" method="method" action="mailto:avni@gmail.com" encType="text/plain"> 
-            <input type="text" name="subject" defaultValue="תשובות לשאלון משה"/>
-            <input id="form_body" type="text" name="body" defaultValue="אהבסבהבה"/>
+            {/* <form id="main_form" method="method" action="mailto:avni@gmail.com" encType="text/plain">  */}
+            {/* <input type="text" name="subject" defaultValue="תשובות לשאלון משה"/>
+            <input id="form_body" type="text" name="body" defaultValue="אהבסבהבה"/> */}
 
 
 
@@ -453,7 +419,7 @@ catch(error){
 
 
             {/* <br/> */}
-            <button className="btn btn-primary"  onClick={()=>{this.submitformclicked()}} style = {{"marginRight": "45%"}}>שלח</button>
+            <button className="btn btn-primary"  onClick={()=>{this.handleSubmit ()}} style = {{"marginRight": "45%"}}>שלח</button>
             </form>
             </Card>
 

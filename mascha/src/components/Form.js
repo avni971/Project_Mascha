@@ -172,98 +172,138 @@ catch(error){
 
 //SUBMIT FORM CLICKED is called when the submit button was clicked.
 //it updates the firestore so the stat page will be ready for next read
-    submitformclicked(){
+    // submitformclicked(){
         
 
 
-        // adding +1 to the answer given by the form
-        db.collection('Forms').get().then((ans)=>{
-            ans.forEach(element=>{
-                if(element.exists)
-                {
-                    //put in number the current question
+    //     // adding +1 to the answer given by the form
+    //     db.collection('Forms').get().then((ans)=>{
+    //         ans.forEach(element=>{
+    //             if(element.exists)
+    //             {
+    //                 //put in number the current question
                     
-                    let currentquestion=element.id.toString();
-                    // console.log(currentquestion);
-                    // console.log(element.data().quest);
-                    //split the answers
-                    let answeroptions
-                    if(element.data().answers)
-                    {
-                         answeroptions=element.data().answers.split("$$");
-                        // console.log(answeroptions);                
-                    }
-                    //get the stats already in firestore
-                    let x0,x1,x2,x3,x4;
-                    // console.log(element.data().answersstats);
-                    if(element.data().answersstats)
-                    {
-                        x0=parseInt(element.data().answersstats[0]);
+    //                 let currentquestion=element.id.toString();
+    //                 // console.log(currentquestion);
+    //                 // console.log(element.data().quest);
+    //                 //split the answers
+    //                 let answeroptions
+    //                 if(element.data().answers)
+    //                 {
+    //                      answeroptions=element.data().answers.split("$$");
+    //                     }
+    //                     // console.log(answeroptions);                
+    //                 //get the stats already in firestore
+    //                 let x0,x1,x2,x3,x4;
+    //                 // console.log(element.data().answersstats);
+    //                 if(element.data().answersstats)
+    //                 {
+    //                     x0=parseInt(element.data().answersstats[0]);
                         
-                        x1=parseInt(element.data().answersstats[1]);
+    //                     x1=parseInt(element.data().answersstats[1]);
                         
-                        x2=parseInt(element.data().answersstats[2]);
+    //                     x2=parseInt(element.data().answersstats[2]);
                         
-                        x3=parseInt(element.data().answersstats[3]);
+    //                     x3=parseInt(element.data().answersstats[3]);
                         
-                        x4=parseInt(element.data().answersstats[4]);
-                    }
-                    // console.log(x0,x1,x2,x3,x4);
+    //                     x4=parseInt(element.data().answersstats[4]);
+    //                 }
+    //                 // console.log(x0,x1,x2,x3,x4);
                     
-                    //find the picked answer from the form
-                   for(let answer in answeroptions)
-                   {
-                    // console.log(answer);   
-                    // console.log(answeroptions[answer]);
-                    var k=document.getElementById(answeroptions[answer]);
-                    if(k.checked)
-                    {
-                        //  console.log(k);
-                        let place=parseInt(k.value)-1;
-                        // console.log(place);
-                    //change the correct stat
-                    if(place===0)
-                    db.collection("Forms").doc(currentquestion).update({
-                        answersstats:[Number(x0+1),Number(x1),Number(x2),Number(x3),Number(x4)],
-                    },{ merge: true });
-                    if(place===1)
-                    db.collection("Forms").doc(currentquestion).update({
-                        answersstats:[Number(x0),Number(x1+1),Number(x2),Number(x3),Number(x4)],
-                    },{ merge: true });
-                    if(place===2)
-                    db.collection("Forms").doc(currentquestion).update({
-                        answersstats:[Number(x0),Number(x1),Number(x2+1),Number(x3),Number(x4)],
-                    },{ merge: true });
-                    if(place===3)
-                    db.collection("Forms").doc(currentquestion).update({
-                        answersstats:[Number(x0),Number(x1),Number(x2),Number(x3+1),Number(x4)],
-                    },{ merge: true });
-                    if(place===4)
-                    db.collection("Forms").doc(currentquestion).update({
-                        answersstats:[Number(x0),Number(x1),Number(x2),Number(x3),Number(x4+1)],
-                    },{ merge: true });
+    //                 //find the picked answer from the form
+    //                for(let answer in answeroptions)
+    //                {
+    //                 // console.log(answer);   
+    //                 // console.log(answeroptions[answer]);
+    //                 var k=document.getElementById(answeroptions[answer]);
+                    
+    //                 if(k && k.checked)
+    //                 {
+    //                      console.log(k);
+    //                     let place=parseInt(k.value)-1;
+    //                     console.log(place);
+    //                 //change the correct stat
+                    
+    //             //     if(place===0)
+    //             //     {
+    //             //         db.collection("Forms").doc(currentquestion).update({
+    //             //         answersstats:[Number(x0+1),Number(x1),Number(x2),Number(x3),Number(x4)],
+    //             //     },{ merge: true });}
+    //             //     if(place===1)
+    //             //    { db.collection("Forms").doc(currentquestion).update({
+    //             //         answersstats:[Number(x0),Number(x1+1),Number(x2),Number(x3),Number(x4)],
+    //             //     },{ merge: true });}
+    //             //     if(place===2)
+    //             //     {db.collection("Forms").doc(currentquestion).update({
+    //             //         answersstats:[Number(x0),Number(x1),Number(x2+1),Number(x3),Number(x4)],
+    //             //     },{ merge: true });}
+    //             //     if(place===3)
+    //             //    { db.collection("Forms").doc(currentquestion).update({
+    //             //         answersstats:[Number(x0),Number(x1),Number(x2),Number(x3+1),Number(x4)],
+    //             //     },{ merge: true });}
+    //             //     if(place===4)
+    //             //    { db.collection("Forms").doc(currentquestion).update({
+    //             //         answersstats:[Number(x0),Number(x1),Number(x2),Number(x3),Number(x4+1)],
+    //             //     },{ merge: true });}
                         
-                    // //to make sure we dont go over same answer twcie
-                    // k.checked=false;
-                    // console.log(element.data());
-                    }
+    //                 // //to make sure we dont go over same answer twcie
+    //                 // k.checked=false;
+    //                 // console.log(element.data());
+    //                 }
 
 
-                   }
+    //                }
                 
 
-                    
-                    
-
-                    //put it back in firestore
-                }
-
-            });
+    submitformclicked(){
         
-        });
+        console.log(this.state);
+        if(this.state)
+        {
+           let c=document.getElementById("addQuestion")
+           console.log(c);
+           let g=document.getElementById("main_form").getAttribute("action");
+
+           g+="&body";
+           let f="";
+      if(this.state.secs1)
+      {
+          for(let e in this.state.secs1)
+            {
+            if(this.state.secs1[e])
+            {
+               console.log(e);
+               let d=document.getElementById(e);
+               console.log(d);
+               if(d){
+                f+=d.innerHTML;
+                f+=":\n"
+               
+              
+
+            }
+                
+            }
+        }
+        console.log(f);
+        let x=document.getElementById("main_form");
+        x.setAttribute("action",g+encodeURIComponent(f))
+
+        console.log(x);
+      }
+        }
+}           
+                    
+
+    //                 //put it back in firestore
+    //             }
+
+    //         });
+        
+    //     });
         
 
-    }
+    // }
 //____________________render happens after commponent did mount in order to load the page_____________________    
     render(){
       
@@ -318,17 +358,20 @@ catch(error){
             );
             if(this.state.secs1 && this.state.secs2 && this.state.secs3)
                     {
-                        for(let i=this.state.secs1.length;i>1;i--)
+                        // console.log(this.state.secs1.length);
+                        for(let i=this.state.secs1.length;i>0;i--)
                         {
                             document.getElementById("שייכות").after(textarray[i]);       
                         }
-                        for(let i=this.state.secs2.length;i>this.state.secs1.length;i--)
+                        // console.log(this.state.secs2.length+this.state.secs1.length);
+                        for(let j=(this.state.secs2.length+this.state.secs1.length);j>this.state.secs1.length;j--)
                         {
-                            document.getElementById("יאוש").after(textarray[i]);       
+                            document.getElementById("יאוש").after(textarray[j]);       
                         }
-                        for(let i=this.state.secs3.length;i>this.state.secs2;i--)
+                        // console.log(this.state.secs3.length+this.state.secs2.length+this.state.secs1.length);
+                        for(let m=(this.state.secs3.length+this.state.secs2.length+this.state.secs1.length);m>(this.state.secs2.length+this.state.secs1.length);m--)
                         {
-                            document.getElementById("בדידות").after(textarray[i]);       
+                            document.getElementById("בדידות").after(textarray[m]);       
                         }
                        
                     }
@@ -357,7 +400,7 @@ catch(error){
                             })
                            
                             // console.log(subjectslist);
-                        subjectslist+="?subject=תשובות לשאלון משה";
+                        // subjectslist+="?subject=תשובות לשאלון משה";
                         // console.log(subjectslist);
                         
                         //console.log( document.getElementById("main_form").getAttribute("action"));
@@ -371,6 +414,7 @@ catch(error){
             }
             );
    
+            
    
 //______________this page is loaded after header and it hiererchy is this header,form[tables],footer[admin zone],about
    
@@ -390,8 +434,8 @@ catch(error){
             
             
             <form id="main_form" method="method" action="mailto:avni@gmail.com" encType="text/plain"> 
-            <input type="text" name="subject" defaultValue="d e"/>
-            <input type="text" name="body" defaultValue="אהבסבהבה"/>
+            <input type="text" name="subject" defaultValue="תשובות לשאלון משה"/>
+            <input id="form_body" type="text" name="body" defaultValue="אהבסבהבה"/>
 
 
 

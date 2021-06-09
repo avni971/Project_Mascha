@@ -4,7 +4,7 @@ import React from 'react'
 import {auth} from '../firebase/firebase'
 import "firebase/firestore";
 import {Button} from 'react-bootstrap'
-// import {db} from '../firebase/firebase'
+import {db} from '../firebase/firebase'
 import firebase from "firebase/app";
 
 

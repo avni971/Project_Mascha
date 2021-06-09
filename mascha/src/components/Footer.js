@@ -105,7 +105,7 @@ class Footer extends React.Component {
   
     return (
 
-      <>
+      <div>
         <footer>
           
           <a href='/about'><Button className="w-20" id="spa">אודותנו</Button></a>
@@ -178,7 +178,7 @@ class Footer extends React.Component {
             <a href='/signin/statistics'><button id="statistics">דף סטטיסטיקה</button></a>} />
         
         </footer>
-      </>
+      </div>
     );
 
   }

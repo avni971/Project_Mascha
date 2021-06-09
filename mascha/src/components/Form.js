@@ -4,17 +4,17 @@ import {Card} from 'react-bootstrap'
 import "firebase/firestore";
 // import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 
-const handleSubmit = (e) => {
-    console.log(e);
-    e.preventDefault(); // Prevents default refresh by the browser
-    emailjs.sendForm(`gmail`, apiKey.TEMPLATE_ID, e.target, apiKey.USER_ID)
-    .then((result) => {
-    alert("Message Sent, We will get back to you shortly", result.text);
-    },
-    (error) => {
-    alert("An error occurred, Please try again", error.text);
-    });
-    };
+// const handleSubmit = (e) => {
+//     console.log(e);
+//     e.preventDefault(); // Prevents default refresh by the browser
+//     emailjs.sendForm(`gmail`, apiKey.TEMPLATE_ID, e.target, apiKey.USER_ID)
+//     .then((result) => {
+//     alert("Message Sent, We will get back to you shortly", result.text);
+//     },
+//     (error) => {
+//     alert("An error occurred, Please try again", error.text);
+//     });
+//     };
 
 class FormHook extends React.Component{
 
@@ -355,30 +355,30 @@ catch(error){
 
 
 //______________________________this codes get the users from firestore db and creates an email to send to admins
-            db.collection('users').get().then((ans) => {
-                ans.forEach(element => {
-                    if(element){
-                        let subjectslist="mailto:";
+            // db.collection('users').get().then((ans) => {
+            //     ans.forEach(element => {
+            //         if(element){
+            //             let subjectslist="mailto:";
                         
-                        if(element.data())
-                        {
-                            // console.log(element.data());
-                            // console.log(element.data().admins);
-                            element.data().admins.forEach(e=>{
-                            subjectslist+=e;
-                            subjectslist+=";"
-                            })
+            //             if(element.data())
+            //             {
+            //                 // console.log(element.data());
+            //                 // console.log(element.data().admins);
+            //                 element.data().admins.forEach(e=>{
+            //                 subjectslist+=e;
+            //                 subjectslist+=";"
+            //                 })
                 
-                            subjectslist+="?subject=מענה לשאלות משה"
-                        document.getElementById("main_form").action=subjectslist;
+            //                 subjectslist+="?subject=מענה לשאלות משה"
+            //             document.getElementById("main_form").action=subjectslist;
                        
                           
                     
-                        }
-                    }
-                });
-            }
-            );
+            //             }
+            //         }
+            //     });
+            // }
+            // );
    
             
    

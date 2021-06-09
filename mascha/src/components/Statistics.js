@@ -321,7 +321,7 @@ alert("reset done");
     
  render(){
      return(
-         <>
+         <div>
          
         
         <table id="stat_table" >
@@ -338,7 +338,7 @@ alert("reset done");
         <br></br><br></br><br></br>
         <table id="users_admin_table"><th id="list_of_current_users">users</th><th id="list_of_current_admins">admin?</th></table>
         
-         </>
+         </div>
      );
  }   
 

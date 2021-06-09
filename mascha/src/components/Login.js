@@ -31,7 +31,7 @@ class Login extends React.Component{
     render(){
         
         return (
-            <>
+            <div>
                 <Card style = {{"textAlign":"right"}}>
                     <Card.Body>
                         <h2 className = "text-center mb-4">התחברות</h2>
@@ -54,7 +54,7 @@ class Login extends React.Component{
                 <label style={{"marginLeft":"3px"}}>? שכחתה סיסמה</label>
                  
                 <br></br><Link to='/'><Button className='w-20 mr-40'>חזור</Button></Link>
-            </>
+            </div>
         );
     }
 

@@ -19,7 +19,7 @@ class Statistics extends React.Component{
                             let tr = document.createElement('tr');
                             let td = document.createElement('td');
                             tr.appendChild(td);
-                            td.textContent=element.id;
+                            td.textContent=element.data().created;
                             let td2 = document.createElement('td');
                   //now we start to be diffrent from stat_table
                             tr.appendChild(td2);
@@ -77,11 +77,11 @@ class Statistics extends React.Component{
                         let tr = document.createElement('tr');
                         let td = document.createElement('td');
                         tr.appendChild(td);
-                         td.textContent=element.id;
+                         td.textContent=element.data().created;
 
                          let td2 = document.createElement('td');
                         tr.appendChild(td2);
-                        td2.id=element.id;
+                        td2.id=element.data().created;
                         td2.textContent=element.data().quest;
                         let td3 = document.createElement('td');
                         tr.appendChild(td3);
@@ -299,7 +299,7 @@ class Statistics extends React.Component{
            db.collection("Forms").get().then((ans) => {
             ans.forEach(element => {
                 if(element.exists){
-                    let d=parseInt(element.id);
+                    let d=(element.id);
                     d=d.toString();
                     
                     if(element.data().answersstats)

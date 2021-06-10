@@ -6,6 +6,7 @@ import "firebase/firestore";
 import {Button} from 'react-bootstrap'
 import {db} from '../firebase/firebase'
 import firebase from "firebase/app";
+import Footer from './Footer'
 
 
 class SignIn extends React.Component{
@@ -110,8 +111,10 @@ if(adminstatus==="false")
                 
                
                <Link to='/Login'><Button className="w-20">Back</Button></Link>
+               <Footer/>
             </div>
-        );
+       
+       );
     }
 
 

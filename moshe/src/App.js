@@ -22,6 +22,7 @@ const App= () =>{
       <Route path='/login' component={Login} />
       <Route path='/about' component={About} />
       <Route path='/form' component={newForm} />
+      <Route path='/footer' component={Footer} />
       <Route path='/areyousure' component={Areyousure} />
       <Route path='/forgotpassword' component={ForgotPassword} />
       <Route path='/signin/statistics' component={Statistics} />

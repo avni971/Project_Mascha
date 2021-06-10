@@ -21,6 +21,7 @@ class Quest extends Component {
         this.state = {
             addQuest: true,
             answers:"",
+            answersv:"",
             quest:"",
             questionNumber:"",
             zone:"",
@@ -41,6 +42,7 @@ class Quest extends Component {
 
         var form={
             answers:this.state.answers,
+            answersv:this.state.answersv,
             answersstats:[0,0,0,0,0],
             quest:this.state.quest,
             questionNumber:this.state.questionNumber,
@@ -53,6 +55,7 @@ class Quest extends Component {
            this.setState({
                addQuest: true,
                answers:"",
+               answersv:"",
                quest:"",
                questionNumber:"",
                zone:"",
@@ -64,16 +67,30 @@ class Quest extends Component {
     questionNum(num){
 
         let formC;
+        let formV;
         let clasString;
-        document.getElementById('plusQ').innerHTML = "";
+        document.getElementById('plusQ').innerHTML = "תשובות לשאלה";
         // this.numGlo = num
         // this.yuvalquestionnum++;
         var ans=[]
+        var ansv=[]     //the value of each answer in numbers 0-5
+      
+      
         for(let i = 0 ; i < num ; i++)
         {
+
             formC = document.createElement("input");
+            formV=document.createElement("input");
+           
+           formV.type="number";
+           formV.min=0;
+           formV.max=5;
+
+           
+           formV.placeholder="0-5";
             clasString = "quest" + i;
             formC.setAttribute("id", clasString+i)
+            formV.setAttribute("id","value"+clasString+i)
             formC.addEventListener(
                 'change',
                 (e)=> {
@@ -82,7 +99,17 @@ class Quest extends Component {
                 },
                 false
             );
+            formV.addEventListener(
+                'change',
+                (e)=> {
+                        ansv[i]=e.target.value
+                            this.setState({answersv:ansv})
+                            console.log(this.state.answersv);
+                },
+                false
+            );
             document.getElementById("plusQ").appendChild(formC)
+            document.getElementById("plusQ").appendChild(formV)
         }
     }
 

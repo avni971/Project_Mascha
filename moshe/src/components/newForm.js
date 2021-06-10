@@ -5,24 +5,29 @@ import Quest from "./createQuest";
 import apiKey from "./emailkey";
 import emailjs from "emailjs-com"
 import ContactUs from './contactForm'
-
+import Footer from './Footer'
 
 
 // let textarray=Array(100);
 var emailTxt=[]
 var body=""
+var useremail=""
+var admins=""
 class newForm extends Component {
     static numGlo = 0;
 
     constructor(props) {
         emailTxt = []
         body=""
+        useremail=""
+        admins=""
         super(props);
         this.state = {
             addQuest: false,
             forms: [],
             body:"",
-
+            useremail:"",
+            admins:"",
         }
 
     }
@@ -61,6 +66,42 @@ class newForm extends Component {
             newForm.push(secs3)
             this.setState({forms: newForm})
         }
+
+        //getting user email
+       
+               if(this.props.history)
+              {
+                  if(this.props.history.location)
+                  {
+                     if(this.props.history.location.data)
+                    {
+                        // console.log(this.props.history.location.data.user.email);
+                        this.setState({useremail:this.props.history.location.data.user.email})
+                        console.log(this.state.useremail);
+                   }
+                }
+              }
+              
+
+
+              
+              //gettin admins email
+             var  Users= await db.collection("users").get()
+              if(Users)
+              {
+                  Users.forEach(users=>{
+                    //   console.log(users.data().admins);
+                    var newadmins="";
+                    users.data().admins.forEach(admin=>{
+                        newadmins+=admin+";"
+                    })
+                    
+                      this.setState({admins:newadmins})
+                      console.log(this.state.admins);
+                  })
+                
+              }
+
 
 
         // try{
@@ -139,7 +180,7 @@ class newForm extends Component {
             x.addEventListener(
                 'change',
                 (e) => {
-                    this.handlerCheck(test.created, test.quest, e.target.value, e.target.id)
+                    this.handlerCheck(test.created, test.quest, e.target.value, e.target.id,test.zone)
                 },
                 false
             )
@@ -158,42 +199,37 @@ class newForm extends Component {
 
         }
         tr.appendChild(tdAns)
-        // textarray[parseInt(tdQuest.id)]=tr;
+        
         return tr
     }
 
 
-    handlerCheck(num, q, a, txt) {
-        emailTxt[num] = q + " : " + txt + " (" + num
+    handlerCheck(num, q, a, txt,z) {
+        console.log(num,q,a,txt,z);
+        var zzz=this.state.forms[z-1];
+        console.log(zzz);
+        var zz;
+        zzz.forEach(element=>{
+            if(element.quest===q)
+            {zz=element}
+        })
+        emailTxt[num] = num+")"+q + " : " + txt+"-"+"ערך תשובה"+":"+zz.answersv[a-1];
         body="";
         emailTxt.forEach(line=>{
-            body+=line+'\r\n\r\n';
+            // body+=line+'\r\n\r\n';
+            body+=line+"<br></br>";
         })
         this.setState({body:body})
     }
 
-    // sendEmail(e) {
-    //     // e.preventDefault(); // Prevents default refresh by the browser
-    //     var body = ""
-    //     emailTxt.forEach(line => {
-    //         body += line + "\n"
-    //     })
-    //     console.log(body)
-    //     console.log(e.target)
-    //     emailjs.sendForm(`gmail`, apiKey.TEMPLATE_ID, e.target, apiKey.USER_ID)
-    //         .then((result) => {
-    //                 alert("Message Sent, We will get back to you shortly", result.text);
-    //             },
-    //             (error) => {
-    //                 alert("An error occurred, Please try again", error.text);
-    //             });
-    // }
+  
 
     sendEmail(e) {
         e.preventDefault();
         emailjs.sendForm('service_msxx82d', 'template_p7wsh3q', e.target, 'user_zNfO8cPQT80umB3KCdmPj')
             .then((result) => {
                 console.log(result.text);
+                alert("email sent");
             }, (error) => {
                 console.log(error.text);
             });
@@ -211,8 +247,8 @@ class newForm extends Component {
 
     }
 
-
-
+    
+   
 
 
 
@@ -223,17 +259,7 @@ class newForm extends Component {
                 <Card style={{"padding": "1.5%", "borderColor":"#66CDAA"}}>
                     <h1 style={{"textAlign":"center"}}>שאלון מש"ה</h1>
 
-                    {/* <form method="method" action="mailto:a@b.c" encType="text/plain">
-<input type="text" name="subject" value="d e"/>
-<input type="text" name="body" value="אהבסבהבה"/>
-        <button type="submit">k</button>
-        </form> */}
                     <form id="main_form" encType="text/plain" onSubmit={this.sendEmail}>
-
-
-                        {/* <form id="main_form" method="method" action="mailto:avni@gmail.com" encType="text/plain">  */}
-                        {/* <input type="text" name="subject" defaultValue="תשובות לשאלון משה"/>
-            <input id="form_body" type="text" name="body" defaultValue="אהבסבהבה"/> */}
 
 
 
@@ -246,18 +272,15 @@ class newForm extends Component {
                             <tbody id="יאוש"className="pre_titles"><tr><td>יאוש/תקווה:</td></tr></tbody>
                             <tbody id="בדידות"className="pre_titles"><tr><td>בדידות/ניכור:</td></tr></tbody>
                         </table>
-                        {/* <hr width="300%"/> */}
-                        {/* <br/> */}
+                    
+
+                        {/* <button className="btn btn-primary" onClick={()=>{this.sendEmail()}}
+                                style = {{"marginRight": "45%"}}>שלח</button> */}
 
 
-                        {/* <br/> */}
-                        <button className="btn btn-primary" onClick={()=>{this.sendEmail()}}
-                                style = {{"marginRight": "45%"}}>שלח</button>
-
-
-                        <textarea id="from" hidden={true} value="avni971@gmail.com" name="from_name"></textarea>
-                        <textarea id="to" hidden={true} value="roipk123@gmail.com" name="to_name"></textarea>
-                        <textarea id="massage" hidden={true} value={this.state.body} name="message"></textarea>
+                        <textarea id="from" hidden={true} value={this.state.useremail} name="from_name"></textarea>
+                        <textarea id="to" hidden={true} value={this.state.admins} name="to_name"></textarea>
+                        <textarea id="massage" hidden={false} value={this.state.body} name="message"></textarea>
                         <input type="submit" className="btn btn-info" value="send massage"></input>
                     </form>
                 </Card>
@@ -294,6 +317,10 @@ class newForm extends Component {
                     this.state.forms.length>0?
                     <Quest forms={this.state.forms}/>:
                         <Quest/>
+                      
+                }
+                {
+                     this.state.forms.length>0? <Footer forms={this.state.forms}/>:<Footer/>
                 }
             </div>
         );

@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url("symbol.jpg");
+  background-size: 400px contain;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  
+  background-color: white;
+  max-width: 500px;
+  margin: 30px auto;
+  overflow: auto;
+  min-height: 300px;
+  border: 1px solid #66CDAA;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* .m0 {
+  text-align: center;
+} */
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.task {
+  background: #f4f4f4;
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.task.reminder {
+  border-left: 5px solid #8FBC8F;
+}
+
+.task h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-form {
+  margin-bottom: 40px;
+}
+
+.form-control {
+  margin: 20px 0;
+}
+
+.form-control label {
+  display: block;
+}
+
+.form-control input {
+  width: 100%;
+  height: 40px;
+  margin: 5px;
+  padding: 3px 7px;
+  font-size: 17px;
+}
+
+.form-control-check {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-control-check label {
+  flex: 1;
+}
+
+.form-control-check input {
+  flex: 2;
+  height: 20px;
+}
+
+input[type="radio"] {
+  margin-left: 3px; 
+  margin-right: 20px;
+}
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+}
+
+#family_status, #age{
+  background: #66CDAA;
+}
+
+#spa{
+  margin-right: 10px;
+}
+/*****************************/
+.btn-yes {
+  display: inline-block;
+  background: #66CDAA;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  /* cursor: pointer; */
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.btn-no {
+  display: inline-block;
+  background: #FFA07A;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  /* cursor: pointer; */
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+
+.btn-yes:focus {
+  outline: none;
+}
+
+.btn-yes:active {
+  transform: scale(0.98);
+}
+
+.btn-no:focus {
+  outline: none;
+}
+
+.btn-no:active {
+  transform: scale(0.98);
+}
+.pQ, .pre_titles{
+  text-align : right;
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+  font-weight: bolder;
+}
+.dividing{
+  border: 2px solid white;
+}
+input[type='radio']:checked:after {
+  width: 14px;
+  height: 14px;
+  border-radius: 14px;
+  top: -4px;
+  left: 0px;
+  position: relative;
+  background-color: #66CDAA;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 1px solid rgb(15, 14, 14);
+}
+
+
+#stat_table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#stat_table td, #stat_table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#stat_table tr:nth-child(even){background-color: #f2f2f2;}
+
+#stat_table tr:hover {background-color: #ddd;}
+
+#stat_table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+
+#users_admin_table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#users_admin_table td, #users_admin_table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#users_admin_table tr:nth-child(even){background-color: lightgreen;}
+
+#users_admin_table tr:hover {background-color: #ddd;}
+
+#users_admin_table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+#second_stat_table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#second_stat_table td, #stat_table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#second_stat_table tr:nth-child(even){background-color: #f2f2f2;}
+
+#second_stat_table tr:hover {background-color: #ddd;}
+
+#second_stat_table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+#שייכות {
+  font-size: 40px;
+}
+#יאוש {
+  font-size: 40px;
+}
+#בדידות
+{
+  font-size: 40px;
+}
+.card_add_disabled{
+  opacity: 0;
+}
+.card_add_enabled{
+  opacity: 1;
+}

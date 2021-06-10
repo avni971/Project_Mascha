@@ -11,12 +11,21 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-  
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-   
-    <title>Moshe_Web</title>
 
-    <!-- update the version number as needed -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <title>Moshe_website</title>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      emailjs.init("user_zNfO8cPQT80umB3KCdmPj");
+    })();
+  </script>
+
+
+
+  <!-- update the version number as needed -->
     <!-- <script defer src="/__/firebase/8.4.1/firebase-app.js"></script> -->
     <!-- include only the Firebase features as you need -->
     <!-- <script defer src="/__/firebase/8.4.1/firebase-auth.js"></script>
@@ -28,7 +37,7 @@
     <script defer src="/__/firebase/8.4.1/firebase-analytics.js"></script>
     <script defer src="/__/firebase/8.4.1/firebase-remote-config.js"></script>
     <script defer src="/__/firebase/8.4.1/firebase-performance.js"></script> -->
-    <!-- 
+    <!--
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
     -->
@@ -79,13 +88,13 @@
         try {
           let app = firebase.app();
           let features = [
-            'auth', 
-            'database', 
+            'auth',
+            'database',
             'firestore',
             'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
+            'messaging',
+            'storage',
+            'analytics',
             'remoteConfig',
             'performance',
           ].filter(feature => typeof app[feature] === 'function');

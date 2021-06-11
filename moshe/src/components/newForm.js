@@ -13,9 +13,11 @@ var emailTxt=[]
 var body=""
 var useremail=""
 var admins=""
+var checksum=[]
+
 class newForm extends Component {
     static numGlo = 0;
-
+    
     constructor(props) {
         emailTxt = []
         body=""
@@ -28,6 +30,9 @@ class newForm extends Component {
             body:"",
             useremail:"",
             admins:"",
+            checksum:[],
+            
+           
         }
 
     }
@@ -205,20 +210,38 @@ class newForm extends Component {
 
 
     handlerCheck(num, q, a, txt,z) {
-        console.log(num,q,a,txt,z);
+      
         var zzz=this.state.forms[z-1];
-        console.log(zzz);
         var zz;
+        var sum=0;
+        //need to make final score
+        
+    
         zzz.forEach(element=>{
             if(element.quest===q)
             {zz=element}
+            
         })
-        emailTxt[num] = num+")"+q + " : " + txt+"-"+"ערך תשובה"+":"+zz.answersv[a-1];
+        emailTxt[num] = q + " : " + txt+"-"+"ערך תשובה"+":"+zz.answersv[parseInt(a)-1];
+        // emailTxt[num]+="("+num
         body="";
+    //    console.log(this.state.checksum);
+       var currentchecksum=this.state.checksum;
+      
+    //    console.log(zz.answersv[parseInt(a)-1])
+         currentchecksum[num]=parseInt(zz.answersv[parseInt(a)-1]);
+         this.setState({checksum:currentchecksum});
+        //  console.log(this.state.checksum);
+
+         currentchecksum.forEach(value=>{sum+=value});
+        //  console.log(sum);
         emailTxt.forEach(line=>{
             // body+=line+'\r\n\r\n';
             body+=line+"<br></br>";
+            
         })
+        body+="ערך תוצאות השאלון:"+"<br></br>"+sum;
+       
         this.setState({body:body})
     }
 

@@ -120,7 +120,7 @@ class Quest extends Component {
         return (
             <div>
                 {this.state.addQuest ?
-                    (<Button onClick={() => {
+                    (<Button id="addquestionbtn" onClick={() => {
                         this.setState({addQuest: false})
                     }}>הוסף שאלה</Button>) :
                     (

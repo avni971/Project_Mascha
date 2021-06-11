@@ -6,6 +6,7 @@ import apiKey from "./emailkey";
 import emailjs from "emailjs-com"
 import ContactUs from './contactForm'
 import Footer from './Footer'
+import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 
 
 // let textarray=Array(100);
@@ -14,14 +15,14 @@ var body=""
 var useremail=""
 var admins=""
 var checksum=[]
-
+var update=[];
 class newForm extends Component {
     static numGlo = 0;
     
     constructor(props) {
         emailTxt = []
         body=""
-        useremail=""
+        useremail="";
         admins=""
         super(props);
         this.state = {
@@ -31,7 +32,7 @@ class newForm extends Component {
             useremail:"",
             admins:"",
             checksum:[],
-            
+            update:[],
            
         }
 
@@ -69,7 +70,9 @@ class newForm extends Component {
             newForm.push(secs1)
             newForm.push(secs2)
             newForm.push(secs3)
-            this.setState({forms: newForm})
+            if(this.props.data)
+            {this.setState({forms: newForm,useremail:this.props.location.data.user.email})}
+            else{this.setState({forms: newForm})}
         }
 
         //getting user email
@@ -185,7 +188,7 @@ class newForm extends Component {
             x.addEventListener(
                 'change',
                 (e) => {
-                    this.handlerCheck(test.created, test.quest, e.target.value, e.target.id,test.zone)
+                    this.handlerCheck(test.created, test.quest, e.target.value, e.target.id,test.zone,e)
                 },
                 false
             )
@@ -209,46 +212,149 @@ class newForm extends Component {
     }
 
 
-    handlerCheck(num, q, a, txt,z) {
+    handlerCheck(num, q, a, txt,z,e) {
       
+        console.log(e);
+        //handling the email body output
         var zzz=this.state.forms[z-1];
         var zz;
         var sum=0;
-        //need to make final score
-        
-    
+       
         zzz.forEach(element=>{
             if(element.quest===q)
             {zz=element}
-            
         })
         emailTxt[num] = q + " : " + txt+"-"+"ערך תשובה"+":"+zz.answersv[parseInt(a)-1];
-        // emailTxt[num]+="("+num
         body="";
-    //    console.log(this.state.checksum);
        var currentchecksum=this.state.checksum;
-      
-    //    console.log(zz.answersv[parseInt(a)-1])
          currentchecksum[num]=parseInt(zz.answersv[parseInt(a)-1]);
          this.setState({checksum:currentchecksum});
-        //  console.log(this.state.checksum);
-
          currentchecksum.forEach(value=>{sum+=value});
-        //  console.log(sum);
         emailTxt.forEach(line=>{
-            // body+=line+'\r\n\r\n';
             body+=line+"<br></br>";
-            
         })
         body+="ערך תוצאות השאלון:"+"<br></br>"+sum;
        
         this.setState({body:body})
+        //handling the statistic page output
+    //     console.log(zz.answersstats);
+this.radiochecked()  
+// console.log(this.state.update);
+
+
     }
 
+
+    //SUBMIT FORM CLICKED is called when the submit button was clicked.
+//it updates the firestore so the stat page will be ready for next read
+radiochecked(){
+
+console.log("in")
+   
+    // adding +1 to the answer given by the form
+  
+let form=document.getElementById("addQuestion");
+// console.log(form);
+let inputs=document.getElementsByTagName("input");
+// console.log(inputs);
+var checkedarray=[];
+
+for(let i=0;i<inputs.length;i++)
+{
+    if(inputs[i].checked)
+   {
+    //    console.log(inputs[i]);
+    checkedarray.push(parseInt(inputs[i].value));    
+}
+}
+// console.log(checkedarray);
+this.setState({update:checkedarray});
+// console.log(this.state.update);
+// this.updatefirebase()
+}  
+
+updatefirebase(){
+   var forms= db.collection('Forms').orderBy("created","asc").get().then((ans)=>{
+            ans.forEach(element=>{
+                if(element.exists)
+                {
+                    let currentquestion=element.id.toString();
+                    let created=element.data().created;
+                    // console.log(currentquestion);
+                    // console.log(created);
+                    var answeroptions=element.data().answers;
+                    var x0,x1,x2,x3,x4;
+                    if(element.data().answersstats)
+                        {
+                            x0=parseInt(element.data().answersstats[0]);
+                            
+                            x1=parseInt(element.data().answersstats[1]);
+                            
+                            x2=parseInt(element.data().answersstats[2]);
+                            
+                            x3=parseInt(element.data().answersstats[3]);
+                            
+                            x4=parseInt(element.data().answersstats[4]);
+                        }
+                        console.log(x0,x1,x2,x3,x4);
+                        // console.log(this.state.update);
+                        // console.log(this.state.update.length);
+                        answeroptions.forEach(answer=>{
+                            var k=document.getElementById(answer);
+                           
+                            if(k && k.checked && k.name==element.data().quest)
+                            {
+                                console.log(k);
+                                console.log(k.name);
+                                console.log(element.data().quest)
+                                console.log(x0,x1,x2,x3,x4);
+                                
+                              let place=parseInt(k.value)-1;
+
+                                switch (place){
+                                    case 0: x0+=1; break;
+                                    case 1: x1+=1; break;
+                                    case 2: x2+=1; break;
+                                    case 3: x3+=1; break;
+                                    case 4: x4+=1; break;
+                                    default:break;
+                                }
+                            
+                              db.collection("Forms").doc(currentquestion).update({
+                                  answersstats:[x0,x1,x2,x3,x4],
+                                },{ merge: true });
+                                    
+
+                            }
+                        })
+
+                }
+            })
+           
+        })
+       var submitbtn= document.getElementById("submit");
+       submitbtn.removeAttribute("hidden");
+       
+       var addquestiontable= document.getElementById("addQuestion");
+       addquestiontable.setAttribute("hidden","true");
+
+       var updatetbtn= document.getElementById("update");
+       updatetbtn.setAttribute("hidden","true");
+    }
+
+
+
+
+   
   
 
     sendEmail(e) {
-        e.preventDefault();
+     
+     //update db first
+        console.log("iiiin")
+       
+        console.log(e);
+        e.preventDefault();   
         emailjs.sendForm('service_msxx82d', 'template_p7wsh3q', e.target, 'user_zNfO8cPQT80umB3KCdmPj')
             .then((result) => {
                 console.log(result.text);
@@ -256,6 +362,7 @@ class newForm extends Component {
             }, (error) => {
                 console.log(error.text);
             });
+            
         e.target.reset()
     }
 
@@ -266,8 +373,7 @@ class newForm extends Component {
     {
         e.preventDefault();
         console.log(e.target)
-
-
+        
     }
 
     
@@ -295,44 +401,19 @@ class newForm extends Component {
                             <tbody id="יאוש"className="pre_titles"><tr><td>יאוש/תקווה:</td></tr></tbody>
                             <tbody id="בדידות"className="pre_titles"><tr><td>בדידות/ניכור:</td></tr></tbody>
                         </table>
-                    
-
-                        {/* <button className="btn btn-primary" onClick={()=>{this.sendEmail()}}
-                                style = {{"marginRight": "45%"}}>שלח</button> */}
-
-
-                        <textarea id="from" hidden={true} value={this.state.useremail} name="from_name"></textarea>
-                        <textarea id="to" hidden={true} value={this.state.admins} name="to_name"></textarea>
-                        <textarea id="massage" hidden={false} value={this.state.body} name="message"></textarea>
-                        <input type="submit" className="btn btn-info" value="send massage"></input>
+                       
+                        
+                        <textarea id="from" hidden={false} defaultValue={this.state.useremail} name="from_name"></textarea>
+                        <textarea id="to" hidden={true} defaultValue={this.state.admins} name="to_name"></textarea>
+                        <textarea id="massage" hidden={true} defaultValue={this.state.body} name="message"></textarea>
+                      <input id="update" type="button" className="w-20 btn btn btn-primary" defaultValue="סיים שאלון" onClick={this.updatefirebase}></input>
+                       <br></br>
+                        <input id="submit" hidden={true} type="submit" className="w-20 btn btn btn-primary" defaultValue="שלח מייל"></input>
                     </form>
                 </Card>
 
 
 
-                {/*<div>*/}
-                {/*    <div className="container" >*/}
-                {/*        <form onSubmit={this.sendEmail}>*/}
-                {/*            <div className="row pt-5 mx-auto">*/}
-                {/*                <div className="col-8 form-group mx-auto">*/}
-                {/*                    <input type="text" className="form-control" placeholder="Name" name="name"/>*/}
-                {/*                </div>*/}
-                {/*                <div className="col-8 form-group pt-2 mx-auto">*/}
-                {/*                    <input type="email" className="form-control" placeholder="Email Address" name="email"/>*/}
-                {/*                </div>*/}
-                {/*                <div className="col-8 form-group pt-2 mx-auto">*/}
-                {/*                    <input type="text" className="form-control" placeholder="Subject" name="subject"/>*/}
-                {/*                </div>*/}
-                {/*                <div className="col-8 form-group pt-2 mx-auto">*/}
-                {/*                    <textarea className="form-control" id="" cols="30" rows="8" placeholder="Your message" value={this.state.body} name="message"></textarea>*/}
-                {/*                </div>*/}
-                {/*                <div className="col-8 pt-3 mx-auto">*/}
-                {/*                    <input type="submit" className="btn btn-info" value="send massage"></input>*/}
-                {/*                </div>*/}
-                {/*            </div>*/}
-                {/*        </form>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
 
 
 

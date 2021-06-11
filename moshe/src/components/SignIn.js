@@ -12,7 +12,11 @@ import Footer from './Footer'
 class SignIn extends React.Component{
  
 alterdb(email,adminstatus){
-var newusertodb = db.collection("users").doc("users_doc");
+  console.log("in");
+  console.log(adminstatus);
+  console.log(email);
+  
+var newusertodb = db.collection("users").doc("users");
 
 let user=[email];
 //Atomically add a new email and admin_status to the "users" array field.
@@ -36,7 +40,7 @@ if(adminstatus==="false")
     admins: firebase.firestore.FieldValue.arrayRemove(...user),
 });
 }
-  
+ console.log(newusertodb); 
 
 
 }

@@ -26,8 +26,7 @@ const App= () =>{
       <Route path='/areyousure' component={Areyousure} />
       <Route path='/forgotpassword' component={ForgotPassword} />
       <Route path='/signin/statistics' component={Statistics} />
-     
-      {/*<Footer />*/}
+      
     </div>
   </Router>
 

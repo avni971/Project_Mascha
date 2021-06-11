@@ -121,6 +121,8 @@ class Statistics extends React.Component{
                     let setstat = document.createElement('button');
                     tr.appendChild(setstat);
                     setstat.textContent="שנה ערכים";
+                    setstat.classList.add("btn-success");
+                    
                    setstat.onclick=function() {
 
 
@@ -152,6 +154,7 @@ class Statistics extends React.Component{
                         
                    
                     let submit=document.createElement("button");
+                    submit.classList.add("btn-danger");
                     submit.innerHTML="בצע שינוי"
                     submit.onclick=function() {
                     let i=document.getElementById("numberchosen").value;
@@ -328,7 +331,7 @@ alert("reset done");
         <tbody> <tr><th>מספר שאלה</th><th>שאלה</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>כפתור שינוי</th></tr>
         </tbody></table>
         <br></br>
-        <button id="reset_stats" className="btn btn-primary" onClick={()=>{this.resetstats()}}>אפס סטטיסטיקה</button> 
+        <button id="reset_stats" className=" btn-primary btn-block" onClick={()=>{this.resetstats()}}>אפס סטטיסטיקה</button> 
         
         <br></br><br></br><br></br>
 

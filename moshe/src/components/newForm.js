@@ -406,9 +406,9 @@ updatefirebase(){
                         <textarea id="from" hidden={false} defaultValue={this.state.useremail} name="from_name"></textarea>
                         <textarea id="to" hidden={true} defaultValue={this.state.admins} name="to_name"></textarea>
                         <textarea id="massage" hidden={true} defaultValue={this.state.body} name="message"></textarea>
-                      <input id="update" type="button" className="w-20 btn btn btn-primary" defaultValue="סיים שאלון" onClick={this.updatefirebase}></input>
+                      <input id="update" type="button" className="w-100 btn btn-primary" defaultValue="סיים שאלון" onClick={this.updatefirebase}></input>
                        <br></br>
-                        <input id="submit" hidden={true} type="submit" className="w-20 btn btn btn-primary" defaultValue="שלח מייל"></input>
+                        <input id="submit" hidden={true} type="submit" className="w-100 btn btn-primary" value="שלח מייל"></input>
                     </form>
                 </Card>
 

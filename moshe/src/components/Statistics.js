@@ -328,16 +328,15 @@ alert("reset done");
          
         
         <table id="stat_table" >
-        <tbody> <tr><th>מספר שאלה</th><th>שאלה</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>כפתור שינוי</th></tr>
-        </tbody></table>
+        <tr><th>מספר שאלה</th><th>שאלה</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>כפתור שינוי</th></tr>
+        </table>
         <br></br>
         <button id="reset_stats" className=" btn-primary btn-block" onClick={()=>{this.resetstats()}}>אפס סטטיסטיקה</button> 
         
         <br></br><br></br><br></br>
 
         <table id="second_stat_table" >
-        <tbody> <tr><th>מספר שאלה</th><th>שאלה</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
-        </tbody></table>
+        <tr><th>מספר שאלה</th><th>שאלה</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></table>
         <br></br><br></br><br></br>
         <table id="users_admin_table"><th id="list_of_current_users">users</th><th id="list_of_current_admins">admin?</th></table>
         

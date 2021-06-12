@@ -15,7 +15,7 @@ class Quest extends Component {
 
     constructor(props) {
         super(props);
-        var forms=props.forms
+        // var forms=props.forms
 
 
         this.state = {

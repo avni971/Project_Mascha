@@ -12,9 +12,9 @@ import Footer from './Footer'
 class SignIn extends React.Component{
  
 alterdb(email,adminstatus){
-  console.log("in");
-  console.log(adminstatus);
-  console.log(email);
+  // console.log("in");
+  // console.log(adminstatus);
+  // console.log(email);
   
 var newusertodb = db.collection("users").doc("users");
 
@@ -40,7 +40,7 @@ if(adminstatus==="false")
     admins: firebase.firestore.FieldValue.arrayRemove(...user),
 });
 }
- console.log(newusertodb); 
+//  console.log(newusertodb); 
 
 
 }

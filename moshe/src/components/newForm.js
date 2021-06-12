@@ -2,11 +2,11 @@ import React ,{Component} from 'react'
 import {db} from '../firebase/firebase'
 import {Card} from 'react-bootstrap'
 import Quest from "./createQuest";
-import apiKey from "./emailkey";
+// import apiKey from "./emailkey";
 import emailjs from "emailjs-com"
-import ContactUs from './contactForm'
+// import ContactUs from './contactForm'
 import Footer from './Footer'
-import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
+// import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 
 
 // let textarray=Array(100);
@@ -85,7 +85,7 @@ class newForm extends Component {
                     {
                         // console.log(this.props.history.location.data.user.email);
                         this.setState({useremail:this.props.history.location.data.user.email})
-                        console.log(this.state.useremail);
+                        // console.log(this.state.useremail);
                    }
                 }
               }
@@ -105,7 +105,7 @@ class newForm extends Component {
                     })
                     
                       this.setState({admins:newadmins})
-                      console.log(this.state.admins);
+                    //   console.log(this.state.admins);
                   })
                 
               }
@@ -214,7 +214,7 @@ class newForm extends Component {
 
     handlerCheck(num, q, a, txt,z,e) {
       
-        console.log(e);
+        // console.log(e);
         //handling the email body output
         var zzz=this.state.forms[z-1];
         var zz;
@@ -249,7 +249,7 @@ this.radiochecked()
 //it updates the firestore so the stat page will be ready for next read
 radiochecked(){
 
-console.log("in")
+// console.log("in")
    
     // adding +1 to the answer given by the form
   
@@ -296,18 +296,18 @@ updatefirebase(){
                             
                             x4=parseInt(element.data().answersstats[4]);
                         }
-                        console.log(x0,x1,x2,x3,x4);
+                        // console.log(x0,x1,x2,x3,x4);
                         // console.log(this.state.update);
                         // console.log(this.state.update.length);
                         answeroptions.forEach(answer=>{
                             var k=document.getElementById(answer);
                            
-                            if(k && k.checked && k.name==element.data().quest)
+                            if(k && k.checked && k.name===element.data().quest)
                             {
-                                console.log(k);
-                                console.log(k.name);
-                                console.log(element.data().quest)
-                                console.log(x0,x1,x2,x3,x4);
+                                // console.log(k);
+                                // console.log(k.name);
+                                // console.log(element.data().quest)
+                                // console.log(x0,x1,x2,x3,x4);
                                 
                               let place=parseInt(k.value)-1;
 
@@ -351,16 +351,17 @@ updatefirebase(){
     sendEmail(e) {
      
      //update db first
-        console.log("iiiin")
+        // console.log("iiiin")
        
-        console.log(e);
+        // console.log(e);
         e.preventDefault();   
         emailjs.sendForm('service_msxx82d', 'template_p7wsh3q', e.target, 'user_zNfO8cPQT80umB3KCdmPj')
             .then((result) => {
-                console.log(result.text);
+                // console.log(result.text);
                 alert("email sent");
             }, (error) => {
-                console.log(error.text);
+                // console.log(error.text);
+                alert(error.text);
             });
             
         e.target.reset()
@@ -372,7 +373,7 @@ updatefirebase(){
     handleSubmit(e)
     {
         e.preventDefault();
-        console.log(e.target)
+        // console.log(e.target)
         
     }
 
@@ -403,7 +404,7 @@ updatefirebase(){
                         </table>
                        
                         
-                        <textarea id="from" hidden={false} defaultValue={this.state.useremail} name="from_name"></textarea>
+                        <textarea id="from" hidden={true} defaultValue={this.state.useremail} name="from_name"></textarea>
                         <textarea id="to" hidden={true} defaultValue={this.state.admins} name="to_name"></textarea>
                         <textarea id="massage" hidden={true} defaultValue={this.state.body} name="message"></textarea>
                       <input id="update" type="button" className="w-100 btn btn-primary" defaultValue="סיים שאלון" onClick={this.updatefirebase}></input>

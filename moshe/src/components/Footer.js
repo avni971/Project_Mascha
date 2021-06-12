@@ -1,5 +1,5 @@
 import { Route } from 'react-router-dom'
-import { Button,Card,Form} from 'react-bootstrap'
+import { Button} from 'react-bootstrap'
 
 import React from 'react'
 import firebase from "firebase/app";
@@ -10,38 +10,37 @@ class Footer extends React.Component {
 
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        // console.log("+");
-        // console.log(user);
+        
 
         var x = document.getElementById('signinbtn');
         var y = document.getElementById('addquestionbtn');
         if (x)
 {
   db.collection('users').get().then((ans) => {
-    console.log(ans);
+    // console.log(ans);
     ans.forEach(element => {
       if(element){
-        console.log(element);
+        // console.log(element);
         if(element.data()){
-          console.log(element.data());
+          // console.log(element.data());
           if(element.data().admins)
           {
-            console.log(element.data().admins);
-            console.log(user.email);
-            console.log(element.data().admins.includes(user.email));
+            // console.log(element.data().admins);
+            // console.log(user.email);
+            // console.log(element.data().admins.includes(user.email));
 
             if(element.data().admins.includes(user.email))
             {
                        x.classList.remove("disabled");
                        x.disabled = false;
                        x.hidden=false;
-                       console.log("user status is admin");
+                      //  console.log("user status is admin");
             }
             else            {
                       x.classList.add("disabled");
                       x.disabled = true;
                       x.hidden=true;
-                      console.log("user status is not admin");
+                      // console.log("user status is not admin");
             }
           }
         }
@@ -53,30 +52,30 @@ class Footer extends React.Component {
       if (y)
       {
         db.collection('users').get().then((ans) => {
-          console.log(ans);
+          // console.log(ans);
           ans.forEach(element => {
             if(element){
-              console.log(element);
+              // console.log(element);
               if(element.data()){
-                console.log(element.data());
+                // console.log(element.data());
                 if(element.data().admins)
                 {
-                  console.log(element.data().admins);
-                  console.log(user.email);
-                  console.log(element.data().admins.includes(user.email));
+                  // console.log(element.data().admins);
+                  // console.log(user.email);
+                  // console.log(element.data().admins.includes(user.email));
       
                   if(element.data().admins.includes(user.email))
                   {
                              y.classList.remove("disabled");
                              y.disabled = false;
                              y.hidden=false;
-                             console.log("user status is admin");
+                            //  console.log("user status is admin");
                   }
                   else            {
                             y.classList.add("disabled");
                             y.disabled = true;
                             y.hidden=true;
-                            console.log("user status is not admin");
+                            // console.log("user status is not admin");
                   }
                 }
               }

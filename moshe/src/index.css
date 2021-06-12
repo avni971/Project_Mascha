@@ -23,7 +23,7 @@ body {
   
   background-color: white;
   /* max-width: 500px; */
-  min-width: 750px;
+  min-width: 850px;
   margin: 30px auto;
   overflow: auto;
   min-height: 300px;
@@ -258,14 +258,14 @@ input[type='radio']:checked:after {
   color: white;
 }
 #שייכות {
-  font-size: 40px;
+  font-size: 30px;
 }
 #יאוש {
-  font-size: 40px;
+  font-size: 30px;
 }
 #בדידות
 {
-  font-size: 40px;
+  font-size: 30px;
 }
 .card_add_disabled{
   opacity: 0;

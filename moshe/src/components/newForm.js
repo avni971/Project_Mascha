@@ -224,7 +224,7 @@ class newForm extends Component {
             if(element.quest===q)
             {zz=element}
         })
-        emailTxt[num] = q + " : " + txt+"-"+"ערך תשובה"+":"+zz.answersv[parseInt(a)-1];
+        emailTxt[num] = q + " : " + txt+"|"+"ערך תשובה"+":"+zz.answersv[parseInt(a)-1];
         body="";
        var currentchecksum=this.state.checksum;
          currentchecksum[num]=parseInt(zz.answersv[parseInt(a)-1]);

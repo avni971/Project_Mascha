@@ -119,11 +119,11 @@ class Footer extends React.Component {
           <br></br>
 
           <Route exact path="/form" render={() =>
-            <a href='/areyousure'><Button id="deleteuserbtn" className='btn'>מחק משתמש זה</Button></a>} />
+            <a href='/areyousure'><Button className="w-20" id="deleteuserbtn" className='btn'>מחק משתמש זה</Button></a>} />
 
           <br></br><br></br>
           <Route exact path="/form" render={() =>
-            <a href='/SignIn'><Button id="signinbtn" disabled>צור משתמש</Button></a>}
+            <a href='/SignIn'><Button className="w-20" id="signinbtn" disabled>צור משתמש</Button></a>}
             />
            <br></br><br></br>
          

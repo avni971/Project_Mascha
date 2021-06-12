@@ -51,7 +51,7 @@ class Login extends React.Component{
                     </Card.Body>
                 </Card>
                 <Link to='/ForgotPassword' style={{"marginLeft":"45%"}}>לחץ כאן</Link>
-                <label style={{"marginLeft":"3px"}}>? שכחתה סיסמה</label>
+                <label style={{"marginLeft":"3px"}}>שכחתי סיסמה</label>
                  
                 <br></br><Link to='/'><Button className='w-20 mr-40'>חזור</Button></Link>
             </div>

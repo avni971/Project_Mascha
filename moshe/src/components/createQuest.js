@@ -104,7 +104,7 @@ class Quest extends Component {
                 (e)=> {
                         ansv[i]=e.target.value
                             this.setState({answersv:ansv})
-                            console.log(this.state.answersv);
+                            // console.log(this.state.answersv);
                 },
                 false
             );
@@ -208,11 +208,11 @@ class Quest extends Component {
                                     </Card.Body>
                                 </Card>
                             </div>
-                            <Button onClick={() => {
+                            {/* <Button onClick={() => {
                                 this.setState({addQuest: true})
                                 this.uploadtoFirebase()
-                            }}>שמירת שינויים
-                            </Button>
+                            }}>שמירת שינויים 
+                            </Button> */}
                         </div>
 
                     )

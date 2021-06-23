@@ -275,13 +275,14 @@ this.setState({update:checkedarray});
 
 updatefirebase(){
    var forms= db.collection('Forms').orderBy("created","asc").get().then((ans)=>{
-            ans.forEach(element=>{
+        console.log(forms);    
+        ans.forEach(element=>{
                 if(element.exists)
                 {
                     let currentquestion=element.id.toString();
                     let created=element.data().created;
                     // console.log(currentquestion);
-                    // console.log(created);
+                    console.log(created);
                     var answeroptions=element.data().answers;
                     var x0,x1,x2,x3,x4;
                     if(element.data().answersstats)
@@ -296,18 +297,18 @@ updatefirebase(){
                             
                             x4=parseInt(element.data().answersstats[4]);
                         }
-                        // console.log(x0,x1,x2,x3,x4);
-                        // console.log(this.state.update);
-                        // console.log(this.state.update.length);
-                        answeroptions.forEach(answer=>{
-                            var k=document.getElementById(answer);
-                           
+
+                       
+                           var j=document.getElementsByName(element.data().quest);
+                           var k;
+                           j.forEach(node=>{
+                               if(node.checked)
+                               {k=node;}
+                           })
+                       
                             if(k && k.checked && k.name===element.data().quest)
                             {
-                                // console.log(k);
-                                // console.log(k.name);
-                                // console.log(element.data().quest)
-                                // console.log(x0,x1,x2,x3,x4);
+                                console.log(k);
                                 
                               let place=parseInt(k.value)-1;
 
@@ -326,7 +327,7 @@ updatefirebase(){
                                     
 
                             }
-                        })
+                        // })
 
                 }
             })

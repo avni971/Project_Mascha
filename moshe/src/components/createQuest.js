@@ -30,7 +30,20 @@ class Quest extends Component {
         }
     }
 
-
+  //SUPP DATA removes a question from our firestore db
+    suppData(question,num){
+console.log(this.state.quest);
+        console.log(question)
+        console.log(num)
+        db.collection('Forms').get().then((ans) => {
+            ans.forEach(element => {
+                if(element.exists){
+                    if(element.data().quest === question)
+                        db.collection('Forms').doc(element.id).delete();
+                }
+            })
+        })
+    }
 
     uploadtoFirebase() {
         var created = 0;
